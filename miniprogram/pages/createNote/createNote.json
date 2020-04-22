@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-divider": "@vant/weapp/divider/index"
+  },
+  "navigationBarTitleText": "发表文章" ,
+  "enablePullDownRefresh": false
+  
+}
