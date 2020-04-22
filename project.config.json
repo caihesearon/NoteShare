@@ -44,9 +44,20 @@
 		"game": {
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 0,
-			"list": []
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/nCov-9/nCov-9",
+					"pathName": "pages/nCov-9/nCov-9",
+					"scene": null
+				}
+			]
 		}
 	}
 }

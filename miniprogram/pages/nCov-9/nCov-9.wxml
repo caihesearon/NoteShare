@@ -1,0 +1,119 @@
+<view class="header" id="module_one">
+<!-- 头部背景图片 -->
+	<image class="header_image" src="{{headerimage}}">	</image>
+<!-- 头部文字标题 -->
+		<view class="Text">
+			<text class="headerTitle">科学防护,共同抗疫!</text>
+		<text class="headerTitle_small">疫情动态我知道</text>
+		</view>
+<!-- 疫情数据展示卡片 -->
+	<view class="Epidemic_data">
+		<view class="getTime">
+			<text class="DesTime">截止：</text>
+			<text class="time">2020-4-14 16:20:59</text>
+			<!-- 后续可以转化时间戳 -->
+			<!-- <text class="time">{{items.updateTime}}</text>   -->
+		</view>
+		<view class="showCardone">
+		<!-- 中间六栏数据展示部分 -->
+			<view class="Confirmed_cases">
+				<view class="number_1">{{ items.currentConfirmedCount }}</view>
+				<view class="description">现存确诊</view>
+				<view class="change">
+					<text class="text">较昨日</text>
+					<text class="changenumber_1" wx:if="{{items.currentConfirmedIncr >= 0}}">+{{ items.currentConfirmedIncr }}</text>
+					<text class="changenumber_1" wx:if="{{items.currentConfirmedIncr < 0}}">{{ items.currentConfirmedIncr }}</text>
+				</view>
+			</view>
+			<view class="Confirmed_cases">
+				<view class="number_2">{{ items.suspectedCount }}</view>
+				<view class="description">境外输入</view>
+				<view class="change">
+					<text class="text">较昨日</text>
+					<text class="changenumber_2" wx:if="{{items.suspectedIncr >= 0}}">+{{ items.suspectedIncr }}</text>
+					<text class="changenumber_2" wx:if="{{items.suspectedIncr < 0}}">{{ items.suspectedIncr }}</text>
+				</view>
+			</view>
+			<view class="Confirmed_cases">
+				<view class="number_3">{{ items.seriousCount }}</view>
+				<view class="description">现存无症状</view>
+				<view class="change">
+					<text class="text">较昨日</text>
+					<text class="changenumber_3" wx:if="{{items.seriousIncr >= 0}}">+{{ items.seriousIncr }}</text>
+					<text class="changenumber_3" wx:if="{{items.seriousIncr < 0}}">{{ items.seriousIncr }}</text>
+				</view>
+			</view>
+		</view>
+		<view class="showCardtwo">
+			<view class="Confirmed_cases">
+				<view class="number_4">{{ items.confirmedCount }}</view>
+				<view class="description">累计确诊</view>
+				<view class="change">
+					<text class="text">较昨日</text>
+					<text class="changenumber_4" wx:if="{{items.confirmedIncr >= 0}}">+{{ items.confirmedIncr }}</text>
+					<text class="changenumber_4" wx:if="{{items.confirmedIncr < 0}}">{{ items.confirmedIncr }}</text>
+				</view>
+			</view>
+			<view class="Confirmed_cases">
+				<view class="number_5">{{items.deadCount}}</view>
+				<view class="description">累计死亡</view>
+				<view class="change">
+					<text class="text">较昨日</text>
+					<text class="changenumber_5" wx:if="{{items.deadIncr >= 0}}">+{{items.deadIncr}}</text>
+					<text class="changenumber_5" wx:if="{{items.deadIncr < 0}}">{{items.deadIncr}}</text>
+				</view>
+			</view>
+			<view class="Confirmed_cases">
+				<view class="number_6">{{items.curedCount}}</view>
+				<view class="description">累计治愈</view>
+				<view class="change">
+					<text class="text">较昨日</text>
+					<text class="changenumber_6" wx:if="{{items.curedIncr >= 0}}">+{{items.curedIncr}}</text>
+					<text class="changenumber_6" wx:if="{{items.curedIncr < 0}}">{{items.curedIncr}}</text>
+				</view>
+			</view>
+		</view>
+		<!-- 数据来源说明 -->
+		<view class="data_directions">数据来源：国家及各省市地区卫健委
+		</view>
+	</view>
+	<!-- 中间小功能跳转栏 -->
+	<view class="utils_card">
+		<view class="iconbox">
+			<image src="{{utils_one}}" class="iconboximage"></image>
+			<text class="describe">防疫贴士</text>
+		</view>
+			<view class="iconbox">
+			<image src="{{utils_two}}" class="iconboximage"></image>
+			<text class="describe">校园动态</text>
+		</view>
+			<view class="iconbox">
+			<image src="{{utils_three}}" class="iconboximage"></image>
+			<text class="describe">个人护理</text>
+		</view>
+			<view class="iconbox">
+			<image src="{{utils_four}}" class="iconboximage"></image>
+			<text class="describe">健康打卡</text>
+		</view>
+	</view>
+
+	<!-- 疫情地图板块 -->
+	<view class="Epidemic_map">
+		<text class="decText">国内疫情地图</text>
+		<van-tabs swipeable color="#00b26a"  active="{{ mapActive }}" bind:change="MaponChange">
+			<van-tab title="最好的"></van-tab>
+			<van-tab title="这是现在的地图"></van-tab>
+			<van-tab title="最坏的"></van-tab>
+		</van-tabs>
+		<!-- 因为三张地图说需要的数据来源不一样所以 分三部分来展示 -->
+		<view class="mapBox" wx:if="{{isShowMapOne}}">
+		<ec-canvas id="mychart-dom-map" canvas-id="mychart-map" ec="{{ ecMap }}"></ec-canvas>
+		</view>
+		<view class="mapBox" wx:if="{{isShowMapTwo}}">
+		<ec-canvas id="mychart-dom-map" canvas-id="mychart-map" ec="{{ ecMap }}"></ec-canvas>
+		</view>
+		<view class="mapBox" wx:if="{{isShowMapThree}}">
+		<ec-canvas id="mychart-dom-map" canvas-id="mychart-map" ec="{{ ecMap }}"></ec-canvas>
+		</view>
+	</view>
+</view>
