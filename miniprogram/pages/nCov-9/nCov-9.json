@@ -2,6 +2,8 @@
   "usingComponents": {
     "van-tab": "@vant/weapp/tab",
     "van-tabs": "@vant/weapp/tabs",
-    "ec-canvas":"../../miniprogram_npm/ec-canvas/ec-canvas"
+    "ec-canvas":"../../miniprogram_npm/ec-canvas/ec-canvas",
+    "van-dialog": "@vant/weapp/dialog",
+    "van-button": "@vant/weapp/button/index"
   }
 }

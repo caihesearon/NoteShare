@@ -3,7 +3,10 @@
     "pages/createNote/createNote",
     "pages/index/index",
     "pages/me/me",
-    "pages/nCov-9/nCov-9"
+    "pages/nCov-9/nCov-9",
+    "pages/nCov-9/epidemicTips/epidemicTips",
+    "pages/homePage/homePage",
+    "pages/personalPage/personalPage"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

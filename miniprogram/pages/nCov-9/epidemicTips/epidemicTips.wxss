@@ -1,0 +1,27 @@
+.epidemicTips{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 头部 */
+.headerImge{
+  width: 100%;
+  height: 30%;
+  height: 460rpx;
+  /* border: 1px solid rebeccapurple; */
+}
+.Icon{
+  width: 100%;
+  height: 30rpx;
+}
+.slide-image{
+  width: 100%;
+  height: 100%;
+}
+.swiperStyle{
+  width: 100%;
+  height:1000rpx;
+  /* height: 70%; */
+  /* margin-top: 50rpx; */
+}

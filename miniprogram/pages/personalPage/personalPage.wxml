@@ -1,0 +1,63 @@
+<view class="bodyBox">
+  <view class="idCard">
+    <view class="cardOne" animation="{{animationMain}}" bindtap='rotateOption' data-id="1">
+    <image mode="aspectFill" class="imageOne" src="{{cardImageOne}}"></image>
+        <image class="avatarImage" src="{{avatarImage}}"></image>
+        <view class="partOne">
+          <text class="cardDes" style="font-size:{{fontSizeOne}}">{{nickName}}</text>
+          <text class="detailDes">点击查看详细信息</text>
+        </view>
+        <view class="partTwo">
+          <text class="Signature">我的影子告诉我它怕黑,所以我就不能怕黑。因为那样的话我们两个就都会很怕</text>
+        </view>
+    </view>
+
+    <view class="cardTwo" animation="{{animationBack}}" bindtap='rotateOption' data-id="2">
+       <image class="imageTwo" mode="aspectFill" src="{{cardImageTwo}}"></image>
+      <view class="sectionOne">
+          <text class="nickName" style="font-size:{{fontSizeTwo}}">{{nickName}}</text>
+      </view>
+      <view class="sectionTwo">
+          <text class="Identity">学生</text>
+          <text class="emailNumber">924843357@qq.com</text>
+          <text class="SchoolName">湖北商贸学院</text>
+          <text class="publicNote">公开笔记数量 <text class="noteNumber">34</text> 篇</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<block wx:for="{{notes}}" wx:key="id">
+    <view class="notesBox">
+      <image  class="notesBg" src="{{notesBg}}"></image>
+         <view class="textContent">
+            <view class="content">{{item.content}}</view>
+            <view class="label">
+              <!-- 点击量模块  通过showPublicNotes来控制是否展示 -->
+              <view class="clickNumber">
+                <image class="clickIcon" src="{{clickIcon}}"></image>
+                <text class="clickNum">{{item.clickNum}}</text>
+              </view>
+               <!-- 收藏模块  通过 showCollectNotes 来控制是否展示-->
+                <view class="collectNumber">
+                  <image class="collectIcon" src="{{collectIcon}}"></image>
+                  <text class="collectNum">{{item.collectNum}}</text>
+                </view>
+                   <!-- 学科分类板块 -->
+            <view class="subject">
+              <image class="subjectIcon" src="{{subjectIcon}}"></image>
+              <view class="subjectDes">{{item.subject}}</view>
+            </view>
+
+             <!-- 知识点板块 -->
+            <view class="knowledgePoint">
+            <!-- 总共显示两个知识点 -->
+              <view class="knowledgeOne" wx:if="{{item.knowledgePointOne}}">#{{item.knowledgePointOne}}</view>
+              <view class="knowledgeTwo" wx:if="{{item.knowledgePointTwo}}">#{{item.knowledgePointTwo}}</view>
+            </view>
+
+            </view>
+         </view>
+      </view>
+</block>

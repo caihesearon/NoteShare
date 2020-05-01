@@ -166,6 +166,15 @@
    margin-top: 15rpx;
 }
 
+/* 弹出层的图片样式 */
+.devingImage{
+   width: 256rpx;
+   height: 256rpx;
+   /* margin-left:30%; */
+}
+.van-button{
+   width: 100%;
+}
 /* 显示地图部分 */ 
 
 /* 地图模块样式 */

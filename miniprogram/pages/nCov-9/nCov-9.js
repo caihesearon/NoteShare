@@ -12,84 +12,60 @@ Page({
    * 页面的初始数据
    */
   data: {
-    mapActive:0,  //地图切换
     // 头部背景图片
+    mapActive:0,
+    isDisable:false,
     headerimage:"https://p.pstatp.com/origin/ff7b0001437ff9034c91",
     // 功能卡片区域
     utils_one:"https://p.pstatp.com/origin/fefd0001fcbabcc04c3e",
     utils_two:"https://p.pstatp.com/origin/fffb0000883ffb4ce499",
     utils_three:"https://p.pstatp.com/origin/fe5a000194f98d8e88c0",
     utils_four:"https://p.pstatp.com/origin/fef4000185f0d1879223",
+
+    // 地图加载之前的图片
+    LodingImage:"https://shop.io.mi-img.com/app/shop/img?id=shop_57bcaac97dbdadd7412945ce41ae4d30.jpeg",
+
     ecMap:{
       onInit:initChartMap,   //初始化地图1数据
     },
     list:[],                      //用于存储当前的地图加载数据的对象数组
-    listZero:[
-      { name: '北京', value: 0 },
-      { name: '天津', value: 0 },
-      { name: '上海', value: 0 },
-      { name: '重庆', value: 0 },
-      { name: '河北', value: 0 },
-      { name: '河南', value: 0 },
-      { name: '云南', value: 0 },
-      { name: '辽宁', value: 0 },
-      { name: '黑龙江', value: 0 },
-      { name: '湖南', value: 0 },
-      { name: '安徽', value: 0 },
-      { name: '山东', value: 0 },
-      { name: '新疆', value: 0 },
-      { name: '江苏', value: 0 },
-      { name: '浙江', value: 0 },
-      { name: '江西', value: 0 },
-      { name: '湖北', value: 0 },
-      { name: '广西', value: 0 },
-      { name: '甘肃', value: 0 },
-      { name: '山西', value: 0 },
-      { name: '内蒙古', value: 0 },
-      { name: '陕西', value: 0 },
-      { name: '吉林', value: 0 },
-      { name: '福建', value: 0 },
-      { name: '贵州', value: 0 },
-      { name: '广东', value: 0 },
-      { name: '青海', value: 0 },
-      { name: '西藏', value: 0 },
-      { name: '四川', value: 0 },
-      { name: '宁夏', value: 0 },
-      { name: '海南', value: 0 },
-      { name: '台湾', value: 0 },
-      { name: '香港', value: 0 },
-      { name: '澳门', value: 0 }
-    ],     //没有任何感染者的地图的数据
-    //需要有三个个地图切换 当用户加载进去默认显示第一个
+    //没有任何感染者的地图的数据
+    //需要有二个个个地图切换 当用户加载进去默认显示第一个
     isShowMapOne:true,
     isShowMapTwo:false,
     isShowMapThree:false,
+    // 开发提示的弹出层 展示属性
+    show: false,
   },
+  deving(e){
+    this.setData({
+      show:true
+    })
+  },
+  // 关闭事件
+  onClose() {
+    this.setData({ close: false });
+  },
+
   /* 通过点击Tabs来切换不同的地图*/ 
   MaponChange(event){
-    if (event.detail.title === "最好的") {
-      this.setData({
-        isShowMapOne:true,
-        isShowMapTwo:false,
-        isShowMapThree:false,
-      })
-      that.ShowDataOne();
-    }
-    if (event.detail.title === "这是现在的地图") {
+    if (event.detail.title === "当前确诊"  ) {
       this.setData({
         isShowMapOne:false,
         isShowMapTwo:true,
         isShowMapThree:false,
+        isDisable:true,
       })
-      that.ShowDataTwo(); 
+      that.ShowDataOne();
     }
-    if (event.detail.title === "最坏的") {
+    if (event.detail.title === "累计确诊") {
       this.setData({
         isShowMapOne:false,
         isShowMapTwo:false,
         isShowMapThree:true,
+        isDisable:true,
       })
-      that.ShowDataThree(); 
+      that.ShowDataTwo(); 
     }
   },
   /**
@@ -110,15 +86,16 @@ Page({
           });
         }
       })
-      that.ShowDataOne();
     }
+    setTimeout(function () {  
+      that.ShowDataOne();
+    },1500)
   },
-    // 获取数据的函数
-    ShowDataOne:function (params) {
-      that.data.list = that.data.listZero;
-    },
+  onReady : function(options){
+    
+  },
   // 获取数据的函数
-  ShowDataTwo:function (params) {
+  ShowDataOne:function (params) {
     that.data.list = [];
     netWork.getallAreaData({
       success:function (res) {
@@ -133,16 +110,15 @@ Page({
         }
           dat.name = res.provinceShortName;
           dat.value = res.currentConfirmedCount;
-       
         //将获取的数据push到list数组中
         that.data.list.push(dat);  
        //打印获取到的数据
-       //console.log(res.provinceShortName,res.currentConfirmedCount);
+      //  console.log(res.provinceShortName,res.currentConfirmedCount);
       }
     })
   },
    // 获取数据的函数2
-   ShowDataThree:function (params) {
+   ShowDataTwo:function (params) {
     that.data.list = [];
     netWork.getallAreaData({
       success:function (res) {
@@ -164,6 +140,12 @@ Page({
       }
     })
   },
+    // 点击中间的小图标 跳转
+    enterTips(e){
+      wx.navigateTo({
+        url: 'epidemicTips/epidemicTips',
+      })
+    },
 })
 
  //获取像素比  
@@ -312,6 +294,6 @@ function initChartMap(canvas, width, height) {
     setTimeout(function () {  
       wx.hideLoading();
       myMap.setOption(option);    
-    },4000)
+    },2500)
   return myMap
 }
