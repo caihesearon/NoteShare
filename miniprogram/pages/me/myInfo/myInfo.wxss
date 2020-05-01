@@ -1,0 +1,22 @@
+.box{
+  margin-bottom: 30rpx;
+}
+
+.picker
+{
+  font-size: medium;
+}
+
+.identityImg{
+  margin-left: 30rpx;
+  width: 33rpx;
+  height: 33rpx;
+}
+
+.pickbox{
+  margin-bottom: 25rpx;
+  height: 85rpx;
+  width: 100%;
+  line-height: 85rpx;
+  background-color: white
+}

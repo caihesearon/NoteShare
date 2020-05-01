@@ -10,7 +10,7 @@
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
-		"nodeModules": false,
+		"nodeModules": true,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
@@ -53,13 +53,19 @@
 			"list": [
 				{
 					"id": -1,
+<<<<<<< HEAD
 					"name": "pages/nCov-9/nCov-9",
 					"pathName": "pages/nCov-9/nCov-9",
+=======
+					"name": "reward",
+					"pathName": "pages/me/reward/reward",
+>>>>>>> 8e1bdea7f01e84498fc35672544554e70a996265
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
+<<<<<<< HEAD
 					"name": "pages/index/index",
 					"pathName": "pages/index/index",
 					"query": "",
@@ -77,6 +83,10 @@
 					"name": "pages/createNote/previewNote/previewNote",
 					"pathName": "pages/createNote/previewNote/previewNote",
 					"query": "",
+=======
+					"name": "myInfo",
+					"pathName": "pages/me/myInfo/myInfo",
+>>>>>>> 8e1bdea7f01e84498fc35672544554e70a996265
 					"scene": null
 				}
 			]
