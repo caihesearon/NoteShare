@@ -1,0 +1,4 @@
+<!-- aspectFit 缩放模式，保持纵横比缩放图片，使图片的长边能完全显示出来。-->  
+<image src="{{choosePicture}}"  mode="aspectFit" style="width: 100%; height: 450rpx" /> 
+<button style="background-color:#00FF00" bindtap="chooseimage">{{btnWord}}</button>
+  
