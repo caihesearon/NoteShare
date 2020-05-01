@@ -6,7 +6,7 @@
   box-sizing: border-box;
 } 
 
-button {
+button {  
   background: initial;
 }
 
@@ -17,8 +17,62 @@ button:focus{
 button::after{
   border: none;
 }
+.titleInfo{
+  font-weight: bolder;
+  font-size: 1.1em;
+  height: 50rpx;  
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+} 
+.title{
+  font-style: initial;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  font-size: 1.4em;  
+}
+.inbox{
+  display:flex;  
+  margin: 0rpx auto;
+  width: 95%;    
+}
+.titlePoint{
+  font-size: 0.9rem;    
+  color: #888;
+  margin-left: 30rpx;
+}
+.noteContent{
+  /* border:1rpx solid black; */
+  padding: 10rpx 10rpx 10rpx 10rpx;
+}
 
-
+.submitButton{
+  color: white;
+  line-height: 80rpx;
+  text-align: center;
+  height: 110rpx;
+  background-color: #FFDEAD;
+}
+.submitButtonHover{
+  /* color: #FFDEAD; */
+  line-height: 80rpx;
+  text-align: center;
+  height: 110rpx;
+  background-color: #DEB887;
+  /* border: 1rpx solid #FFDEAD; */
+}
+.saveButton{
+  color: white;
+  line-height: 80rpx;
+  text-align: center;
+  height: 110rpx;
+  background-color: darkcyan;  
+}
+.saveButtonHover{
+  /* color: darkcyan; */
+  line-height: 80rpx;
+  text-align: center;
+  height: 110rpx;
+  background-color: 	#008080;  
+}
 page {
   background: #f6f6f6;
   display: flex;

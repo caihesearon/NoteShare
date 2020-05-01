@@ -1,18 +1,20 @@
-<form>
-<!-- <image src="https://p.pstatp.com/origin/1372a0000616ed6f850dc"></image> -->
+<van-toast id="van-toast" />
+<!-- 违规内容的弹出提醒 -->
+<van-dialog id="van-dialog" />
+
+<form bindsubmit="previewNote">
 <view hidden="{{isFix}}" class="{{isFix ? 'fix-title':'title'}}" style="height:{{phoneHeight*2/9}}rpx">
-	<input type="text" class="placeholder" name="noteTitle" placeholder='笔记标题' maxlength='{{30}}' placeholder-class='placeholder'></input>
+	<input type="text" bindinput="getNoteTitle" class="placeholder" name="noteTitle" value="{{titleInfo.noteTitle}}" placeholder='笔记标题' maxlength='{{30}}' placeholder-class='placeholder'></input>
 	<van-divider custom-style="width:50%"/>
 	<view class="inbox" >
-		<input type="text" name="pointA" class="input-bottom" maxlength='{{15}}' placeholder='知识点1'></input>		
-		<input type="text" name="pointB" class="input-bottom" maxlength='{{15}}' placeholder='知识点2'></input>		
+		<input type="text" bindinput="getPointA" name="pointA" value="{{titleInfo.pointA}}" class="input-bottom" maxlength='{{15}}' placeholder='知识点1'></input>		
+		<input type="text" bindinput="getPointB" name="pointB" value="{{titleInfo.pointB}}" class="input-bottom" maxlength='{{15}}' placeholder='知识点2'></input>		
 		<!-- <view> -->
 		<icon style="margin-top: 50rpx;" class="iconfont-pic icon-wenzishibie___" bindtap="picToText"></icon>
 	<!-- </view> -->
 	</view>
-	
-		
-	
+	<icon class="iconfont-abc icon-bdcp:before"></icon>
+			
 </view>
 <view class="toolbar {{isFix ? 'fix-toolbar':''}}" catchtouchend="format"  >
 	<i class="iconfont icon-charutupian" catchtouchend="insertImage"></i>
@@ -37,10 +39,11 @@
 </view>
 
 <view  class="container {{isFix ? 'abs-container':''}}" style="height:{{phoneHeight *48/50}}rpx" >
-	<editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindstatuschange="onStatusChange" bindready="onEditorReady" bindfocus="onEditorFocus" bindblur="onEditorBlur"  style="border:1rpx solid red;">
+	<editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindinput="onContentChange" bindstatuschange="onStatusChange" bindready="onEditorReady" bindfocus="onEditorFocus" bindblur="onEditorBlur"  >
 	</editor>
-	<view class="editor-bottom" style="height:{{phoneHeight / 8}}rpx">
-	底部
+	<view class="editor-bottom" style="height:{{phoneHeight / 10}}rpx">		
+			<!-- 样式设置在app.wxss -->
+			<button form-type="submit" class="submitButton" hover-class="submitButtonHover">预览笔记</button>
 	</view>
 </view>
 

@@ -72,6 +72,10 @@ const netWork = {
 
     wx.request({
       url: url,
+      header: {
+        'Content-Type': 'application/json;charset=UTF-8;'
+      },
+      method:'GET',
       success:function (res) {
         var datalist = res.data;
         if(params.success){

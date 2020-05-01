@@ -51,33 +51,6 @@
 		"miniprogram": {
 			"current": -1,
 			"list": [
-				{
-					"id": -1,
-					"name": "pages/nCov-9/nCov-9",
-					"pathName": "pages/nCov-9/nCov-9",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/nCov-9/epidemicTips/epidemicTips",
-					"pathName": "pages/nCov-9/epidemicTips/epidemicTips",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/homePage/homePage",
-					"pathName": "pages/homePage/homePage",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/personalPage/personalPage",
-					"pathName": "pages/personalPage/personalPage",
-					"scene": null
-				}
 			]
 		}
 	}

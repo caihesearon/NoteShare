@@ -2,10 +2,8 @@
   "usingComponents": {
     "van-divider": "@vant/weapp/divider/index",
     "van-button": "@vant/weapp/button/index",
-    "van-toast": "@vant/weapp/toast/index",
-    "van-dialog": "@vant/weapp/dialog/index"
+    "van-picker": "@vant/weapp/picker/index"
   },
-  "navigationBarTitleText": "发表文章" ,
+  "navigationBarTitleText": "笔记预览" ,
   "enablePullDownRefresh": false
-  
 }

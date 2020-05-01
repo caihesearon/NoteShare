@@ -1,0 +1,43 @@
+page{
+  box-sizing: border-box;
+  /* padding: 12rpx 5rpx 0rpx 12rpx; */
+  padding-top: 20rpx;
+  padding-right: 10rpx;
+  padding-left: 10rpx;
+  width: 100%;
+  min-height: 50vh;
+  height: 100%;
+  background: #fff;    
+  line-height: 1.5;
+}
+
+.previewBottom{  
+  margin-top: 20rpx;  
+  display: flex;
+}
+
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: 9;
+  color: #fff;
+}
+
+.commodity_attr_box {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background: #fff;
+  padding-top: 20rpx;
+  height: 300px;
+  text-align: center;
+}

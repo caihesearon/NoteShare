@@ -197,7 +197,7 @@
 }
 
 /* 地图板块样式 */
-#mychart-dom-map{
+.mychart-dom-map{
    position: absolute;
    width: 100%;
    padding-top:20rpx ;

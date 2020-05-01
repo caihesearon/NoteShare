@@ -118,14 +118,14 @@
 		</van-tabs>
 		<!-- 用来显示加载之前的页面 -->
 		<view class="mapBox" wx:if="{{isShowMapOne}}">
-			<image src="{{LodingImage}}" class="mapBox" ></image>
+		<image src="{{LodingImage}}" class="mapBox" ></image>
 		</view>
 		<!-- 因为三张地图说需要的数据来源不一样所以 分三部分来展示 -->
 		<view class="mapBox" wx:if="{{isShowMapTwo}}">
-		<ec-canvas id="mychart-dom-map" canvas-id="mychart-map" ec="{{ ecMap }}"></ec-canvas>
+		<ec-canvas class="mychart-dom-map" canvas-id="mychart-map" ec="{{ ecMap }}"></ec-canvas>
 		</view>
 		<view class="mapBox" wx:if="{{isShowMapThree}}">
-		<ec-canvas id="mychart-dom-map" canvas-id="mychart-map" ec="{{ ecMap }}"></ec-canvas>
+		<ec-canvas class="mychart-dom-map" canvas-id="mychart-map" ec="{{ ecMap }}"></ec-canvas>
 		</view>
 	</view>
 </view>

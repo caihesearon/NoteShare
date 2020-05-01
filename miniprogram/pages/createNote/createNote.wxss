@@ -19,15 +19,16 @@
   background-color: white;
 }
 
-.fix-bottom{
+/* .fix-bottom{
   border: 1rpx solid blueviolet;  
   position: relative;
   top: auto;
   width: 100%;
   height: 200rpx;
-}
+} */
 .editor-bottom{
-  border: 1rpx solid blueviolet;  
+  /* border: 1rpx solid blueviolet;   */
+  display: flex;
   width: 100%;
   height: 300rpx;
 }
@@ -42,7 +43,7 @@
   /* top: 100rpx;  */
   /* left: 0rpx;  */
   width: 100%;    
-  border:1rpx solid blue;
+  /* border:1rpx solid blue; */
   padding: 10rpx;
   /* height: 1150rpx; */
   background-color: white;
@@ -113,22 +114,17 @@
 .linebar{
   left:40rpx;
 }
-.placeholder{
-  font-family: monospace;  
+.placeholder{  
   font-weight: bolder;
-  font-size: 1.4em;
+  font-size: 1.6rem;
   height: 50rpx;  
 }
-.inbox{
-  display:flex;
-  /* margin: 10px 0 0 10px; */
-  margin: 0rpx auto;
-  width: 95%;
-  /* border: 1rpx solid blue; */
-}
+
 .input-bottom{
   width: 250rpx;
   margin-right: 60rpx;
+  font-size: 1.0rem;
+  font-weight: normal;
   border-bottom: 1rpx solid gainsboro;
 }
 

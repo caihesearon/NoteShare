@@ -1,110 +1,222 @@
+import Toast from '@vant/weapp/toast/toast';
+import Dialog from '@vant/weapp/dialog/dialog';
+const app = getApp()
 Page({
   data: {
     formats: {},
-    readOnly: false,
+    html: '', //保存笔记的html内容
     placeholder: '开始笔记...',
     editorHeight: 300,
-    // keyboardHeight: 0,
-    // isIOS: false,
-    scrollTop:0,//保存屏幕向上移动的距离  计算标题是否隐藏和按钮是否固定到顶部
-    standTop:0,//设置一个标准 屏幕向上滑动多少后改变编辑按钮和编辑框的样式
-    isFix:false,
-    phoneHeight: 0,//手机屏幕高度
-    hideBars:{  //是否显示和隐藏多个按钮
-      textbar:true,
-      linebar:true,
+    scrollTop: 0, //保存屏幕向上移动的距离  计算标题是否隐藏和按钮是否固定到顶部
+    standTop: 0, //设置一个标准 屏幕向上滑动多少后改变编辑按钮和编辑框的样式
+    isFix: false,
+    phoneHeight: 0, //手机屏幕高度
+    hideBars: { //是否显示和隐藏多个按钮
+      textbar: true,
+      linebar: true,
+    },
+    titleInfo: { //文章头部内容
+      noteTitle: '',
+      pointA: '',
+      pointB: ''
     }
   },
-  readOnlyChange() {
-    this.setData({
-      readOnly: !this.data.readOnly
-    })
-  },
   onLoad() {
-    // const platform = wx.getSystemInfoSync().platform
-    // const isIOS = platform === 'ios'
-    // this.setData({ isIOS})
-    // const that = this
-    // this.updatePosition(0)
-    // let keyboardHeight = 0
-    // wx.onKeyboardHeightChange(res => {
-    //   if (res.height === keyboardHeight) return
-    //   const duration = res.height > 0 ? res.duration * 1000 : 0
-    //   keyboardHeight = res.height
-    //   setTimeout(() => {
-    //     wx.pageScrollTo({
-    //       scrollTop: 0,
-    //       success() {
-    //         that.updatePosition(keyboardHeight)
-    //         that.editorCtx.scrollIntoView()
-    //       }
-    //     })
-    //   }, duration)
-
-    // })
-    const { windowHeight,windowWidth } = wx.getSystemInfoSync()
+    const {
+      windowHeight,
+      windowWidth
+    } = wx.getSystemInfoSync()
     //计算出手机屏幕的高度
-    const phoneHeight = 750 * windowHeight/windowWidth;
+    const phoneHeight = 750 * windowHeight / windowWidth;
     this.setData({
-      phoneHeight:phoneHeight
+      phoneHeight: phoneHeight
     })
-    
+    //用于用户退出后再进来还有之前编辑的内容
+    if (app.globalData.noteInfo != null) {
+      this.setData({
+        titleInfo: app.globalData.noteInfo.titleInfo,
+        html: app.globalData.noteInfo.html
+      })
+      this.onEditorReady(app.globalData.noteInfo.html)
+    }
   },
   //监听页面滚动
-  onPageScroll:function(e){
+  onPageScroll: function (e) {
     // console.log(e.scrollTop)
-    if(e.scrollTop > this.data.standTop){
+    if (e.scrollTop > this.data.standTop) {
       this.setData({
         isFix: true
       })
-    }else{
+    } else {
       this.setData({
         isFix: false
       })
-    }    
+    }
   },
   //编辑区聚焦时 隐藏顶部编辑区
-  onEditorFocus:function(){
+  onEditorFocus: function () {
     this.setData({
       isFix: true
     })
-  },//失去焦点时 显示顶部编辑区
-  onEditorBlur:function(){
+  }, //失去焦点时 显示顶部编辑区
+  onEditorBlur: function () {
     this.setData({
       isFix: false
     })
-  },//图片转文字
-  picToText:function(){
-    wx.chooseImage({
-      complete: (res) => {},
+  }, //图片转文字
+  picToText: function () {
+    //在图片转文字之前需要先获取已编辑了的内容
+    var that = this
+    let {html} = this.data;
+    // that.editorCtx.getContents({
+      // success: function (res) {
+        // html = res.html
+        console.log(html)
+        //调用图片
+        wx.chooseImage({
+          count: 1,
+          sizeType: ['compressed'],
+          success: function (res) {
+            const tempFilePaths = res.tempFilePaths[0]
+            wx.getFileSystemManager().readFile({
+              filePath: tempFilePaths,
+              encoding: 'base64',
+              success: function (res) {
+                that.getImgInfo(res.data, html)
+              },
+            })
+          }
+        })
+      // }
+    // })
+  }, //根据图片的内容调用API获取图片文字
+  getImgInfo: function (imageData, html) {
+    wx.showLoading({
+      title: '识别中...',
     })
+    var that = this
+    that.getBaiduToken().then(res => {
+      console.log(res)
+      //获取token
+      const token = res.data.access_token
+      console.log(token)
+      const detectUrl = `https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic?access_token=${token}` // baiduToken是已经获取的access_Token      
+      wx.request({
+        url: detectUrl,
+        data: {
+          image: imageData
+        },
+        method: 'POST',
+        dataType: 'json',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 必须的        
+        },
+        success: function (res, resolve) {
+          //将 res.data.words_result数组中的内容加入html标签中
+          for (var i in res.data.words_result) {
+            //获取所有转换的文字
+            const val = res.data.words_result[i].words
+            //拼接到html中并设置给富文本
+            html += val + "<br>"
+          }
+          that.editorCtx.setContents({
+            html: html
+          })
+          that.setData({
+            html: html
+          })
+          console.log('识别后： '+ html)
+          wx.hideLoading()
+        },
+        fail: function (res, reject) {
+          console.log('get word fail：', res.data);
+          wx.hideLoading()
+        },
+        complete: function () {
+          wx.hideLoading()
+        }
+
+      })
+
+    })
+  }, //进入预览页面
+  previewNote: function (e) {
+    // 1、获取头部的标题信息
+    const {
+      value
+    } = e.detail //this.data.titleInfo        
+    if (value.noteTitle == '') {
+      Toast('笔记标题不可以为空哦~~')
+      return
+    }
+    //2、获取编辑器的内容
+    this.editorCtx.getContents({
+      success: (res) => {
+        console.log(res)
+        if (res.html == '<p><br></p>') {
+          Toast('为笔记添加一点内容再看看吧~~')
+          return
+        }
+        //拼接所有的内容
+        let content = value.noteTitle + ' ' + value.pointA + ' ' + value.pointB + ' ' + res.html
+        //对内容和标题进行内容审核
+        wx.cloud.callFunction({
+          name: 'ContentCheck',
+          data: {
+            msg: content
+          }
+        }).then(ress => {
+          //内容违规          
+          if (ress.result.errCode != 0) {
+            //警告提醒
+            wx.showModal({
+              title: '警告',
+              content: '笔记内容存在违规行为！',
+              showCancel: false,
+            })
+            return
+          } else {
+            //将内容临时保存在app的全局变量中
+            app.globalData.titleInfo = value;
+            app.globalData.html = res.html
+            wx.navigateTo({
+              url: 'previewNote/previewNote'
+            })
+          }
+        })
+      },
+      fail: (res) => {
+        console.log("fail：", res);
+      }
+    });
   },
-  calNavigationBarAndStatusBar() {
-    const systemInfo = wx.getSystemInfoSync()
-    const { statusBarHeight, platform } = systemInfo
-    const isIOS = platform === 'ios'
-    const navigationBarHeight = isIOS ? 44 : 48
-    return statusBarHeight + navigationBarHeight
-  },
-  onEditorReady() {
+
+  onEditorReady(html) {
     const that = this
     wx.createSelectorQuery().select('#editor').context(function (res) {
       that.editorCtx = res.context
+      res.context.setContents({ //用于初始化富文本的内容 日后的编辑中可以使用
+        html: html
+      })
     }).exec()
   },
   blur() {
     this.editorCtx.blur()
   },
   format(e) {
-    let { name, value } = e.target.dataset
+    let {
+      name,
+      value
+    } = e.target.dataset
     if (!name) return
     // console.log('format', name, value)
     this.editorCtx.format(name, value)
-
   },
-  onStatusChange(e) {    
-    const formats = e.detail    
-    this.setData({ formats })
+  onStatusChange(e) {
+    const formats = e.detail
+    this.setData({
+      formats
+    })
   },
   insertDivider() {
     this.editorCtx.insertDivider({
@@ -129,42 +241,131 @@ Page({
     this.editorCtx.insertText({
       text: formatDate
     })
-  },
+  }, //笔记中插入图片并上传 还有获取永久http地址
   insertImage() {
     const that = this
     wx.chooseImage({
       count: 1,
+      sizeType: ['compressed'],
       success: function (res) {
-        that.editorCtx.insertImage({
-          src: res.tempFilePaths[0],
-          // data: {
-          //   id: 'abcd',
-          //   role: 'god'
-          // },
-          width: '100%',
-          success: function () {
-            console.log('insert image success')
+        if (res.tempFiles[0] && res.tempFiles[0].size > 1024 * 1024) {
+          wx.showToast({
+            title: '图片不能大于1M',
+            icon: 'none'
+          })
+          return;
+        }
+        // console.log(res)
+        // console.log(res.tempFiles.size)
+        //获取图片的本地临时路径
+        const tempFilePaths = res.tempFilePaths[0]
+
+        // 正则表达式，获取文件扩展名
+        let suffix = /\.[^\.]+$/.exec(tempFilePaths)[0];
+        const tempPath = tempFilePaths.split('.')
+        //去掉斜杠
+        var temp = tempPath[tempPath.length - 2].split('/')
+        //去掉 ：
+        temp = temp[0].split(':')
+        // 云存储路径
+        const cloudPath = 'noteImg/could-img-' + new Date().getTime() + temp[0] + suffix
+        wx.showLoading({
+          title: '上传中',
+        })
+        //通过图片的临时图片地址获取图片文件的buffer
+        wx.getFileSystemManager().readFile({
+          filePath: tempFilePaths,
+          success: buffer => {
+            console.log(buffer)
+            //调用云函数检查图片是否违规
+            wx.cloud.callFunction({
+              name: 'ContentCheck',
+              data: {
+                img: buffer.data
+              },
+              success(json) {
+                console.log('json'+json)
+                //图片违规
+                if (json.result.errCode != '0') {
+                  wx.hideLoading()
+                  //警告提醒
+                  wx.showModal({
+                    title: '警告',
+                    content: '图片内容存在违规行为！',
+                    showCancel: false,
+                    success(res) {}
+                  })
+                  // console.log('图片违规')
+                } else {
+                  //图片正常 上传并获取永久http链接
+                  // console.log('图片正常')
+                  //需要先上传了图片
+                  wx.cloud.uploadFile({
+                    cloudPath: cloudPath,
+                    filePath: tempFilePaths,
+                    success(res){
+                      const fileID = res.fileID
+                      console.log('fileID:'+fileID)
+                      //根据fileID获取永久https链接
+                      wx.cloud.getTempFileURL({
+                        fileList: [fileID],
+                        success: res => {
+                          const {
+                            tempFileURL
+                          } = res.fileList[0]
+                          //设置富文本内容
+                          that.editorCtx.insertImage({
+                            src: tempFileURL,
+                            width: '100%',
+                            success: function () {
+                              wx.hideLoading()
+                            }
+                          })
+                        }
+                      })
+                    },
+                    fail(error){
+                      console.log('error:'+error)
+                      wx.hideLoading()
+                      wx.showModal({
+                        title: '提示',
+                        content: '图片添加失败！请重新添加！',
+                        showCancel: false,
+                        success(res) {}
+                      })
+                    }
+                  })
+                }
+              },
+              fail(f) {
+                console.log('f'+f)
+                wx.showToast({
+                  title: '上传失败',
+                  icon: 'none'
+                })
+              }
+            })
           }
         })
       }
     })
   },
-  showbar:function(event){
+  showbar: function (event) {
     const that = this;
     var name = event.target.dataset.name
     var hidebars = this.data.hideBars
     console.log(hidebars)
-    for(var bars in hidebars){
-      if(bars != name){
-        hidebars[bars]=true;
+    for (var bars in hidebars) {
+      if (bars != name) {
+        hidebars[bars] = true;
       }
     }
     hidebars[name] = !hidebars[name]
     this.setData({
-      hideBars:hidebars
+      hideBars: hidebars
     })
-  }, 
-  changeContent:function(e){
+  },
+  changeContent: function (e) {
     file.content = e.detail.delta
     console.log(file)
   },
@@ -175,4 +376,94 @@ Page({
       }
     });
   },
+  // 获取百度access_token  
+  getBaiduToken: function () {
+    return new Promise(resolve => {
+      var apiKey = "AqLqM3WcMooRaIS4UuczX94h"
+      var secKey = "afsKVYsLdrgpiMwyprLDTurX5x7BvrMk"
+      var tokenUrl = `https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=${apiKey}&client_secret=${secKey}`
+      var that = this;
+      wx.request({
+        url: tokenUrl,
+        method: 'POST',
+        dataType: 'json',
+        header: {
+          'content-type': 'application/json; charset-UTF-8'
+        },
+        success: function (res) {
+          console.log("[BaiduToken获取成功]", res);
+          return resolve(res)
+          // that.setData({                
+          // 	baiduToken: res.data.access_token            				})        
+        },
+        fail: function (res) {
+          console.log("[BaiduToken获取失败]", res);
+          return resolve(res)
+        }
+      })
+    })
+  },
+  onContentChange: function (e) {
+    const {
+      html
+    } = e.detail
+    this.setData({
+      html: html
+    })
+  },
+  //页面卸载 用于获取用户是否保存编辑内容的临时内容
+  onUnload: function (e) {
+    // console.log(e)
+    // let html = ''
+    // this.editorCtx.getContents({      
+    //   success:(res=>{                     
+    //     html = res.html            
+    //     console.log(html)
+    //   })
+    // })          
+    const {
+      titleInfo,
+      html
+    } = this.data
+    console.log('卸载操作')
+    console.log("html" + html)
+    if (html == '' || (html == '<p><br></p>' && titleInfo.noteTitle == '')) {
+      console.log('s')
+      return
+    }
+    wx.showModal({
+      title: '提示',
+      content: '需要保存已编辑的笔记吗？',
+      confirmText: '保留下来',
+      confirmColor: '#696969',
+      cancelText: '狠心舍弃',
+      cancelColor: '#DC143C',
+      success(res) {
+        if (res.confirm) {
+          const noteInfo = {
+            titleInfo: titleInfo,
+            html: html
+          }
+          app.globalData.noteInfo = noteInfo
+        } else {
+          app.globalData.noteInfo = null
+        }
+      }
+    })
+  },
+  getNoteTitle: function (e) {
+    this.setData({
+      ['titleInfo.noteTitle']: e.detail.value
+    })
+  },
+  getPointA: function (e) {
+    this.setData({
+      ['titleInfo.pointA']: e.detail.value
+    })
+  },
+  getPointB: function (e) {
+    this.setData({
+      ['titleInfo.pointB']: e.detail.value
+    })
+  }
 })

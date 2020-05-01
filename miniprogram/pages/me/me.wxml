@@ -1,2 +1,46 @@
-<!--miniprogram/pages/me/me.wxml-->
-<text>miniprogram/pages/me/me.wxml</text>
+<view class="myPart">
+  <!-- 头像 -->
+  <view wx:if="{{isShow}}" class="userinfo-image">
+     <image src="{{avatarUrl}}"></image>
+  </view>
+  <view class="userinfo-image" wx:else >
+    <image style="background-image: url({{avatarUrl}})"></image>
+  </view>
+  <!--用户授权按钮 授权后隐藏-->
+  <view class="loginBtn" wx:if="{{isShow}}">
+    <van-button plain type="primary" open-type="getUserInfo" bindgetuserinfo="login" >点击登录账户</van-button>
+  </view>
+  <!-- 昵称 -->
+  <view class="userinfo-nickname">
+    {{nickName}}
+  </view>
+</view>
+
+<view class="NavigationBar">
+    <view class="content">
+      <!-- 笔记数量 -->
+      <van-cell  icon="column" class='van-cell' title-class='' is-link title="笔记数量:{{noteCount}}" link-type="navigateTo" size='large' center='{{true}}' url="" />
+      
+      <!-- 完善信息 -->
+      <van-cell bindtap="test" icon="edit" class='van-cell' title-class='' is-link title="完善信息" link-type="navigateTo" size='large' center='{{true}}' url="myInfo/myInfo" />
+         
+      <!-- 打赏码 -->
+      <van-cell icon="bill" class='van-cell' title-class='' is-link title="打赏码" link-type="navigateTo" size='large' center='{{true}}' url="reward/reward" />
+    </view>  
+</view>
+
+<view class="help">
+    <!-- 客服 -->
+    <button open-type="contact" style="width:100%">
+      <van-cell icon="friends" class='van-cell' title-class='' is-link title="客服" link-type="navigateTo" size='large' center='{{true}}' url="" />
+    </button>
+    
+    <!-- 问题反馈 -->
+    <button open-type="feedback" style="width:100%">
+        <van-cell icon="phone" class='van-cell' title-class='' is-link title="问题反馈" link-type="navigateTo" size='large' center='{{true}}' />
+    </button>
+</view>
+    
+
+
+
