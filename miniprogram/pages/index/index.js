@@ -1,13 +1,59 @@
 //index.js
 const app = getApp()
+import Dialog from '@vant/weapp/dialog/dialog';
 
 Page({
   data: {
+    item:{
+      name:'dema',
+      age:14
+    },
+    showModalStatus: false,
+    animationData: '',
+    columns:['计算机','文学','理工','哲学','艺术','经历'],
+    index: 0,
+    // columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+
     avatarUrl: './user-unlogin.png',
     userInfo: {},
     logged: false,
     takeSession: false,
-    requestResult: ''
+    requestResult: '',
+   
+  },
+  goCreatePage: function(){
+    wx.navigateTo({
+      url: '../createNote/createNote',
+    })
+  },
+  onConfirm:function(e){
+    console.log(e)
+  },
+  showModal: function () {
+    // 显示遮罩层
+    var animation = wx.createAnimation({
+      duration: 800,
+      timingFunction: "ease",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+      showModalStatus: true
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
+  hideModal: function () {
+    this.setData({
+      showModalStatus: false,
+    })
+  
   },
 
   onLoad: function() {

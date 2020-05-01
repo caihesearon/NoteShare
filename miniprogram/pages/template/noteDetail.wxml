@@ -1,0 +1,15 @@
+<template name="commonInfo">
+	<view class="title">
+		<text class="titleInfo">{{titleInfo.noteTitle}}</text>
+		<van-divider custom-style="width:35%" />
+		<view>
+			<text hidden="{{titleInfo.pointA==''}}"  class="titlePoint" >#{{titleInfo.pointA}}</text>
+			<text hidden="{{titleInfo.pointB==''}}" class="titlePoint" >#{{titleInfo.pointB}}</text>
+			<van-divider wx:if="{{titleInfo.pointA!='' && titleInfo.pointB!=''}}" custom-style="width:80%" />
+		</view>
+	</view>
+
+	<rich-text nodes="{{html}}" class="noteContent"></rich-text>
+	<van-divider contentPosition="right" custom-style="width:100%">{{currTime}}</van-divider>
+
+</template>

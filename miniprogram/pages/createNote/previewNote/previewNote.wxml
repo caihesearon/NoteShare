@@ -1,0 +1,52 @@
+<!-- <van-button plain type="primary" open-type="getUserInfo" bindgetuserinfo="login" >点击登录账户</van-button>
+<van-button plain type="primary"  bindtap="checkStatus" >查看状态</van-button> -->
+
+
+<!-- <view class="title">
+	<text class="titleInfo">{{titleInfo.noteTitle}}</text>
+	<van-divider custom-style="width:35%" />
+	<view>
+		<text hidden="{{titleInfo.pointA==''}}"  class="titlePoint" >#{{titleInfo.pointA}}</text>
+		<text hidden="{{titleInfo.pointB==''}}" class="titlePoint" >#{{titleInfo.pointB}}</text>
+		<van-divider wx:if="{{titleInfo.pointA!='' && titleInfo.pointB!=''}}" custom-style="width:80%" />
+	</view>	
+</view>
+
+<rich-text nodes="{{html}}" class="noteContent"></rich-text>
+<van-divider contentPosition="right" custom-style="width:100%">{{currTime}}</van-divider> -->
+<import src="../../template/noteDetail.wxml"/>
+<template is="commonInfo" data="{{titleInfo:titleInfo, html:html, currTime:currTime}}"></template>
+
+<view class="previewBottom">
+	<view style="margin:auto auto">
+		<button style="width: 300rpx;" bindtap="showModal" class="saveButton" hover-class="saveButtonHover">保存笔记</button>
+	</view>
+	<view style="margin:auto auto">
+		<button bindtap="backToEditor" style="width: 300rpx;" class="submitButton" hover-class="submitButtonHover">继续编辑</button>
+	</view>
+</view>
+
+<!-- 隐藏下方的分类选择器 -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <van-picker
+  show-toolbar
+  title="分类并保存"
+  columns="{{ array }}"  
+  bind:confirm="saveNote"
+	bind:cancel="hideModal"
+  confirm-button-text="保存"
+/>
+</view>
+<!-- 
+  1、创建页面的选择图片上传实现
+  2、预览页面的数据绑定
+
+	title信息
+	笔记内容
+	笔记分类 热门 计算机 外语 理工 文史 哲学 管理 艺术 心理 个人经历
+	是否公开笔记
+	访问量
+	收藏量
+	点赞量
+ -->
