@@ -64,7 +64,7 @@ Page({
     animationMain:null,//正面动画效果
     animationBack:null,//背面动画效果
     
-    nickName:"Harbor",
+    nickName:"阿港",
     fontSizeOne:"1rem",
     fontSizeTwo:"1rem",
     notesBg: "https://ae01.alicdn.com/kf/H1589786633d14bdf877d9e6dab638e07F.jpg",

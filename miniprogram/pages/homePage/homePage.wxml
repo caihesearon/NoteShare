@@ -11,21 +11,21 @@
       <view class="showBox" >
       <!-- 热度的模块  通过id的大小来显示其数量 -->
        <view class="fireModule">
-          <image mode="aspectFill" wx:if="{{item.id < 4}}" class="fire" src="{{fire}}"></image>
-          <image mode="aspectFill" wx:if="{{item.id < 3}}" class="fire" src="{{fire}}"></image>
-          <image mode="aspectFill" wx:if="{{item.id < 2}}" class="fire" src="{{fire}}"></image>
+          <image mode="aspectFill" wx:if="{{index < 4}}" class="fire" src="{{fire}}"></image>
+          <image mode="aspectFill" wx:if="{{index < 3}}" class="fire" src="{{fire}}"></image>
+          <image mode="aspectFill" wx:if="{{index < 2}}" class="fire" src="{{fire}}"></image>
        </view>
        <!-- 笔记卡片的背景图片 -->
         <image class="noteCard" src="{{cardBg}}"></image>
         <!-- 笔记标题的内容 -->
           <view class="textContent">
-            <view class="content">{{item.content}}</view>
+            <view class="content">{{item.titleInfo.noteTitle}}</view>
         <!-- 标题下面一系列标题 板块 -->
           <view class="label">
           <!-- 点击量模块  通过showPublicNotes来控制是否展示 -->
             <view class="clickNumber" wx:if="{{showPublicNotes}}">
               <image class="clickIcon" src="{{clickIcon}}"></image>
-              <text class="clickNum">{{item.clickNum}}</text>
+              <text class="clickNum">{{item.clickCount}}</text>
             </view>
             <!-- 收藏模块  通过 showCollectNotes 来控制是否展示-->
              <view class="collectNumber" wx:if="{{showCollectNotes}}">
@@ -35,13 +35,13 @@
             <!-- 学科分类板块 -->
             <view class="subject">
               <image class="subjectIcon" src="{{subjectIcon}}"></image>
-              <view class="subjectDes">{{item.subject}}</view>
+              <view class="subjectDes">{{item.noteCategory}}</view>
             </view>
             <!-- 知识点板块 -->
             <view class="knowledgePoint">
             <!-- 总共显示两个知识点 -->
-              <view class="knowledgeOne" wx:if="{{item.knowledgePointOne}}">#{{item.knowledgePointOne}}</view>
-              <view class="knowledgeTwo" wx:if="{{item.knowledgePointTwo}}">#{{item.knowledgePointTwo}}</view>
+              <view class="knowledgeOne" wx:if="{{item.titleInfo.pointA}}">#{{item.titleInfo.pointA}}</view>
+              <view class="knowledgeTwo" wx:if="{{item.titleInfo.pointB}}">#{{item.titleInfo.pointB}}</view>
             </view>
           </view>
           <!-- 操作部分 -->

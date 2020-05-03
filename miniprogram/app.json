@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/homePage/homePage",
     "pages/me/me",
     "pages/nCov-9/nCov-9",
-    "pages/nCov-9/epidemicTips/epidemicTips",
-    "pages/homePage/homePage",
+    "pages/nCov-9/epidemicTips/epidemicTips",    
     "pages/personalPage/personalPage",
     "pages/createNote/previewNote/previewNote",
     "pages/me/reward/reward",
@@ -15,9 +15,31 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#87CEEB",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "笔迹",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
+  },
+  "tabBar":{
+    "list":[
+      {
+        "pagePath": "pages/homePage/homePage",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/selecthome.png"
+      },
+      {
+        "pagePath": "pages/nCov-9/nCov-9",
+        "text": "知识海洋",
+        "iconPath": "images/chat.png",
+        "selectedIconPath": "images/selectchat.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我",
+        "iconPath": "images/me.png",
+        "selectedIconPath": "images/selectme.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2"

@@ -15,8 +15,13 @@ Page({
     wx.getSetting({
       success(res) {
         //若该用户已授权，获取其昵称和头像
-        if(res.authSetting['scope.userInfo']){
+        if(res.authSetting['scope.userInfo']){          
           that.getData()
+          // that.setData({
+          //   avatarUrl: app.globalData.avatarUrl,
+          //   nickName: app.globalData.nickName,
+          //   isShow: false
+          // })
         }
       }
     })
@@ -45,7 +50,7 @@ Page({
           isShow: false
         })
         //将头像和昵称放入全局变量
-        //只有授权的时候执行，只add一次就OK
+        //只有授权的时候执行，只add一次就OK ---------- 后续可以改进为update 更新数据库 目的是用户会更换头像和昵称
         db.collection('noteUser').get().then(res => {
           //防止用户重复加入数据库
           if (res.data[0] == null) {
@@ -65,6 +70,17 @@ Page({
                 app.globalData.dataid = res._id
               }
             })
+          }else{
+            app.globalData.nickName = res.data[0].nickName, //该用户昵称
+            app.globalData.dataid = res.data[0]._id, //该用户的_id
+            app.globalData.identity = res.data[0].identity, //该用户身份
+            app.globalData.school = res.data[0].school, //该用户学校
+            app.globalData.academy = res.data[0].academy, //该用户学院
+            app.globalData.email = res.data[0].email, //该用户邮箱
+            app.globalData.signature = res.data[0].signature, //该用户个性签名
+            app.globalData.rewardPath = res.data[0].rewardPath //该用户打赏码路径
+            console.log('test..')
+            console.log(res)
           }
         })
       }

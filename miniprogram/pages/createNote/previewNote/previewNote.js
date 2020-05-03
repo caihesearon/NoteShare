@@ -17,13 +17,12 @@ Page({
     index: 0,
     showModalStatus: false,//分类选择器的状态
     animationData: '',//选择器的动画
+    nickName:'',//用户昵称
   },
   
-  onLoad: function (options) {
-    //console.log(app.globalData)//"http://tmp/wx0ce40e52aef09ebc.o6zAJs3TDltF6G0Wmp9eHBU2_b1c.Np8SryuR1LN9477a0d9e0b9efea865a176c26bacf584.jpg"
+  onLoad: function (options) {    
     const date = new Date()
-    const formatDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
-    //app.globalData.html="<h3>笔记内容</h3><br/><img  style='width:100%;height:auto' src='https://636c-cloud-test-tnjps-1300299389.tcb.qcloud.la/userUploadImage/could-img-1570176712001wxfile.jpg'></img>"//笔记内容
+    const formatDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`    
     this.setData({
       titleInfo: app.globalData.titleInfo,
       html:app.globalData.html,
@@ -42,12 +41,13 @@ Page({
     const titleInfo = this.data.titleInfo
     const html = this.data.html
     //当前时间
-    const currTime = currTime
+    const currTime = this.data.currTime
     //获取笔记分类
     const {value} = e.detail        
     //console.log(titleInfo)
     //获取用户昵称    
-   
+    const nickName = app.globalData.nickName    
+    // console.log("我的名字: " + nickName)
     //初始化是否公开isOpen 点赞量likeCount 收藏量loveCount 访问量clickCount    
     db.collection('userNotes').add({
       data:{
@@ -55,16 +55,27 @@ Page({
         'html': html,//笔记内容
         'noteCategory':value,//分类数据
         'currTime': currTime,//用于文本显示的时间
-        'createTime': db.serverDate,//用于排序的时间
+        'createTime': db.serverDate(),//用于排序的时间
         'likeCount':0,//点赞
         'loveCount':0,//收藏
         'clickCount':0,//访问
         'isOpen':false,//公开标志
-        'userNickName': '用户昵称'//'用户昵称'
+        'nickName': nickName//'用户昵称'
       }
     }).then(res=>{
       console.log(res)
-      app.globalData.noteInfo = null
+      const noteInfo = {
+        titleInfo:null,
+        html:''
+      }
+      app.globalData.noteInfo = noteInfo
+      console.log("保存之后")
+      console.log(app.globalData.noteInfo)
+      //跳转到首页      
+      //需要注意 跳转到首页需要传递
+      wx.switchTab({
+        url: '/pages/homePage/homePage',
+      })      
     }).catch(error=>{
       console.log(error)
     })

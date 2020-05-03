@@ -1,7 +1,8 @@
 //index.js
 const app = getApp()
 import Dialog from '@vant/weapp/dialog/dialog';
-
+//引入登陆拦截器
+let filter = require('../utils/filter.js');
 Page({
   data: {
     item:{
@@ -57,6 +58,7 @@ Page({
   },
 
   onLoad: function() {
+    filter.identityFilter()
     if (!wx.cloud) {
       wx.redirectTo({
         url: '../chooseLib/chooseLib',

@@ -18,12 +18,6 @@ exports.main = async (event, context) => {
     //定义临时变量保存检查返回的结果
     let msgR = false;
     let imgR = false;
-     //检查文本内容是否违规
-     if(event.msg){
-      msgR = await cloud.openapi.security.msgSecCheck({
-        content: event.msg
-      })      
-    }
     //检查图片内容是否违规
     if(event.img){      
       imgR = await cloud.openapi.security.imgSecCheck({
@@ -36,6 +30,12 @@ exports.main = async (event, context) => {
         }
       })      
     }        
+     //检查文本内容是否违规
+     if(event.msg){
+      msgR = await cloud.openapi.security.msgSecCheck({
+        content: event.msg
+      })      
+    }    
     if(imgR != false) {
       return imgR
     }

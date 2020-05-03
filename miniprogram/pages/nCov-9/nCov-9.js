@@ -81,7 +81,7 @@ Page({
       // console.log("我进来 了");
       netWork.getcurrentData({
         success:function (res) {
-          console.log(res)
+          // console.log(res)
           that.setData({
             items : res.results[0]
           });
@@ -100,7 +100,7 @@ Page({
     that.data.list = [];
     netWork.getallAreaData({
       success:function (res) {
-        console.log(res)
+        // console.log(res)
         /**
          * 这里每次成功回调都重新声明dat对象的原因是因为如果再外面
          * 声明的话 每次在成功回调后赋值所用到的都是同一个地址，
@@ -138,7 +138,7 @@ Page({
         //将获取的数据push到list数组中
         that.data.list.push(dat);  
        //打印获取到的数据
-       console.log(res.provinceShortName,res.currentConfirmedCount);
+      //  console.log(res.provinceShortName,res.currentConfirmedCount);
       }
     })
   },

@@ -17,7 +17,12 @@ App({
     }
     const db = wx.cloud.database()
     var that = this
-    this.globalData = {}
+    this.globalData = {
+      noteInfo:{
+        titleInfo:null,
+        html:''
+      }
+    }
     wx.getSetting({
       success(res) {
         if(res.authSetting['scope.userInfo']){
@@ -30,6 +35,9 @@ App({
             that.globalData.email = res.data[0].email, //该用户邮箱
             that.globalData.signature = res.data[0].signature, //该用户个性签名
             that.globalData.rewardPath = res.data[0].rewardPath //该用户打赏码路径
+            // that.globalData.userInfo = res.data[0]
+            // console.log(res)
+            // console.log(that.globalData.userInfo)
           })
         }
       }

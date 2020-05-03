@@ -21,7 +21,7 @@ Page({
       pointB: ''
     }
   },
-  onLoad() {
+  onLoad() {    
     const {
       windowHeight,
       windowWidth
@@ -32,12 +32,20 @@ Page({
       phoneHeight: phoneHeight
     })
     //用于用户退出后再进来还有之前编辑的内容
-    if (app.globalData.noteInfo != null) {
+    if (app.globalData.noteInfo.titleInfo != null || app.globalData.noteInfo.html != '') {
+      console.log('11')
       this.setData({
         titleInfo: app.globalData.noteInfo.titleInfo,
         html: app.globalData.noteInfo.html
       })
       this.onEditorReady(app.globalData.noteInfo.html)
+    }else{
+      const noteInfo = {
+        titleInfo:null,
+        html:''
+      }
+      app.globalData.noteInfo = noteInfo
+      console.log(app.globalData.noteInfo)
     }
   },
   //监听页面滚动
@@ -67,27 +75,29 @@ Page({
   picToText: function () {
     //在图片转文字之前需要先获取已编辑了的内容
     var that = this
-    let {html} = this.data;
+    let {
+      html
+    } = this.data;
     // that.editorCtx.getContents({
-      // success: function (res) {
-        // html = res.html
-        console.log(html)
-        //调用图片
-        wx.chooseImage({
-          count: 1,
-          sizeType: ['compressed'],
+    // success: function (res) {
+    // html = res.html
+    console.log(html)
+    //调用图片
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      success: function (res) {
+        const tempFilePaths = res.tempFilePaths[0]
+        wx.getFileSystemManager().readFile({
+          filePath: tempFilePaths,
+          encoding: 'base64',
           success: function (res) {
-            const tempFilePaths = res.tempFilePaths[0]
-            wx.getFileSystemManager().readFile({
-              filePath: tempFilePaths,
-              encoding: 'base64',
-              success: function (res) {
-                that.getImgInfo(res.data, html)
-              },
-            })
-          }
+            that.getImgInfo(res.data, html)
+          },
         })
-      // }
+      }
+    })
+    // }
     // })
   }, //根据图片的内容调用API获取图片文字
   getImgInfo: function (imageData, html) {
@@ -125,7 +135,7 @@ Page({
           that.setData({
             html: html
           })
-          console.log('识别后： '+ html)
+          console.log('识别后： ' + html)
           wx.hideLoading()
         },
         fail: function (res, reject) {
@@ -157,6 +167,9 @@ Page({
           Toast('为笔记添加一点内容再看看吧~~')
           return
         }
+        wx.showLoading({
+          title: '内容审核中',
+        })
         //拼接所有的内容
         let content = value.noteTitle + ' ' + value.pointA + ' ' + value.pointB + ' ' + res.html
         //对内容和标题进行内容审核
@@ -166,6 +179,7 @@ Page({
             msg: content
           }
         }).then(ress => {
+          wx.hideLoading()
           //内容违规          
           if (ress.result.errCode != 0) {
             //警告提醒
@@ -175,7 +189,7 @@ Page({
               showCancel: false,
             })
             return
-          } else {
+          } else {            
             //将内容临时保存在app的全局变量中
             app.globalData.titleInfo = value;
             app.globalData.html = res.html
@@ -185,7 +199,7 @@ Page({
           }
         })
       },
-      fail: (res) => {
+      fail: (res) => {        
         console.log("fail：", res);
       }
     });
@@ -259,7 +273,7 @@ Page({
         // console.log(res.tempFiles.size)
         //获取图片的本地临时路径
         const tempFilePaths = res.tempFilePaths[0]
-
+        console.log('tempFilePaths临时路径： ' + tempFilePaths)
         // 正则表达式，获取文件扩展名
         let suffix = /\.[^\.]+$/.exec(tempFilePaths)[0];
         const tempPath = tempFilePaths.split('.')
@@ -269,25 +283,34 @@ Page({
         temp = temp[0].split(':')
         // 云存储路径
         const cloudPath = 'noteImg/could-img-' + new Date().getTime() + temp[0] + suffix
+        console.log('cloudPath云路径: ' + cloudPath)
         wx.showLoading({
           title: '上传中',
         })
-        //通过图片的临时图片地址获取图片文件的buffer
-        wx.getFileSystemManager().readFile({
+        //方案----------
+        wx.cloud.uploadFile({
+          cloudPath: cloudPath,
           filePath: tempFilePaths,
-          success: buffer => {
-            console.log(buffer)
-            //调用云函数检查图片是否违规
+          success(res) {            
+            wx.hideLoading()
+            console.log("上传成功： ")
+            console.log(res)
+            //获取fileID
+            const fileID = res.fileID
+            //上传成功 并根据fileID调用云函数审核图片
+            wx.showLoading({
+              title: '图片审核中',
+            })
             wx.cloud.callFunction({
-              name: 'ContentCheck',
-              data: {
-                img: buffer.data
+              name: 'imgCheck',
+              data:{
+                fileID: fileID
               },
-              success(json) {
-                console.log('json'+json)
-                //图片违规
-                if (json.result.errCode != '0') {
-                  wx.hideLoading()
+              success(res){
+                console.log('云函数调用成功！！')
+                console.log(res)
+                //审核不通过
+                if(res.result == ""){
                   //警告提醒
                   wx.showModal({
                     title: '警告',
@@ -295,58 +318,36 @@ Page({
                     showCancel: false,
                     success(res) {}
                   })
-                  // console.log('图片违规')
-                } else {
-                  //图片正常 上传并获取永久http链接
-                  // console.log('图片正常')
-                  //需要先上传了图片
-                  wx.cloud.uploadFile({
-                    cloudPath: cloudPath,
-                    filePath: tempFilePaths,
-                    success(res){
-                      const fileID = res.fileID
-                      console.log('fileID:'+fileID)
-                      //根据fileID获取永久https链接
-                      wx.cloud.getTempFileURL({
-                        fileList: [fileID],
-                        success: res => {
-                          const {
-                            tempFileURL
-                          } = res.fileList[0]
-                          //设置富文本内容
-                          that.editorCtx.insertImage({
-                            src: tempFileURL,
-                            width: '100%',
-                            success: function () {
-                              wx.hideLoading()
-                            }
-                          })
-                        }
-                      })
-                    },
-                    fail(error){
-                      console.log('error:'+error)
-                      wx.hideLoading()
-                      wx.showModal({
-                        title: '提示',
-                        content: '图片添加失败！请重新添加！',
-                        showCancel: false,
-                        success(res) {}
-                      })
+                }else{
+                  //设置富文本内容
+                  that.editorCtx.insertImage({
+                    src: res.result,
+                    width: '100%',
+                    success: function () {                      
                     }
                   })
                 }
               },
-              fail(f) {
-                console.log('f'+f)
+              fail(err){
                 wx.showToast({
-                  title: '上传失败',
+                  title: '识别出了点小问题',
                   icon: 'none'
                 })
+              },
+              complete(com){
+                wx.hideLoading()
               }
             })
+          },
+          fail(err) {
+            console.log('fail上传失败：  ' + err)
+            wx.hideLoading()
+            wx.showToast({
+              title: '上传失败',
+              icon: 'none'
+            })
           }
-        })
+        })               
       }
     })
   },
@@ -410,25 +411,19 @@ Page({
     this.setData({
       html: html
     })
+    app.globalData.noteInfo.html = html
   },
   //页面卸载 用于获取用户是否保存编辑内容的临时内容
-  onUnload: function (e) {
-    // console.log(e)
-    // let html = ''
-    // this.editorCtx.getContents({      
-    //   success:(res=>{                     
-    //     html = res.html            
-    //     console.log(html)
-    //   })
-    // })          
+  onUnload: function (e) {  
     const {
       titleInfo,
       html
     } = this.data
-    console.log('卸载操作')
-    console.log("html" + html)
-    if (html == '' || (html == '<p><br></p>' && titleInfo.noteTitle == '')) {
-      console.log('s')
+    
+    // console.log('卸载操作')
+    // console.log("html" + html)      
+    if ((html == '<p><br></p>'&& titleInfo.noteTitle == '') || (html == '' && titleInfo.noteTitle == '')||(app.globalData.noteInfo.titleInfo == null && app.globalData.noteInfo.html == '')) {
+      // console.log('s')
       return
     }
     wx.showModal({
@@ -439,14 +434,17 @@ Page({
       cancelText: '狠心舍弃',
       cancelColor: '#DC143C',
       success(res) {
-        if (res.confirm) {
+        if (res.confirm) {         
           const noteInfo = {
             titleInfo: titleInfo,
             html: html
           }
           app.globalData.noteInfo = noteInfo
+          // console.log('保留操作')
+          // console.log(app.globalData.noteInfo)
         } else {
-          app.globalData.noteInfo = null
+          app.globalData.noteInfo.titleInfo = {}
+          app.globalData.noteInfo.html = ''
         }
       }
     })
@@ -454,16 +452,28 @@ Page({
   getNoteTitle: function (e) {
     this.setData({
       ['titleInfo.noteTitle']: e.detail.value
-    })
+    })   
+    if(app.globalData.noteInfo.titleInfo == null){
+      app.globalData.noteInfo.titleInfo={}
+    }
+    app.globalData.noteInfo.titleInfo.noteTitle=e.detail.value
   },
   getPointA: function (e) {
     this.setData({
       ['titleInfo.pointA']: e.detail.value
-    })
+    })   
+    if(app.globalData.noteInfo.titleInfo == null){
+      app.globalData.noteInfo.titleInfo={}
+    }
+    app.globalData.noteInfo.titleInfo.pointA = e.detail.value
   },
   getPointB: function (e) {
     this.setData({
       ['titleInfo.pointB']: e.detail.value
     })
+    if(app.globalData.noteInfo.titleInfo == null){
+      app.globalData.noteInfo.titleInfo={}
+    }
+    app.globalData.noteInfo.titleInfo.pointB = e.detail.value
   }
 })

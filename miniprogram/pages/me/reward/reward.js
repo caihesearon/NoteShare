@@ -14,11 +14,7 @@ Page({
         //若该用户已授权，获取其昵称和头像
         if(!res.authSetting['scope.userInfo']){
           //进行登录拦截
-          const flag = filter.identityFilter()  
-          if(flag){
-            this.page = 0 
-            this.getMyPostList(true)
-          }
+          const flag = filter.identityFilter()            
         }else{
           if(app.globalData.rewardPath != "" && app.globalData.rewardPath != null){
             that.setData({
