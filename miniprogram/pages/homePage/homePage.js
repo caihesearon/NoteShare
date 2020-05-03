@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // notes: [{
+    // notes: [{ 
     //   id: 1,                                   //卡片的编号  以及热度的排行
     //   clickNum:1000,                            //点击量   
     //   collectNum:10000,                           //收藏量
