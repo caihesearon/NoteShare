@@ -20,6 +20,8 @@
     "enablePullDownRefresh": true
   },
   "tabBar":{
+    "color": "#333333",
+    "selectedColor": "#87CEEB",
     "list":[
       {
         "pagePath": "pages/homePage/homePage",

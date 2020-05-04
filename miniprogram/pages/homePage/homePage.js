@@ -62,9 +62,9 @@ Page({
     // ],
     notes: [],
     // 热度的小图标  小火焰
-    fire: "https://ae01.alicdn.com/kf/Hadc5c9645cdc42cd80e1cee4d4360837t.jpg",
+    // fire: "https://ae01.alicdn.com/kf/Hadc5c9645cdc42cd80e1cee4d4360837t.jpg",
     //背景卡片
-    cardBg: "https://ae01.alicdn.com/kf/He8d68c34fbfe4ec6b0e11ca893fbad09F.jpg",
+    // cardBg: "https://ae01.alicdn.com/kf/He8d68c34fbfe4ec6b0e11ca893fbad09F.jpg",
     // 点击量的小图标
     clickIcon: "https://ae01.alicdn.com/kf/H57700e88fbe646508fb02fec0bc7b7c2T.jpg",
     // 收藏笔记的小图标

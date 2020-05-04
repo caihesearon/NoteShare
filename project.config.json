@@ -54,13 +54,6 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "pages/index/index",
-					"pathName": "pages/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "pages/personalPage/personalPage",
 					"pathName": "pages/personalPage/personalPage",
 					"query": "",
@@ -77,6 +70,14 @@
 					"id": -1,
 					"name": "pages/homePage/homePage",
 					"pathName": "pages/homePage/homePage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/me/reward/reward",
+					"pathName": "pages/me/reward/reward",
+					"query": "",
 					"scene": null
 				}
 			]
