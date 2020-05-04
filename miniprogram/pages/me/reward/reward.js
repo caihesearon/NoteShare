@@ -5,7 +5,10 @@ let filter = require('../../utils/filter.js');
 Page({   
   data: {    
     btnWord:"请上传收款二维码", //按钮文字
-    choosePicture: ''  //被选中的照片路径
+    choosePicture: '',  //被选中的照片路径
+    addQRcodeIcon:"https://ae01.alicdn.com/kf/Hd5b243a1a2e24929918df0f348f849c90.jpg",
+    fixQRcodeIcon:"https://ae01.alicdn.com/kf/H73ba63bdef954032ba4aca120643a44cA.jpg",
+    removeQRcodeIcon:"https://ae01.alicdn.com/kf/Hb452c9b598a04b72b537b2f652b0aa53i.jpg",
    },
   onLoad: function (options) {   
     var that = this
@@ -17,6 +20,7 @@ Page({
           const flag = filter.identityFilter()            
         }else{
           if(app.globalData.rewardPath != "" && app.globalData.rewardPath != null){
+            console.log("我进来了")
             that.setData({
               choosePicture:app.globalData.rewardPath,
               btnWord:"点击更换"
@@ -24,6 +28,12 @@ Page({
           }
         }
       }
+    })
+  },
+  // 移除二维码
+  removeinage:function(){
+    this.setData({
+      choosePicture:''
     })
   },
   chooseimage: function () {   

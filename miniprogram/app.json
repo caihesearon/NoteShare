@@ -20,8 +20,10 @@
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
-  "tabBar": {
-    "list": [
+  "tabBar":{
+    "color": "#333333",
+    "selectedColor": "#87CEEB",
+    "list":[	    
       {
         "pagePath": "pages/homePage/homePage",
         "text": "首页",

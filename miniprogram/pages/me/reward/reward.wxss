@@ -1,0 +1,68 @@
+.rewardCard{
+  width: 86%;
+  height: 800rpx;
+  background-color: white;
+  border-radius: 18rpx;
+  position: absolute;
+  top: 260rpx;
+  left: 7%;
+  display: flex;
+  flex-direction: column;
+}
+.styleOne{
+  width: 100%;
+  height: 100%;
+}
+.partOne{
+  width: 80%;
+  height: 120rpx;
+  position: relative;
+  top: 20rpx;
+  left: 10%;
+  display: flex;
+  justify-content:space-between;
+}
+.One, .Two{
+  width: 140rpx;
+  height: 140rpx;
+  /* border: 1px solid red; */
+}
+
+.removeQRcode,.fixQRcode{
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.fixQRcodeText,.removeQRcodeText,.addDes{
+  margin-top: 10rpx;
+  font-size: 0.8rem;
+  color: #959595;
+}
+
+.partTwo{
+  width: 570rpx;
+  height: 570rpx;
+  position: relative;
+  top: 75rpx;
+  left: 38rpx;
+}
+.QRcode{
+  width: 100%;
+  height: 100%;
+}
+
+.styleTwo{
+  width: 280rpx;
+  height: 280rpx;
+  position: relative;
+  top: 280rpx;
+  left: 180rpx;
+}
+.addQRcode{
+  width: 100%;
+  height: 100%;
+}
+.addDes{
+  position: relative;
+  left: 20rpx;
+}
