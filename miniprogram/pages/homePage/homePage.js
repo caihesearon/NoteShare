@@ -1,6 +1,6 @@
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 const db = wx.cloud.database()
-
+const app = getApp()
 Page({
 
   /**
@@ -104,7 +104,7 @@ Page({
   onShow: function (options) {
     //查询数据库获取我的的所有笔记 所有笔记中包括公开笔记  -- by hecai
     //判断本地是否存在我的笔记数据key为userAllNotes 存在就不调用数据库 不存在查询数据库并将数据加入到本地    
-    console.log('onShow')
+    
     if(this.data.notes.length == 0){//当前页面有就不用获取数据
       console.log('onShow1')
       let notes = wx.getStorageSync('userAllNotes')
@@ -133,8 +133,7 @@ Page({
         notes: res.data
       })
     })
-  },
-  
+  },  
   //点击弹出
   option: function (e) {
     // 获取当前点击的标签的值
@@ -366,12 +365,23 @@ Page({
       // on cancel
     });
   },
-
   // 点击创建笔记
   createNotes(e) {
     console.log("我点击了")
     wx.navigateTo({
       url: '../createNote/createNote',
+    })
+  },
+  //进入详情页面
+  toDetailPage:function(e){
+    //获取点击的卡片的详细信息
+    const {item} = e.currentTarget.dataset
+    // console.log(item)
+    //将笔记的详情放入全局中
+    app.globalData.noteDetail = item
+    console.log(app.globalData.noteDetail)
+    wx.navigateTo({
+      url: '../noteDetail/noteDetail',
     })
   }
 

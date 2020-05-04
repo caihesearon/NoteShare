@@ -3,13 +3,14 @@
     "pages/homePage/homePage",
     "pages/me/me",
     "pages/nCov-9/nCov-9",
-    "pages/nCov-9/epidemicTips/epidemicTips",    
+    "pages/nCov-9/epidemicTips/epidemicTips",
     "pages/personalPage/personalPage",
     "pages/createNote/previewNote/previewNote",
     "pages/me/reward/reward",
     "pages/me/myInfo/myInfo",
     "pages/createNote/createNote",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/noteDetail/noteDetail"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -19,8 +20,8 @@
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
-  "tabBar":{
-    "list":[
+  "tabBar": {
+    "list": [
       {
         "pagePath": "pages/homePage/homePage",
         "text": "首页",

@@ -10,7 +10,7 @@
 	<view class="Epidemic_data">
 		<view class="getTime">
 			<text class="DesTime">截止：</text>
-			<text class="time">2020-4-14 16:20:59</text>
+			<text class="time">{{currDate}}</text>
 			<!-- 后续可以转化时间戳 -->
 			<!-- <text class="time">{{items.updateTime}}</text>   -->
 		</view>

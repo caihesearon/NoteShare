@@ -27,7 +27,7 @@ button::after{
   font-style: initial;
   font-family: 'Courier New', Courier, monospace;
   font-weight: bolder;
-  font-size: 1.4em;  
+  font-size: 1.4em;    
 }
 .inbox{
   display:flex;  
