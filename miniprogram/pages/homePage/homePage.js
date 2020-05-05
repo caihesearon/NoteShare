@@ -1,6 +1,6 @@
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 const db = wx.cloud.database()
-
+const app = getApp()
 Page({
 
   /**
@@ -60,7 +60,8 @@ Page({
     //   }
 
     // ],
-    notes: [],
+    notes: [], //该用户所有笔记
+    opNotes: [], //该用户公开的笔记
     // 热度的小图标  小火焰
     fire: "https://ae01.alicdn.com/kf/Hadc5c9645cdc42cd80e1cee4d4360837t.jpg",
     //背景卡片
@@ -102,10 +103,11 @@ Page({
     currNote:{},//保存当前点击的卡片信息和数组下标
   },  
   onShow: function (options) {
+    var that = this
     //查询数据库获取我的的所有笔记 所有笔记中包括公开笔记  -- by hecai
     //判断本地是否存在我的笔记数据key为userAllNotes 存在就不调用数据库 不存在查询数据库并将数据加入到本地    
     console.log('onShow')
-    if(this.data.notes.length == 0){//当前页面有就不用获取数据
+    //if(this.data.notes.length == 0){//当前页面有就不用获取数据
       console.log('onShow1')
       let notes = wx.getStorageSync('userAllNotes')
       console.log(notes)
@@ -114,25 +116,73 @@ Page({
         console.log('onShow2')
       }else{
         console.log('onShow3')
-        this.getMyAllNote()
+        if(app.globalData.notesFlag != true){
+          console.log("进入")
+          this.getMyAllNote();
+        }else{
+          //如果显示的是我的笔记页面则将全局中的notesArr赋值给页面的notes
+          if(that.data.showMyNotes){
+            console.log(app.globalData.notesArr)
+            that.setData({
+              notes:app.globalData.notesArr
+            })
+          }
+          //如果显示的是公开笔记页面则将全局中的opNotesArr赋值给页面notes
+          else if(that.data.showPublicNotes){
+            console.log(app.globalData.opNotesArr)
+            that.setData({
+              notes:app.globalData.opNotesArr
+            })
+          }
+        }
       }
-    }
+    //}
     //查询收藏的笔记
-    //判断本地是否存在收藏笔记key为userLoveNotes
+    //新建一个数据库，首先需要我的openid，然后需要我收藏的笔记的_id和收藏的时间
 
 
   },
   //获取我的所有笔记 -- by hecai
+  //首次进入小程序从数据库中获取我的所有笔记并将其加入数据库 -- by harbor
   getMyAllNote(){
-    const that = this
+    var that = this
+    //获取用户全部笔记
     db.collection('userNotes')
       .orderBy('createTime','desc')
       .get().then(res=>{
-      console.log(res.data)
-      that.setData({
-        notes: res.data
-      })
+        //把从数据库中获取的所有笔记赋值给全局变量
+        app.globalData.notesArr = res.data
+        /*用户只需从数据库中获取一次数据将其加入全局，
+        从而每次加载页面时通过notesFlag值判断是否
+        需要访问数据库*/
+        app.globalData.notesFlag = true
+        that.setData({
+          notes:res.data
+        })
+        //遍历所有笔记，将公开笔记加入到opNotes和全局opNotesArr数组
+        for(let i = 0; i < that.data.notes.length; i++){
+          let temp = that.data.notes[i]
+          //isOpen为true则为公开笔记
+          if(temp.isOpen == true){
+            temp.index = i
+            that.data.opNotes.push(temp)
+          }
+        }
+        //将公开笔记同时加入全局
+        app.globalData.opNotesArr = that.data.opNotes
+        console.log(app.globalData.opNotesArr)
     })
+
+    //获取用户公开的笔记
+    // db.collection('userNotes').where({
+    //   isOpen:true
+    // }).get().then(res=>{
+    //   //把从数据库中获取的所有公开笔记赋值给全局变量
+    //   app.globalData.opNotesArr = res.data
+    //   that.setData({
+    //     opNotes:res.data
+    //   })
+    // })
   },
   
   //点击弹出
@@ -166,6 +216,7 @@ Page({
   },
   // 点击公开/私有笔记的操作
   public: function (e) {
+    var that = this
     this.setData({
       isPopping: true
     })
@@ -177,9 +228,56 @@ Page({
     console.log('笔记的id号：'+_id)
     console.log('index: ' + index)
     console.log(e)
+    console.log(that.data.notes[index].isOpen)
+    //当在我的笔记页面点击时设置其为公开
+    if(that.data.showMyNotes){
+      //避免重复公开
+      if(!that.data.notes[index].isOpen){
+        console.log("执行")
+        //更改数据库中isOpen属性为true
+        db.collection('userNotes').doc(_id).update({
+          data: {
+            isOpen:true
+          }
+        })
+        //把全局中此条数据的isOpen改为true
+        app.globalData.notesArr[index].isOpen = true
+        console.log(app.globalData.notesArr)
+        //当前页面对应数据isOpen属性同步更新
+        that.setData({
+          notes:app.globalData.notesArr
+        })
+        //将其加入公开笔记数组
+        var temp = that.data.notes[index]
+        temp.index = index
+        that.data.opNotes.push(temp)
+        //对应的公开笔记全局数组同步更新
+        app.globalData.opNotesArr = that.data.opNotes
+      }
+    }
+    //当在公开笔记页面点击时设置其为私有
+    else if(that.data.showPublicNotes){
+      //更改数据库中isOpen属性为false
+      db.collection('userNotes').doc(_id).update({
+        data: {
+          isOpen:false
+        }
+      })
+      //全局笔记对应更新
+      app.globalData.notesArr[that.data.notes[index].index].isOpen = false
+      //删除页面notes数组的指定数据并赋值给页面notes
+      that.data.notes.splice(index, 1)
+      that.setData({
+        notes:that.data.notes,
+        opNotes:that.data.notes
+      })
+      //对应的公开笔记全局数组同步更新
+      app.globalData.opNotesArr = that.data.opNotes
+    }
   },
   // 点击删除笔记的操作
   delete: function (e) {
+    var that = this
     this.setData({
       isPopping: true
     })
@@ -189,6 +287,59 @@ Page({
     const {index} = this.data.currNote
     console.log('笔记的id号：'+_id)
     console.log('index: ' + index)
+    //当在我的笔记页面进行删除
+    if(that.data.showMyNotes){
+      /*若公开笔记中也有此记录同时删除
+      我的笔记页面删除index对应改变，因此
+      公开笔记中大于index的index需要-1*/
+      for(let i = 0; i < that.data.opNotes.length; i++){
+        //index大于小标的需要进行-1操作，从而方便公开笔记界面的操作
+        if(that.data.opNotes[i].index > index){
+          that.data.opNotes[i].index = that.data.opNotes[i].index - 1;
+        }else if(that.data.opNotes[i].index == index){
+          //说明此条笔记是公开笔记，所以需删除公开笔记中对应的数据
+          that.data.opNotes.splice(i,1)
+          that.setData({
+            opNotes:that.data.opNotes
+          })
+        }
+      }
+      //全局对应更新
+      app.globalData.opNotesArr = that.data.opNotes
+      //删除页面notes数组的指定数据并赋值给页面notes
+      that.data.notes.splice(index, 1)
+      that.setData({
+        notes:that.data.notes
+      })
+      //全局数组对应更新
+      app.globalData.notesArr = that.data.notes
+      //删除数据库数据
+      db.collection('userNotes').doc(_id).remove()
+    }
+    //当在公开笔记页面进行删除
+    else if(that.data.showPublicNotes){
+      var temp = that.data.notes[index].index
+      console.log(temp)
+      console.log(that.data.notes[index])
+      //删除页面notes数组的指定数据并赋值给页面notes
+      that.data.notes.splice(index, 1)
+      that.setData({
+        notes:that.data.notes,
+        opNotes:that.data.notes
+      })
+      //对应我的笔记中该数据也会删除，所以opNotes中存放的部分数据的index需要-1操作
+      for(let i = 0; i < that.data.opNotes.length; i++){
+        if(that.data.opNotes[i].index > temp){
+          that.data.opNotes[i].index = that.data.opNotes[i].index-1
+        }
+      }
+      //全局公开数组对应变化
+      app.globalData.opNotesArr = that.data.opNotes
+      app.globalData.notesArr.splice(temp,1)
+      //删除数据库数据
+      db.collection('userNotes').doc(_id).remove()
+    }
+    console.log(that.data.notes)
     console.log("点击了删除笔记")
     console.log(e)
   },
@@ -317,18 +468,20 @@ Page({
 
   // 切换笔记分类
   chooseNotes(event) {
-    wx.showLoading({
-      title: '别急鸭...'
-    })
-    setTimeout(function () {
-      wx.hideLoading();
-    }, 1000)
+    // wx.showLoading({
+    //   title: '别急鸭...'
+    // })
+    // setTimeout(function () {
+    //   wx.hideLoading();
+    // }, 1000)
     if (event.detail.title === "我的笔记") {
+      console.log(app.globalData.notesArr)
       this.takeback(null);
       this.setData({
         showMyNotes: true,
         showPublicNotes: false,
         showCollectNotes: false,
+        notes:app.globalData.notesArr
       })
     } else if (event.detail.title === "公开笔记") {
       this.takeback(null);
@@ -336,8 +489,9 @@ Page({
         showMyNotes: false,
         showPublicNotes: true,
         showCollectNotes: false,
+        notes:app.globalData.opNotesArr
       })
-
+      
     } else if (event.detail.title === "收藏笔记") {
       this.takeback(null);
       this.setData({
