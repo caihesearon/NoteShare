@@ -22,16 +22,7 @@
   bottom: 255rpx;
   left: 88rpx;
 }
-/* 热度标识  即小火苗的大小及样式 */
-.fireModule{
-  width: 180rpx;
-  height: 50rpx;
-  position: absolute;
-  left: 15rpx;
-  top: 10rpx;
-  display: flex;
-  flex-direction: row;
-}
+
 /* 标题的具体样式河大小 */
  .content{
   width: 650rpx;

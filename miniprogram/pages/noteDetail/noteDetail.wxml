@@ -32,3 +32,6 @@
   </view>
 </view>
 </van-overlay>
+<view class="eidtor">
+	<button size="mini" class="eidtorBtn" bindtap="toEditorPage">编辑</button>
+</view>

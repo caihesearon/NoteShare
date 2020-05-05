@@ -11,8 +11,6 @@ Page({
     html:'',
     currTime:'',
     isHide:true, // 是否显示二维码
-    showModalStatus: false,//分类选择器的状态
-    animationData: '',//选择器的动画
     likeCount: 0,//点赞量
     loveCount: 0,//收藏量
     clickCount: 0,//点击量
@@ -37,7 +35,7 @@ Page({
     },
   onLoad: function (e) {
     const {noteDetail} = app.globalData    
-    console.log(noteDetail)    
+    // console.log(noteDetail)    
     this.setData({
       titleInfo: noteDetail.titleInfo,
       html: noteDetail.html,
@@ -65,5 +63,11 @@ Page({
       urls: [rewardPath] // 需要预览的图片http链接列表
     })
   },
+  //进入编辑页面
+  toEditorPage:function(){
+    wx.navigateTo({
+      url: '../createNote/createNote?editor=true',
+    })
+  }
  
 })

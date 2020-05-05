@@ -73,6 +73,8 @@ Page({
       console.log(app.globalData.noteInfo)
       //跳转到首页      
       //需要注意 跳转到首页需要传递
+      //首页需要重新到数据库中获取数据 -- by harbor
+      app.globalData.notesFlag = false
       wx.switchTab({
         url: '/pages/homePage/homePage',
       })      

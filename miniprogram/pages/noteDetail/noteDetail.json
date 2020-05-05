@@ -1,6 +1,6 @@
 {
   "usingComponents": {
     "van-divider": "@vant/weapp/divider/index",
-    "van-overlay": "@vant/weapp/overlay/index"
+    "van-overlay": "@vant/weapp/overlay/index"   
   }
 }
