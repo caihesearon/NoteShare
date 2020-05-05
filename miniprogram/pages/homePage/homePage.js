@@ -63,9 +63,9 @@ Page({
     notes: [], //该用户所有笔记
     opNotes: [], //该用户公开的笔记
     // 热度的小图标  小火焰
-    fire: "https://ae01.alicdn.com/kf/Hadc5c9645cdc42cd80e1cee4d4360837t.jpg",
+    // fire: "https://ae01.alicdn.com/kf/Hadc5c9645cdc42cd80e1cee4d4360837t.jpg",
     //背景卡片
-    cardBg: "https://ae01.alicdn.com/kf/He8d68c34fbfe4ec6b0e11ca893fbad09F.jpg",
+    // cardBg: "https://ae01.alicdn.com/kf/He8d68c34fbfe4ec6b0e11ca893fbad09F.jpg",
     // 点击量的小图标
     clickIcon: "https://ae01.alicdn.com/kf/H57700e88fbe646508fb02fec0bc7b7c2T.jpg",
     // 收藏笔记的小图标
@@ -108,6 +108,7 @@ Page({
     //判断本地是否存在我的笔记数据key为userAllNotes 存在就不调用数据库 不存在查询数据库并将数据加入到本地    
     console.log('onShow')
     //if(this.data.notes.length == 0){//当前页面有就不用获取数据
+
       console.log('onShow1')
       let notes = wx.getStorageSync('userAllNotes')
       console.log(notes)
@@ -173,6 +174,7 @@ Page({
         console.log(app.globalData.opNotesArr)
     })
 
+
     //获取用户公开的笔记
     // db.collection('userNotes').where({
     //   isOpen:true
@@ -183,8 +185,8 @@ Page({
     //     opNotes:res.data
     //   })
     // })
-  },
-  
+  },  
+
   //点击弹出
   option: function (e) {
     // 获取当前点击的标签的值
@@ -520,12 +522,23 @@ Page({
       // on cancel
     });
   },
-
   // 点击创建笔记
   createNotes(e) {
     console.log("我点击了")
     wx.navigateTo({
       url: '../createNote/createNote',
+    })
+  },
+  //进入详情页面
+  toDetailPage:function(e){
+    //获取点击的卡片的详细信息
+    const {item} = e.currentTarget.dataset
+    // console.log(item)
+    //将笔记的详情放入全局中
+    app.globalData.noteDetail = item
+    console.log(app.globalData.noteDetail)
+    wx.navigateTo({
+      url: '../noteDetail/noteDetail',
     })
   }
 

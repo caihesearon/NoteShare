@@ -1,71 +1,68 @@
 <!-- 使用VantWeapp 来实现Tabs组件功能 -->
-<van-tabs swipeable sticky
-          color="#1d826f"
-          z-index="3"
-          bind:change="chooseNotes">
-  <van-tab title="我的笔记"></van-tab>
-  <van-tab title="公开笔记"></van-tab>
-  <van-tab title="收藏笔记"></van-tab>
-<!-- 通过block循环来加载数据 -->
-<block wx:for="{{notes}}" wx:key="id">
-      <view class="showBox" >
-      <!-- 热度的模块  通过id的大小来显示其数量 -->
-       <view class="fireModule">
-          <image mode="aspectFill" wx:if="{{index < 4}}" class="fire" src="{{fire}}"></image>
-          <image mode="aspectFill" wx:if="{{index < 3}}" class="fire" src="{{fire}}"></image>
-          <image mode="aspectFill" wx:if="{{index < 2}}" class="fire" src="{{fire}}"></image>
-       </view>
-       <!-- 笔记卡片的背景图片 -->
-        <image class="noteCard" src="{{cardBg}}"></image>
-        <!-- 笔记标题的内容 -->
-          <view class="textContent">
-            <view class="content">{{item.titleInfo.noteTitle}}</view>
-        <!-- 标题下面一系列标题 板块 -->
-          <view class="label">
-          <!-- 点击量模块  通过showPublicNotes来控制是否展示 -->
-            <view class="clickNumber" wx:if="{{showPublicNotes}}">
-              <image class="clickIcon" src="{{clickIcon}}"></image>
-              <text class="clickNum">{{item.clickCount}}</text>
-            </view>
-            <!-- 收藏模块  通过 showCollectNotes 来控制是否展示-->
-             <view class="collectNumber" wx:if="{{showCollectNotes}}">
-              <image class="collectIcon" src="{{collectIcon}}"></image>
-              <text class="collectNum">{{item.collectNum}}</text>
-            </view>
-            <!-- 学科分类板块 -->
-            <view class="subject">
-              <image class="subjectIcon" src="{{subjectIcon}}"></image>
-              <view class="subjectDes">{{item.noteCategory}}</view>
-            </view>
-            <!-- 知识点板块 -->
-            <view class="knowledgePoint">
-            <!-- 总共显示两个知识点 -->
-              <view class="knowledgeOne" wx:if="{{item.titleInfo.pointA}}">#{{item.titleInfo.pointA}}</view>
-              <view class="knowledgeTwo" wx:if="{{item.titleInfo.pointB}}">#{{item.titleInfo.pointB}}</view>
-            </view>
-          </view>
-          <!-- 操作部分 -->
-          <view class="optionBox" wx:if="{{showMyNotes || showPublicNotes}}">
-              <!-- 每一个操作的动画都由三目运算符 判断点击是否是当前的卡片的id值 -->
-              <image class="optionItem" wx:if="{{showMyNotes}}" src="{{optionPublic}}" animation="{{tabIndex == index ? animPublic : ''}}" bindtap="public"></image>
-              <image class="optionItem" wx:if="{{showPublicNotes}}" src="{{optionPrivate}}" animation="{{tabIndex == index ? animPublic : ''}}" bindtap="public"></image>
-              <image class="optionItem" src="{{optionDelete}}" animation="{{tabIndex == index ? animDelete : ''}}" bindtap="delete"></image>
-              <image class="optionItem" src="{{optionSettop}}" animation="{{tabIndex == index ? animSettop : ''}}" bindtap="settop"></image>
-              <!-- 操作的加减号图片也是由三木运算符来 确定显示那一张卡片 -->
-              <!-- <image class="option" src="{{((tabIndex == index) && !isPopping) ? addIconTwo : addIconOne}}" data-item="{{item}}" data-index="{{index}}" animation="{{tabIndex == index ? animOption : ''}}" bindtap="option" data-id="{{item.id}}"></image> -->
-              <image class="option" src="{{tabIndex == index ? addIcon : addIconadd}}" data-item="{{item}}" data-index="{{index}}" animation="{{tabIndex == index ? animOption : ''}}" bindtap="option" data-id="{{item.id}}"></image>
-          </view>
-          <!-- 消息提示框 -->
-          <van-dialog id="van-dialog" />
-          <!-- 取消收藏模块 -->
-          <view class="cancelCollet" wx:if="{{showCollectNotes}}">
-              <image class="cancelColletIcon" src="{{CollectIndex == index ? cancelColletIcon : cancelColletIconOne}}" animation="{{CollectIndex == index ? ani : ''}}" bindtransitionend="aniEnd" data-index="{{index}}" bindtap="cancelCollet"></image>
-          </view>
-          </view>   
-      </view>
-   </block>
-   <!-- 创建笔记的点击跳转链接 -->
-   <view class="createNote" wx:if="{{showMyNotes}}">
-      <image class="createNoteIcon" src="{{createNoteIcon}}" bindtap="createNotes"></image>
-   </view>
-  </van-tabs>
+<van-tabs swipeable sticky color="#87CEEB" z-index="3" bind:change="chooseNotes">
+	<van-tab title="我的笔记"></van-tab>
+	<van-tab title="公开笔记"></van-tab>
+	<van-tab title="收藏笔记"></van-tab>
+	<!-- 通过block循环来加载数据 -->
+	<block wx:for="{{notes}}" wx:key="id">
+		<view class="showBox" bindtap="toDetailPage" data-item='{{item}}' >    
+			<!-- 热度的模块  通过id的大小来显示其数量 -->
+			<view class="fireModule">
+				<image mode="aspectFill" wx:if="{{index < 4}}" class="fire" src="{{fire}}"></image>
+				<image mode="aspectFill" wx:if="{{index < 3}}" class="fire" src="{{fire}}"></image>
+				<image mode="aspectFill" wx:if="{{index < 2}}" class="fire" src="{{fire}}"></image>
+			</view>
+			<!-- 笔记卡片的背景图片 -->
+			<image class="noteCard" src="{{cardBg}}"></image>
+			<!-- 笔记标题的内容 -->
+			<view class="textContent">
+				<view class="content">{{item.titleInfo.noteTitle}}</view>
+				<!-- 标题下面一系列标题 板块 -->
+				<view class="label">
+					<!-- 点击量模块  通过showPublicNotes来控制是否展示 -->
+					<view class="clickNumber" wx:if="{{showPublicNotes}}">
+						<image class="clickIcon" src="{{clickIcon}}"></image>
+						<text class="clickNum">{{item.clickCount}}</text>
+					</view>
+					<!-- 收藏模块  通过 showCollectNotes 来控制是否展示-->
+					<view class="collectNumber" wx:if="{{showCollectNotes}}">
+						<image class="collectIcon" src="{{collectIcon}}"></image>
+						<text class="collectNum">{{item.collectNum}}</text>
+					</view>
+					<!-- 学科分类板块 -->
+					<view class="subject">
+						<image class="subjectIcon" src="{{subjectIcon}}"></image>
+						<view class="subjectDes">{{item.noteCategory}}</view>
+					</view>
+					<!-- 知识点板块 -->
+					<view class="knowledgePoint">
+						<!-- 总共显示两个知识点 -->
+						<view class="knowledgeOne" wx:if="{{item.titleInfo.pointA}}">#{{item.titleInfo.pointA}}</view>
+						<view class="knowledgeTwo" wx:if="{{item.titleInfo.pointB}}">#{{item.titleInfo.pointB}}</view>
+					</view>
+				</view>
+				<!-- 操作部分 -->
+				<view class="optionBox" wx:if="{{showMyNotes || showPublicNotes}}">
+					<!-- 每一个操作的动画都由三目运算符 判断点击是否是当前的卡片的id值 -->
+					<image class="optionItem" wx:if="{{showMyNotes}}" src="{{optionPublic}}" animation="{{tabIndex == index ? animPublic : ''}}" bindtap="public"></image>
+					<image class="optionItem" wx:if="{{showPublicNotes}}" src="{{optionPrivate}}" animation="{{tabIndex == index ? animPublic : ''}}" bindtap="public"></image>
+					<image class="optionItem" src="{{optionDelete}}" animation="{{tabIndex == index ? animDelete : ''}}" bindtap="delete"></image>
+					<image class="optionItem" src="{{optionSettop}}" animation="{{tabIndex == index ? animSettop : ''}}" bindtap="settop"></image>
+					<!-- 操作的加减号图片也是由三木运算符来 确定显示那一张卡片 -->
+					<!-- <image class="option" src="{{((tabIndex == index) && !isPopping) ? addIconTwo : addIconOne}}" data-item="{{item}}" data-index="{{index}}" animation="{{tabIndex == index ? animOption : ''}}" bindtap="option" data-id="{{item.id}}"></image> -->
+					<image class="option" src="{{tabIndex == index ? addIcon : addIconadd}}" data-item="{{item}}" data-index="{{index}}" animation="{{tabIndex == index ? animOption : ''}}" bindtap="option" data-id="{{item.id}}"></image>
+				</view>
+				<!-- 消息提示框 -->
+				<van-dialog id="van-dialog" />
+				<!-- 取消收藏模块 -->
+				<view class="cancelCollet" wx:if="{{showCollectNotes}}">
+					<image class="cancelColletIcon" src="{{CollectIndex == index ? cancelColletIcon : cancelColletIconOne}}" animation="{{CollectIndex == index ? ani : ''}}" bindtransitionend="aniEnd" data-index="{{index}}" bindtap="cancelCollet"></image>
+				</view>
+			</view>
+		</view>
+	</block>
+	<!-- 创建笔记的点击跳转链接 -->
+	<view class="createNote" wx:if="{{showMyNotes}}">
+		<image class="createNoteIcon" src="{{createNoteIcon}}" bindtap="createNotes"></image>
+	</view>
+</van-tabs>

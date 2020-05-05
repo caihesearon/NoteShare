@@ -10,7 +10,7 @@
 	<view class="Epidemic_data">
 		<view class="getTime">
 			<text class="DesTime">截止：</text>
-			<text class="time">2020-4-14 16:20:59</text>
+			<text class="time">{{currDate}}</text>
 			<!-- 后续可以转化时间戳 -->
 			<!-- <text class="time">{{items.updateTime}}</text>   -->
 		</view>
@@ -111,7 +111,7 @@
 	<!-- 疫情地图板块 -->
 	<view class="Epidemic_map">
 		<text class="decText">国内疫情地图</text>
-		<van-tabs swipeable color="#00b26a"  active="{{ mapActive }}" bind:change="MaponChange">
+		<van-tabs swipeable color="#87CEEB"  active="{{ mapActive }}" bind:change="MaponChange">
 			<van-tab title="武汉加油" disabled="{{isDisable}}"></van-tab>
 			<van-tab title="当前确诊"></van-tab>
 			<van-tab title="累计确诊"></van-tab>

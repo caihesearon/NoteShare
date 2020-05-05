@@ -53,8 +53,30 @@
 			"list": [
 				{
 					"id": -1,
+					"name": "pages/personalPage/personalPage",
+					"pathName": "pages/personalPage/personalPage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/nCov-9/nCov-9",
+					"pathName": "pages/nCov-9/nCov-9",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
 					"name": "pages/homePage/homePage",
 					"pathName": "pages/homePage/homePage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/me/reward/reward",
+					"pathName": "pages/me/reward/reward",
+					"query": "",
 					"scene": null
 				}
 			]

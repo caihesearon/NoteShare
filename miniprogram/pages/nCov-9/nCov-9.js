@@ -36,6 +36,7 @@ Page({
     isShowMapThree:false,
     // 开发提示的弹出层 展示属性
     show: false,
+    currDate:'',//当前时间
   },
   deving(e){
     this.setData({
@@ -72,6 +73,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const date = new Date()
+    const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`  
     that = this;              //将当前的page对象赋给全局变量that
     var type = "currentData"; //直接声明当前 的请求 的数据类型
     that.setData({
@@ -83,7 +86,8 @@ Page({
         success:function (res) {
           // console.log(res)
           that.setData({
-            items : res.results[0]
+            items : res.results[0],
+            currDate: formatDate
           });
         }
       })      

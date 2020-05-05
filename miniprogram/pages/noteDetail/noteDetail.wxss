@@ -1,0 +1,18 @@
+@import "../../assets/iconfont.wxss";
+page{
+  box-sizing: border-box;
+  /* padding: 12rpx 5rpx 0rpx 12rpx; */
+  padding-top: 20rpx;
+  padding-right: 10rpx;
+  padding-left: 10rpx;
+  width: 100%;
+  min-height: 50vh;
+  height: 100%;
+  background: #fff;    
+  line-height: 1.5;
+}
+
+.count{
+  /* border: 1rpx solid black; */
+  margin-right: 30rpx;
+}
