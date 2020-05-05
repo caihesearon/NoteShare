@@ -11,3 +11,7 @@
 <view style="margin: auto auto;" bindtap="showRewardCode">
 	<icon class="iconfont icon-dashang"></icon>
 </view>
+
+<view class="eidtor">
+	<button size="mini" class="eidtorBtn" bindtap="toEditorPage">编辑</button>
+</view>

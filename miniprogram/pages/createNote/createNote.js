@@ -1,6 +1,7 @@
 import Toast from '@vant/weapp/toast/toast';
 import Dialog from '@vant/weapp/dialog/dialog';
 const app = getApp()
+const db = wx.cloud.database()
 Page({
   data: {
     formats: {},
@@ -19,9 +20,11 @@ Page({
       noteTitle: '',
       pointA: '',
       pointB: ''
-    }
+    },
+    isEditor: false, // 是否从个人笔记详情页面过来
   },
-  onLoad() {    
+  onLoad(e) {    
+    // console.log(e)
     const {
       windowHeight,
       windowWidth
@@ -31,22 +34,35 @@ Page({
     this.setData({
       phoneHeight: phoneHeight
     })
-    //用于用户退出后再进来还有之前编辑的内容
-    if (app.globalData.noteInfo.titleInfo != null || app.globalData.noteInfo.html != '') {
-      console.log('11')
+    const {editor} = e
+    //如果是从个人详情页面进来的
+    if(editor == "true"){      
+      const {html, titleInfo} = app.globalData.noteDetail
       this.setData({
-        titleInfo: app.globalData.noteInfo.titleInfo,
-        html: app.globalData.noteInfo.html
+        titleInfo: titleInfo,
+        html: html,
+        isEditor: true
       })
-      this.onEditorReady(app.globalData.noteInfo.html)
+      this.onEditorReady(html)
     }else{
-      const noteInfo = {
-        titleInfo:null,
-        html:''
+       //用于用户退出后再进来还有之前编辑的内容
+      if (app.globalData.noteInfo.titleInfo != null || app.globalData.noteInfo.html != '') {
+        // console.log('11')
+        this.setData({
+          titleInfo: app.globalData.noteInfo.titleInfo,
+          html: app.globalData.noteInfo.html
+        })
+        this.onEditorReady(app.globalData.noteInfo.html)
+      }else{
+        const noteInfo = {
+          titleInfo:null,
+          html:''
+        }
+        app.globalData.noteInfo = noteInfo
+        // console.log(app.globalData.noteInfo)
       }
-      app.globalData.noteInfo = noteInfo
-      console.log(app.globalData.noteInfo)
     }
+   
   },
   //监听页面滚动
   onPageScroll: function (e) {
@@ -151,6 +167,7 @@ Page({
     })
   }, //进入预览页面
   previewNote: function (e) {
+    const that = this
     // 1、获取头部的标题信息
     const {
       value
@@ -189,13 +206,36 @@ Page({
               showCancel: false,
             })
             return
-          } else {            
-            //将内容临时保存在app的全局变量中
-            app.globalData.titleInfo = value;
-            app.globalData.html = res.html
-            wx.navigateTo({
-              url: 'previewNote/previewNote'
-            })
+          } else {          
+            if(that.data.isEditor){
+              console.log('保存修改')
+              console.log(value)
+              console.log(res.html)
+              //修改数据库中的数据后 还需要修改本地app中的数据
+              const {_id} = app.globalData.noteDetail
+              console.log(_id)
+              db.collection('userNotes')
+                .where({
+                  _id: _id
+                })
+                .update({
+                  data:{
+                    titleInfo: value,
+                    html: res.html
+                  }
+                })                
+              //返回到首页
+              wx.switchTab({
+                url: '/pages/homePage/homePage',
+              })
+            }else{
+              //将内容临时保存在app的全局变量中
+              app.globalData.titleInfo = value;
+              app.globalData.html = res.html
+              wx.navigateTo({
+                url: 'previewNote/previewNote'
+              })
+            }          
           }
         })
       },
@@ -411,10 +451,15 @@ Page({
     this.setData({
       html: html
     })
-    app.globalData.noteInfo.html = html
+    if(!this.data.isEditor){
+      app.globalData.noteInfo.html = html
+    }
   },
   //页面卸载 用于获取用户是否保存编辑内容的临时内容
   onUnload: function (e) {  
+    if(this.data.isEditor){
+      return
+    }
     const {
       titleInfo,
       html
@@ -450,30 +495,41 @@ Page({
     })
   },
   getNoteTitle: function (e) {
-    this.setData({
-      ['titleInfo.noteTitle']: e.detail.value
-    })   
-    if(app.globalData.noteInfo.titleInfo == null){
-      app.globalData.noteInfo.titleInfo={}
+    const flag = this.data.isEditor
+    if(!flag){
+      this.setData({
+        ['titleInfo.noteTitle']: e.detail.value
+      })   
+      if(app.globalData.noteInfo.titleInfo == null){
+        app.globalData.noteInfo.titleInfo={}
+      }
+      app.globalData.noteInfo.titleInfo.noteTitle=e.detail.value
     }
-    app.globalData.noteInfo.titleInfo.noteTitle=e.detail.value
+
+    
   },
   getPointA: function (e) {
-    this.setData({
-      ['titleInfo.pointA']: e.detail.value
-    })   
-    if(app.globalData.noteInfo.titleInfo == null){
-      app.globalData.noteInfo.titleInfo={}
-    }
-    app.globalData.noteInfo.titleInfo.pointA = e.detail.value
+    const flag = this.data.isEditor
+    if(!flag){
+      this.setData({
+        ['titleInfo.pointA']: e.detail.value
+      })   
+      if(app.globalData.noteInfo.titleInfo == null){
+        app.globalData.noteInfo.titleInfo={}
+      }
+      app.globalData.noteInfo.titleInfo.pointA = e.detail.value
+    }   
   },
   getPointB: function (e) {
-    this.setData({
-      ['titleInfo.pointB']: e.detail.value
-    })
-    if(app.globalData.noteInfo.titleInfo == null){
-      app.globalData.noteInfo.titleInfo={}
-    }
-    app.globalData.noteInfo.titleInfo.pointB = e.detail.value
+    const flag = this.data.isEditor
+    if(!flag){
+      this.setData({
+        ['titleInfo.pointB']: e.detail.value
+      })
+      if(app.globalData.noteInfo.titleInfo == null){
+        app.globalData.noteInfo.titleInfo={}
+      }
+      app.globalData.noteInfo.titleInfo.pointB = e.detail.value
+    }   
   }
 })

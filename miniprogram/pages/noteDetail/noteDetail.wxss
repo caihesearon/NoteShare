@@ -1,7 +1,7 @@
 @import "../../assets/iconfont.wxss";
 page{
   box-sizing: border-box;
-  /* padding: 12rpx 5rpx 0rpx 12rpx; */
+  /* padding:  12rpx 5rpx 0rpx 12rpx; */
   padding-top: 20rpx;
   padding-right: 10rpx;
   padding-left: 10rpx;
@@ -15,4 +15,21 @@ page{
 .count{
   /* border: 1rpx solid black; */
   margin-right: 30rpx;
+}
+.eidtor{  
+  position: fixed;
+  width: 115rpx;
+  height: 75rpx;
+  right: 40rpx;
+  bottom: 28rpx;  
+}
+
+.eidtorBtn{
+  border: 1rpx solid #87CEEB;
+  border-radius: 7vmin;
+  width: 50rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  background-color: white;
+  color: #87CEEB;
 }

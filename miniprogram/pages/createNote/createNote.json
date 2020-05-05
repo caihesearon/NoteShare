@@ -5,7 +5,7 @@
     "van-toast": "@vant/weapp/toast/index",
     "van-dialog": "@vant/weapp/dialog/index"
   },
-  "navigationBarTitleText": "发表文章" ,
+  "navigationBarTitleText": "编辑" ,
   "enablePullDownRefresh": false
   
 }

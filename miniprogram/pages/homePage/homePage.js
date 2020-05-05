@@ -106,14 +106,14 @@ Page({
     //判断本地是否存在我的笔记数据key为userAllNotes 存在就不调用数据库 不存在查询数据库并将数据加入到本地    
     
     if(this.data.notes.length == 0){//当前页面有就不用获取数据
-      console.log('onShow1')
+      // console.log('onShow1')
       let notes = wx.getStorageSync('userAllNotes')
-      console.log(notes)
+      // console.log(notes)
       if(notes != ''){
         //将数据设置到当前页面
-        console.log('onShow2')
+        // console.log('onShow2')
       }else{
-        console.log('onShow3')
+        // console.log('onShow3')
         this.getMyAllNote()
       }
     }

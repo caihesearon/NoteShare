@@ -43,13 +43,12 @@
 	</editor>
 	<view class="editor-bottom" style="height:{{phoneHeight / 10}}rpx">		
 			<!-- 样式设置在app.wxss -->
-			<button form-type="submit" class="submitButton" hover-class="submitButtonHover">预览笔记</button>
+			<button wx:if="{{isEditor}}" form-type="submit" class="submitButton" hover-class="submitButtonHover" >保存修改</button>
+			<button wx:else form-type="submit" class="submitButton" hover-class="submitButtonHover">预览笔记</button>
 	</view>
 </view>
 
 
 <!-- hidden="{{keyboardHeight > 0 ? false : true}}" style="bottom: {{isIOS ? keyboardHeight : 0}}px"    style="height:{{editorHeight}}px;"" -->
-
-
 
 </form>
