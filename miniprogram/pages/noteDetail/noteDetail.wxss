@@ -99,6 +99,7 @@ page{
 .addDes{
   position: relative;
   left: 20rpx;
+}
 .eidtor{  
   position: fixed;
   width: 115rpx;
@@ -115,3 +116,4 @@ page{
   line-height: 70rpx;
   background-color: white;
   color: #87CEEB;
+}
