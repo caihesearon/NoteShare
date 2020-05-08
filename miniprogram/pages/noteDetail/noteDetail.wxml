@@ -1,28 +1,24 @@
+<!-- 最外层的view用与动态布局 -->
+<view class="outBox">
+<!-- 中间笔记内容的展示部分 -->
+<scroll-view class="scroll">
+<!-- 引入模板 -->
 <import src="../template/noteDetail.wxml" />
-<template is="commonInfo" data="{{titleInfo:titleInfo, html:html, currTime:currTime}}"></template>
-<view class="showCount">
-  <icon class="iconfont icon-yanjing count"> {{clickCount}}</icon>
-  <icon class="iconfont icon-dianzan1 count"> {{likeCount}}</icon>
-  <icon class="iconfont icon-shoucang2 count"> {{loveCount}}</icon>
-	<!-- 点击量{{clickCount}}
-	点赞量{{likeCount}}
-	收藏量{{loveCount}} -->
-</view>
-<view style="margin: auto auto;" bindtap="onClickShow"> <!-- bindtap="showRewardCode"-->
-	<icon class="iconfont icon-dashang"></icon>
-</view>
+<template is="commonInfo" data="{{titleInfo:titleInfo, html:html, currTime:currTime, nickName:nickName, optText:optText,first_click:first_click,state:state,clickCount:clickCount,loveCount:loveCount,icon,iscollect:iscollect,isclickPost:isclickPost}}"></template>
+<!-- 打赏码部分 -->
 <van-overlay show="{{ show }}" bind:click="onClickHide">
 	<view class="rewardCard">
   <view class="styleOne">
     <view class="partOne">
-    <image class="avatar" src="{{avatarIcon}}"></image>
+    <!-- <image class="avatar" src="{{avatarIcon}}"></image> -->
+    <open-data class="avatar" type="userAvatarUrl"></open-data>
     <view class="textDes">
       <text class="nickName">{{nickName}}</text>
       <text class="school">{{school}}</text>
     </view>
   </view>
   <view class="partTwo">
-    <image class="QRcode" src="{{choosePicture}}" mode="aspectFit"></image>
+    <image class="QRcode" src="{{rewardImage}}" mode="aspectFit"></image>
   </view>
   <view class="partThree">
     <text class="QRcodeDes">
@@ -32,6 +28,25 @@
   </view>
 </view>
 </van-overlay>
-<view class="eidtor">
-	<button size="mini" class="eidtorBtn" bindtap="toEditorPage">编辑</button>
+</scroll-view>
+<!-- 底部对于笔记具体操作的部分  在知识海洋中进入 -->
+<view class="optIconBox" wx:if="{{ true }}">
+  <view class="collect" bindtap="onClickCollect">
+    <image class="optIcon" src="{{iscollect ? icon.collectTwo : icon.collectOne}}"></image>
+    <text class="detailNum">{{loveCount}}{{iscollect ? icon.collectTextTwo : icon.collectTextOne}}</text>
+  </view>
+  <view class="clickpost" bindtap="onClickpost">
+    <image class="optIcon" src="{{isclickPost ? icon.clickPostTwo : icon.clickPostOne}}"></image>
+    <text class="detailNum">{{likeCount}}{{isclickPost ? icon.clickPostTextTwo : icon.clickPostTextOne}}</text>
+  </view>
+  <view class="reward" bindtap="onClickShow">
+    <image class="optIcon" src="{{icon.reward}}"></image>
+    <text class="detailNum">{{icon.rewardText}}</text>
+  </view>
+</view>
+<!-- 右下角的按钮部分 -->
+<view class="eidtor" wx:if="{{true}}">
+	<button size="mini" wx:if="{{false}}" class="eidtorBtn" bindtap="toEditorPage"><text class="eidtorText">编辑</text></button>
+  <button size="mini" wx:if="{{true}}" class="eidtorBtn" bindtap="toHerPage"><text class="pageText">他的主页</text></button>
+</view>
 </view>

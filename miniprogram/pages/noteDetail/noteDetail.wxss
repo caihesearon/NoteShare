@@ -1,7 +1,10 @@
+/* 引入icon小图标的样式文件 */
 @import "../../assets/iconfont.wxss";
+/* 引入模板中的样式的文件 */
+@import "../template/noteDetail.wxss";
+/* 给整个page的属性设置 */
 page{
   box-sizing: border-box;
-  /* padding:  12rpx 5rpx 0rpx 12rpx; */
   padding-top: 20rpx;
   padding-right: 10rpx;
   padding-left: 10rpx;
@@ -12,12 +15,54 @@ page{
   line-height: 1.5;
 }
 
+/*  最外边套一层view，样式display:flex;flex-direction:column; 中间内容区用scroll-view，给个样式flex:1; 就可以自适应高度 */
+.outBox{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+/* 中间笔记具体文字的部分 */
+.scroll{
+  flex:1;
+}
+/* 引入的图标后面的字体样式 */
 .count{
-  /* border: 1rpx solid black; */
-  margin-right: 30rpx;
+  color: #959595;
+  margin-left: 20rpx;
+
+}
+
+/* 底部点赞收藏和打赏小图标的样式 */
+.optIconBox{
+  width: 100%;
+  height: 120rpx;
+  display: flex;
+  flex-direction: row;
+  background-color: #F3F7FB;
+}
+/* 点赞收藏和打赏图标的大小 */
+.optIcon{
+  width: 50rpx;
+  height: 50rpx;
+  margin: 0 auto;
+}
+/* 点赞收藏和打赏图标和文字的大小 */
+.collect,.clickpost,.reward{
+  width: 162rpx;
+  height: 90rpx;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid red; */
+}
+/* 数字的样式 */
+.detailNum{
+  font-size: 0.7rem;
+  text-align: center;
 }
 
 /* 遮罩层 */
+/* 打赏码卡片的样式 */
 .rewardCard{
   width: 86%;
   height: 800rpx;
@@ -29,10 +74,12 @@ page{
   display: flex;
   flex-direction: column;
 }
+/* 第一部分 即显示头像昵称和学校的部分 */
 .styleOne{
   width: 100%;
   height: 100%;
 }
+/* 头像和昵称，学校的样式 */
 .partOne{
   width: 100%;
   height: 120rpx;
@@ -41,6 +88,7 @@ page{
   display: flex;
   flex-direction: row;
 }
+/* 头像的大小和样式 */
 .avatar{
   width: 120rpx;
   height: 120rpx;
@@ -48,6 +96,7 @@ page{
   position: relative;
   left: 20rpx;
 }
+/* 昵称和学校 */
 .textDes{
   margin-left: 40rpx;
   margin-top: 10rpx;
@@ -57,18 +106,13 @@ page{
 .nickName{
   font-weight: 700;
 }
+/* 卡片上文字的具体样式 */
 .school,.QRcodeDes,.addDes{
   margin-top: 10rpx;
   font-size: 0.8rem;
   color: #959595;
 }
-.fixQRcode{
-  width: 90rpx;
-  height: 90rpx;
-  position: relative;
-  top: 10rpx;
-  left: 202rpx;
-}
+/* 打赏码显示的部分 */
 .partTwo{
   width: 570rpx;
   height: 570rpx;
@@ -76,44 +120,40 @@ page{
   top: 40rpx;
   left: 38rpx;
 }
+/* 打赏码图片的显示部分 */
 .QRcode{
   width: 100%;
   height: 100%;
 }
-
+/* 打赏码下面的文字说明样式 */
 .QRcodeDes{
   position: relative;
   left: 163rpx;
 }
-.styleTwo{
-  width: 280rpx;
-  height: 280rpx;
-  position: relative;
-  top: 280rpx;
-  left: 180rpx;
-}
-.addQRcode{
-  width: 100%;
-  height: 100%;
-}
-.addDes{
-  position: relative;
-  left: 20rpx;
-}
+
+/* 编辑按钮的样式 */
 .eidtor{  
   position: fixed;
-  width: 115rpx;
+  width: 155rpx;
   height: 75rpx;
-  right: 40rpx;
-  bottom: 28rpx;  
+  right: 20rpx;
+  bottom: 75rpx;  
 }
-
+/* 编辑按钮 */
 .eidtorBtn{
   border: 1rpx solid #87CEEB;
   border-radius: 7vmin;
   width: 50rpx;
-  height: 70rpx;
-  line-height: 70rpx;
+  height: 75rpx;
+  line-height: 75rpx;
   background-color: white;
   color: #87CEEB;
+}
+/* 个人主页按钮中文字的样式 */
+.pageText{
+  font-size: 0.64rem;
+}
+/* 编辑按钮中文字的样式 */
+.eidtorText{
+  font-size: 0.9rem;
 }

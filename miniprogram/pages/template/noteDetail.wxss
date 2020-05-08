@@ -1,0 +1,129 @@
+
+/* 信息条的样式 */
+.barBox{
+  width: 100%;
+  height: 90rpx;
+  background-color: rgba(135,206,235, 0.3);
+  border-radius: 8rpx;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  top: 20rpx;
+}
+.nickBox{
+  width: 180rpx;
+  height: 80rpx;
+  overflow: hidden;
+  text-align: center;
+  line-height: 80rpx;
+}
+.Name{
+  font-size: 0.9rem;
+  line-height: 90rpx;
+  text-align: center;
+  color: #959595;
+}
+.skimBox{
+  width: 400rpx;
+  height: 90rpx;
+  position: relative;
+  line-height: 90rpx;
+}
+
+.optBox{
+  width: 120rpx;
+  height: 90rpx;
+  position: relative;
+  left: 125rpx;
+  text-align: center;
+}
+.optionText{
+  text-align: center;
+  line-height: 90rpx;
+  font-size: 0.8rem;
+  position: relative;
+  left: -120rpx;
+}
+.knowledgeBox{
+  width: 100%;
+
+  z-index: -3rpx;
+  
+}
+.subjectBox{
+  top: 20rpx;
+  width: 100%;
+}
+.knowledge{
+  width: 95rpx;
+  top: 10rpx;
+}
+.subjectBox,.knowledge{
+  height: 72rpx;
+  width: 100%;
+  position: relative;
+  
+}
+.knowledge{
+  position: relative;
+  bottom: 10rpx;
+  line-height: 40rpx;
+}
+.textDetail{
+  color: #959595;
+  font-size: 0.85rem;
+}
+
+.subject,.titlePoint{
+  color: #87CEEB;
+  font-weight: 800;
+  font-size: 0.98rem;
+  font-family: "PingFangSC-Medium";
+}
+
+
+
+/* 动画 */
+@keyframes slidedown{
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: 145rpx; /* 每次加90rpx*/
+    opacity: 1;
+  }
+}
+@keyframes slideup{
+  from {
+    height: 145rpx;
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+.open{
+  animation: slidedown 0.6s;
+}
+.close{
+  animation: slideup 0.6s; 
+}
+
+.hide{
+  display: none;
+  
+}
+
+.show{
+  display: block;
+}
+
+
+
+/* 笔记显示部分 */
+.noteContent{
+  position: relative;
+  top:45rpx;
+}

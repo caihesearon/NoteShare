@@ -1,15 +1,42 @@
 <template name="commonInfo">
 	<view class="title">
 		<text class="titleInfo">{{titleInfo.noteTitle}}</text>
-		<van-divider custom-style="width:35%" />
+		<view class="informationBar">
+			<view class="barBox">
+				<view class="nickBox">
+					<text class="Name">{{nickName}}</text>
+					<!-- <text class="Name">栗子不是栗子鸭</text> -->
+				</view>
+				<view class="skimBox">
+					<view class="skimNum">
+						<icon class="iconfont icon-yanjing count"> {{clickCount}} </icon>
+						<icon class="iconfont icon-shoucang2 count"> {{loveCount}}</icon>
+					</view>
+				</view>	
+				<view class="optBox" bindtap="openOpt">
+					<text class="optionText">{{optText}}</text>
+				</view>
+			</view>
+		</view>
 		<view>
-			<text hidden="{{titleInfo.pointA==''}}"  class="titlePoint" >#{{titleInfo.pointA}}</text>
-			<text hidden="{{titleInfo.pointB==''}}" class="titlePoint" >#{{titleInfo.pointB}}</text>
-			<van-divider wx:if="{{titleInfo.pointA!='' && titleInfo.pointB!=''}}" custom-style="width:80%" />
+			<view class="knowledgeBox"  class="{{first_click?'show':'hide'}} {{state?'open':'close'}}">
+				<view class="subjectBox">
+					<text class="textDetail">学科分类:</text>
+					<text class="subject">计算机</text>
+				</view>
+				<view class="knowledge">
+					<text class="textDetail">知 识 点:</text>
+					<text hidden="{{titleInfo.pointA==''}}"  class="titlePoint" >#{{titleInfo.pointA}}</text>
+					<text hidden="{{titleInfo.pointB==''}}" class="titlePoint" >#{{titleInfo.pointB}}</text>
+				</view>
+			</view>
+			<!-- <van-divider wx:if="{{titleInfo.pointA!='' && titleInfo.pointB!=''}}" custom-style="width:80%" /> -->
 		</view>
 	</view>
 
 	<rich-text nodes="{{html}}" class="noteContent"></rich-text>
 	<van-divider contentPosition="right" custom-style="width:100%">{{currTime}}</van-divider>
-
+	<view class="knowledgeBar">
+		
+	</view>
 </template>

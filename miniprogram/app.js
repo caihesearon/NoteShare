@@ -23,6 +23,12 @@ App({
         html:''
       }
     }
+        // 加载字体
+    wx.loadFontFace({
+          family: 'PingFangSC-Medium',
+          source: 'url("https://img2.misssixty.com.cn/rs/lib/fonts/PingFangSC-medium.ttf")',
+          success: function(){console.log('load font success')}
+        }) 
     wx.getSetting({
       success(res) {
         if(res.authSetting['scope.userInfo']){
