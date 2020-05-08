@@ -38,6 +38,7 @@ Page({
     //如果是从个人详情页面进来的
     if(editor == "true"){      
       const {html, titleInfo} = app.globalData.noteDetail
+      console.log(app.globalData.noteDetail)
       this.setData({
         titleInfo: titleInfo,
         html: html,
@@ -223,7 +224,9 @@ Page({
                     titleInfo: value,
                     html: res.html
                   }
-                })                
+                })      
+                // app.globalData.notesArr
+                
               //返回到首页
               wx.switchTab({
                 url: '/pages/homePage/homePage',

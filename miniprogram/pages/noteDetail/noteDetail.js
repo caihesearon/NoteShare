@@ -17,7 +17,7 @@ Page({
   },
   onLoad: function (e) {
     const {noteDetail} = app.globalData    
-    // console.log(noteDetail)    
+    console.log(noteDetail)    
     this.setData({
       titleInfo: noteDetail.titleInfo,
       html: noteDetail.html,

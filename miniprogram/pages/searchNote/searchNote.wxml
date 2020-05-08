@@ -1,0 +1,51 @@
+<import src="../../components/wxSearch/wxSearch.wxml" />
+
+
+	<view class="wxSearch-section">
+		<view class="wxSearch-pancel">
+			<input disabled="{{disabled}}" bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="搜索" />
+			<button class="wxSearch-button" bindtap="wxSearchFn" size="mini" plain="true">搜索</button>
+		</view>
+	</view>
+	<van-dropdown-menu>
+		<van-dropdown-item bind:open="disabledInput" bind:close="useInput" bind:change="changeLeft" value="{{ value1 }}" options="{{ option1 }}" />
+		<van-dropdown-item bind:open="disabledInput" bind:close="useInput" bind:change="changeRight" disabled="{{isSelect}}" value="{{ value2 }}" options="{{ option2 }}" />
+	</van-dropdown-menu>
+	<template is="wxSearch" data="{{wxSearchData}}" />
+
+<view class="container">
+	<!-- 通过block循环来加载数据 -->
+	<block wx:for="{{notes}}" wx:key="id" >
+		<view class="showBox" catchtap="toDetailPage" data-item='{{item}}'>
+			<!-- 笔记卡片的背景图片 -->
+			<image class="noteCard" src="{{cardBg}}"></image>
+			<!-- 笔记标题的内容 -->
+			<view class="textContent">
+				<view class="content">{{item.titleInfo.noteTitle}}</view>
+				<!-- 标题下面一系列标题 板块 -->
+				<view class="label">
+					<!-- 点击量模块  通过showPublicNotes来控制是否展示 -->
+					<view class="clickNumber">
+						<image class="clickIcon" src="https://ae01.alicdn.com/kf/H57700e88fbe646508fb02fec0bc7b7c2T.jpg"></image>
+						<text class="clickNum">{{item.clickCount}}</text>
+					</view>
+					<!-- 学科分类板块 -->
+					<view class="subject">
+						<image class="subjectIcon" src="https://ae01.alicdn.com/kf/H1db1534054194cac9b7c6c92f9e4f8c4J.jpg"></image>
+						<view class="subjectDes">{{item.noteCategory}}</view>
+					</view>
+					<!-- 知识点板块 -->
+					<view class="knowledgePoint">
+						<!-- 总共显示两个知识点 -->
+						<view class="knowledgeOne" wx:if="{{item.titleInfo.pointA}}">#{{item.titleInfo.pointA}}</view>
+						<view class="knowledgeTwo" wx:if="{{item.titleInfo.pointB}}">#{{item.titleInfo.pointB}}</view>
+					</view>
+				</view>
+				<!-- 消息提示框 -->
+				<van-dialog id="van-dialog" />
+				<!-- 取消收藏模块 -->
+			</view>
+		</view>
+	</block>
+
+</view>

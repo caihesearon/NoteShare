@@ -6,60 +6,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    // notes: [{ 
-    //   id: 1,                                   //卡片的编号  以及热度的排行
-    //   clickNum:1000,                            //点击量   
-    //   collectNum:10000,                           //收藏量
-    //   content: "Harbor is a pig, big pig!",   //知识标题的    
-    //   subject: "计算机",                       //笔记的分类属性
-    //   knowledgePointOne: "",                  //知识点1
-    //   knowledgePointTwo: "链表链表",            //知识点2
-    // },
-    //   {
-    //     id: 2,
-    //     clickNum:2233,
-    //     collectNum:0, 
-    //     content: "我只有一点点的笔记",
-    //     subject: "计算机",
-    //     knowledgePointOne: "数组",
-    //     knowledgePointTwo: "面对对象",
-    //   },
-    //   {
-    //     id: 3,
-    //     clickNum:123,
-    //     collectNum:2342, 
-    //     content: "我差不多有那麽一点的笔记，但是我的笔记并不是很多是，所以呢我还是只有一点点笔记",
-    //     subject: "计算机",
-    //     knowledgePointTwo: "数组",
-    //   },
-    //   {
-    //     id: 4,
-    //     clickNum:23,
-    //     collectNum:234, 
-    //     content: "optionPublic is one big",
-    //     subject: "计算机",
-    //     knowledgePointOne: "数组",
-    //     knowledgePointTwo: "作用域作用域",
-    //   },
-    //   {
-    //     id: 5,
-    //     clickNum:23,
-    //     collectNum:234, 
-    //     content: "我只有一点点的笔记",
-    //     subject: "计算机",
-    //     knowledgePointOne: "数组",
-    //   },
-    //   {
-    //     id: 6,
-    //     clickNum:23,
-    //     collectNum:10987000, 
-    //     content: "我差不多有那麽一点的笔记，但是我的笔记并不是很多是，所以呢我还是只有一点点笔记",
-    //     subject: "计算机计算机",
-    //     knowledgePointOne: "数组",
-    //   }
-
-    // ],
+  data: {    
     notes: [], //该用户所有笔记
     opNotes: [], //该用户公开的笔记
     // 热度的小图标  小火焰
@@ -526,6 +473,9 @@ Page({
     wx.navigateTo({
       url: '../createNote/createNote',
     })
+    // wx.navigateTo({
+    //   url: '../searchNote/searchNote',
+    // })
   },
   //进入详情页面
   toDetailPage:function(e){

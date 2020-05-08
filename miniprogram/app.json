@@ -10,7 +10,8 @@
     "pages/me/myInfo/myInfo",
     "pages/createNote/createNote",
     "pages/index/index",
-    "pages/noteDetail/noteDetail"
+    "pages/noteDetail/noteDetail",
+    "pages/searchNote/searchNote"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -20,10 +21,10 @@
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
-  "tabBar":{
+  "tabBar": {
     "color": "#333333",
     "selectedColor": "#87CEEB",
-    "list":[	    
+    "list": [
       {
         "pagePath": "pages/homePage/homePage",
         "text": "首页",
