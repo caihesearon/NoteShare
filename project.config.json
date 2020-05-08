@@ -78,12 +78,6 @@
 					"pathName": "pages/me/reward/reward",
 					"query": "",
 					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/searchNote/searchNote",
-					"pathName": "pages/searchNote/searchNote",
-					"scene": null
 				}
 			]
 		}

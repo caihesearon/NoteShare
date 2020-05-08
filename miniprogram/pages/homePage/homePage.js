@@ -75,6 +75,7 @@ Page({
           }
           //如果显示的是公开笔记页面则将全局中的opNotesArr赋值给页面notes
           else if(that.data.showPublicNotes){
+            
             console.log(app.globalData.opNotesArr)
             that.setData({
               notes:app.globalData.opNotesArr
@@ -103,8 +104,13 @@ Page({
         需要访问数据库*/
         app.globalData.notesFlag = true
         that.setData({
-          notes:res.data
+          opNotes:[]
         })
+        if(that.data.showMyNotes){
+          that.setData({
+            notes:res.data
+          })
+        }
         //遍历所有笔记，将公开笔记加入到opNotes和全局opNotesArr数组
         for(let i = 0; i < that.data.notes.length; i++){
           let temp = that.data.notes[i]
@@ -113,6 +119,11 @@ Page({
             temp.index = i
             that.data.opNotes.push(temp)
           }
+        }
+        if(that.data.showPublicNotes){
+          that.setData({
+            notes:that.data.opNotes
+          })
         }
         //将公开笔记同时加入全局
         app.globalData.opNotesArr = that.data.opNotes
@@ -229,66 +240,77 @@ Page({
       isPopping: true
     })
     this.takeback(null);
-    //根据_id对数据库中的数据进行删除 根据index对本地notes数组进行删除 -- by hecai
-    const {_id} = this.data.currNote.item
-    const {index} = this.data.currNote
-    console.log('笔记的id号：'+_id)
-    console.log('index: ' + index)
-    //当在我的笔记页面进行删除
-    if(that.data.showMyNotes){
-      /*若公开笔记中也有此记录同时删除
-      我的笔记页面删除index对应改变，因此
-      公开笔记中大于index的index需要-1*/
-      for(let i = 0; i < that.data.opNotes.length; i++){
-        //index大于小标的需要进行-1操作，从而方便公开笔记界面的操作
-        if(that.data.opNotes[i].index > index){
-          that.data.opNotes[i].index = that.data.opNotes[i].index - 1;
-        }else if(that.data.opNotes[i].index == index){
-          //说明此条笔记是公开笔记，所以需删除公开笔记中对应的数据
-          that.data.opNotes.splice(i,1)
-          that.setData({
-            opNotes:that.data.opNotes
-          })
+    wx.showModal({
+      title:"删除提示",
+      content:"是否删除此条笔记？",
+      confirmText:"确认删除",
+      cancelText:"我再想想",
+      success:function(res){
+        if(res.confirm){
+          //根据_id对数据库中的数据进行删除 根据index对本地notes数组进行删除 -- by hecai
+          const {_id} = that.data.currNote.item
+          const {index} = that.data.currNote
+          console.log('笔记的id号：'+_id)
+          console.log('index: ' + index)
+          //当在我的笔记页面进行删除
+          if(that.data.showMyNotes){
+            /*若公开笔记中也有此记录同时删除
+            我的笔记页面删除index对应改变，因此
+            公开笔记中大于index的index需要-1*/
+            for(let i = 0; i < that.data.opNotes.length; i++){
+              //index大于小标的需要进行-1操作，从而方便公开笔记界面的操作
+              if(that.data.opNotes[i].index > index){
+                that.data.opNotes[i].index = that.data.opNotes[i].index - 1;
+              }else if(that.data.opNotes[i].index == index){
+                //说明此条笔记是公开笔记，所以需删除公开笔记中对应的数据
+                that.data.opNotes.splice(i,1)
+                that.setData({
+                  opNotes:that.data.opNotes
+                })
+              }
+            }
+            //全局对应更新
+            app.globalData.opNotesArr = that.data.opNotes
+            //删除页面notes数组的指定数据并赋值给页面notes
+            that.data.notes.splice(index, 1)
+            that.setData({
+              notes:that.data.notes
+            })
+            //全局数组对应更新
+            app.globalData.notesArr = that.data.notes
+            //删除数据库数据
+            db.collection('userNotes').doc(_id).remove()
+          }
+          //当在公开笔记页面进行删除
+          else if(that.data.showPublicNotes){
+            var temp = that.data.notes[index].index
+            console.log(temp)
+            console.log(that.data.notes[index])
+            //删除页面notes数组的指定数据并赋值给页面notes
+            that.data.notes.splice(index, 1)
+            that.setData({
+              notes:that.data.notes,
+              opNotes:that.data.notes
+            })
+            //对应我的笔记中该数据也会删除，所以opNotes中存放的部分数据的index需要-1操作
+            for(let i = 0; i < that.data.opNotes.length; i++){
+              if(that.data.opNotes[i].index > temp){
+                that.data.opNotes[i].index = that.data.opNotes[i].index-1
+              }
+            }
+            //全局公开数组对应变化
+            app.globalData.opNotesArr = that.data.opNotes
+            app.globalData.notesArr.splice(temp,1)
+            //删除数据库数据
+            db.collection('userNotes').doc(_id).remove()
+          }
+          console.log(that.data.notes)
+          console.log("点击了删除笔记")
+          console.log(e)
         }
       }
-      //全局对应更新
-      app.globalData.opNotesArr = that.data.opNotes
-      //删除页面notes数组的指定数据并赋值给页面notes
-      that.data.notes.splice(index, 1)
-      that.setData({
-        notes:that.data.notes
-      })
-      //全局数组对应更新
-      app.globalData.notesArr = that.data.notes
-      //删除数据库数据
-      db.collection('userNotes').doc(_id).remove()
-    }
-    //当在公开笔记页面进行删除
-    else if(that.data.showPublicNotes){
-      var temp = that.data.notes[index].index
-      console.log(temp)
-      console.log(that.data.notes[index])
-      //删除页面notes数组的指定数据并赋值给页面notes
-      that.data.notes.splice(index, 1)
-      that.setData({
-        notes:that.data.notes,
-        opNotes:that.data.notes
-      })
-      //对应我的笔记中该数据也会删除，所以opNotes中存放的部分数据的index需要-1操作
-      for(let i = 0; i < that.data.opNotes.length; i++){
-        if(that.data.opNotes[i].index > temp){
-          that.data.opNotes[i].index = that.data.opNotes[i].index-1
-        }
-      }
-      //全局公开数组对应变化
-      app.globalData.opNotesArr = that.data.opNotes
-      app.globalData.notesArr.splice(temp,1)
-      //删除数据库数据
-      db.collection('userNotes').doc(_id).remove()
-    }
-    console.log(that.data.notes)
-    console.log("点击了删除笔记")
-    console.log(e)
+    })
+    
   },
   // 点击置顶笔记的操作
   settop: function (e) {

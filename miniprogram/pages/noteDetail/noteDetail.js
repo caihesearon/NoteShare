@@ -14,7 +14,25 @@ Page({
     likeCount: 0,//点赞量
     loveCount: 0,//收藏量
     clickCount: 0,//点击量
+    show: false,  //显示遮罩层
   },
+  // 点击获取本笔记的打赏二维码
+    onClickShow() {
+      console.log("我点击了第一个")
+      const {noteDetail} = app.globalData
+      this.setData({ 
+        show: true,
+        avatarIcon:noteDetail.avatarIcon,
+        nickName:noteDetail.nickName,
+        school:noteDetail.school
+      });
+    },
+// 点击隐藏
+    onClickHide() {
+      this.setData({
+         show: false 
+        });
+    },
   onLoad: function (e) {
     const {noteDetail} = app.globalData    
     console.log(noteDetail)    

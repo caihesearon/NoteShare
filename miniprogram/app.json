@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/knowledgeOcean/knowledgeOcean",
     "pages/homePage/homePage",
     "pages/me/me",
     "pages/nCov-9/nCov-9",
@@ -32,7 +33,7 @@
         "selectedIconPath": "images/selecthome.png"
       },
       {
-        "pagePath": "pages/nCov-9/nCov-9",
+        "pagePath": "pages/knowledgeOcean/knowledgeOcean",
         "text": "知识海洋",
         "iconPath": "images/chat.png",
         "selectedIconPath": "images/selectchat.png"

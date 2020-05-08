@@ -1,0 +1,45 @@
+<!-- 使用VantWeapp 来实现Tabs组件功能 -->
+<van-tabs swipeable sticky color="#87CEEB" z-index="3" bind:change="chooseNotes">
+	<van-tab title="计算机"></van-tab>
+	<van-tab title="理工"></van-tab>
+	<van-tab title="外语"></van-tab>
+	<van-tab title="文史"></van-tab>
+	<van-tab title="管理"></van-tab>
+	<van-tab title="艺术"></van-tab>
+	<van-tab title="心理"></van-tab>
+	<van-tab title="经历"></van-tab>
+	<!-- 通过block循环来加载数据 -->
+	<block wx:for="{{notes}}" wx:key="id">
+		<view class="showBox" catchtap="toDetailPage" data-item='{{item}}' >    
+			<!-- 热度的模块  通过id的大小来显示其数量 -->		
+			<!-- 笔记卡片的背景图片 -->
+			<image class="noteCard" src="{{cardBg}}"></image>
+			<!-- 笔记标题的内容 -->
+			<view class="textContent">
+				<view class="content">{{item.titleInfo.noteTitle}}</view>
+				<!-- 标题下面一系列标题 板块 -->
+				<view class="label">
+					<!-- 点击量模块  通过showPublicNotes来控制是否展示 -->
+					<view class="clickNumber" >
+						<image class="clickIcon" src="{{clickIcon}}"></image>
+						<text class="clickNum">{{item.clickCount}}</text>
+					</view>
+					<!-- 学科分类板块 -->
+					<view class="subject">
+						<image class="subjectIcon" src="{{subjectIcon}}"></image>
+						<view class="subjectDes">{{item.noteCategory}}</view>
+					</view>
+					<!-- 知识点板块 -->
+					<view class="knowledgePoint">
+						<!-- 总共显示两个知识点 -->
+						<view class="knowledgeOne" wx:if="{{item.titleInfo.pointA}}">#{{item.titleInfo.pointA}}</view>
+						<view class="knowledgeTwo" wx:if="{{item.titleInfo.pointB}}">#{{item.titleInfo.pointB}}</view>
+					</view>
+				</view>
+				
+				<!-- 消息提示框 -->
+				<van-dialog id="van-dialog" />
+			</view>
+		</view>
+	</block>
+</van-tabs>
