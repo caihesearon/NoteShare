@@ -223,7 +223,8 @@ Page({
                     titleInfo: value,
                     html: res.html
                   }
-                })                
+                })
+              app.globalData.notesFlag = false               
               //返回到首页
               wx.switchTab({
                 url: '/pages/homePage/homePage',
