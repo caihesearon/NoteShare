@@ -24,11 +24,12 @@
   flex: 8; 
   background-color: #eee;
   padding: 5px 10px;
+  border-radius: 30rpx;
 }
 .wxSearch-button{
   flex: 1;
   border: none !important;
-  color: cornflowerblue !important;
+  color: #2DC3A6 !important;
 }
 
 .wxSearchTitle{
@@ -55,12 +56,12 @@
 
 .wxSearchKeyItem{
   flex: 0 0 20%;
-  font-size: 14px;
+  font-size: 16px;
   text-align: center;
   border: 1px solid #eee;
   margin: 5px;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 8px;  
 }
 .wxSearchHistoryItem{
   padding: 10px 5px;
@@ -78,6 +79,10 @@
   padding: 3px 5px;
   border: 1px solid #eee;
   border-radius: 5px;
+}
+.delIcon{
+  width: 40rpx;
+  height: 40rpx;
 }
 .wxSearchHistoryEmpty{
   text-align: center;

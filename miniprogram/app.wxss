@@ -80,7 +80,6 @@ page {
   justify-content: flex-start;
   /* 设置全局字体*/
   font-family: "PingFangSC-Medium"; 
-  height: 100%;
   width: 100%;
   /* font-family: Georgia, 'Times New Roman', Times, serif; */
 }

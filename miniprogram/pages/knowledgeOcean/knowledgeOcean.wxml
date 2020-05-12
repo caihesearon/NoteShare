@@ -1,5 +1,6 @@
 <!-- 使用VantWeapp 来实现Tabs组件功能 -->
-<van-tabs swipeable sticky color="#87CEEB" z-index="3" bind:change="chooseNotes">
+<van-tabs swipeable sticky color="#87CEEB" z-index="3" bind:change="chooseNotes" class="index-tabs" line-width="20">
+	<van-tab title="推荐" ></van-tab>
 	<van-tab title="计算机"></van-tab>
 	<van-tab title="理工"></van-tab>
 	<van-tab title="外语"></van-tab>
@@ -9,7 +10,7 @@
 	<van-tab title="心理"></van-tab>
 	<van-tab title="经历"></van-tab>
 	<!-- 通过block循环来加载数据 -->
-	<block wx:for="{{notes}}" wx:key="id">
+	<block wx:for="{{notes}}" wx:if="{{!isShowHots}}" wx:key="id">
 		<view class="showBox" catchtap="toDetailPage" data-item='{{item}}' >    
 			<!-- 热度的模块  通过id的大小来显示其数量 -->		
 			<!-- 笔记卡片的背景图片 -->
@@ -42,4 +43,16 @@
 			</view>
 		</view>
 	</block>
+
+	<!-- 推荐栏目 -->
+	<view class="hotNews" wx:if="{{isShowHots}}">
+		<view class="nCov-9" bindtap="enterEpidemicPage">
+			<image class="epidemicImage" mode="aspectFill" src="{{epidemicImage}}"></image>
+			<text class="moduleText">点击了解疫情信息</text>
+		</view>
+	</view>
+
+	<view class="searchNote" wx:if="{{!isShowHots}}">
+			<image class="searchIcon" src="{{search}}" catchtap="searchNotes"></image>
+	</view>
 </van-tabs>

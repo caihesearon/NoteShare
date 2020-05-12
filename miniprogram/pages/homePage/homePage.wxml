@@ -1,5 +1,5 @@
 <!-- 使用VantWeapp 来实现Tabs组件功能 -->
-<van-tabs swipeable sticky color="#87CEEB" z-index="3" bind:change="chooseNotes">
+<van-tabs swipeable sticky color="#87CEEB" z-index="3" bind:change="chooseNotes" class="index-tabs" line-width="20">
 	<van-tab title="我的笔记"></van-tab>
 	<van-tab title="公开笔记"></van-tab>
 	<van-tab title="收藏笔记"></van-tab>

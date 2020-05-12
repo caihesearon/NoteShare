@@ -20,9 +20,9 @@
 var __keysColor = [];
 
 var __mindKeys = [];
-
+var colors = 'red';
 function initColors(colors){
-    __keysColor = colors;
+    __keysColor = 'red';
 }
 
 function initMindKeys(keys){

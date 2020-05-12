@@ -177,10 +177,15 @@
   z-index: 99;
   right: 50rpx;
   bottom: 50rpx;
-
 }
 /* 创建笔记的图标的样式 */
 .createNoteIcon{
   width: 100%;
   height: 100%;
+}
+
+/* 顶部Tabs访问当前title的样式 设置 */
+.index-tabs .van-tab--active .van-ellipsis {
+  color: #87CEEB;
+  font-size: 1.3rem;
 }

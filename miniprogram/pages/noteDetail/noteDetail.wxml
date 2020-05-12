@@ -4,7 +4,7 @@
 <scroll-view class="scroll">
 <!-- 引入模板 -->
 <import src="../template/noteDetail.wxml" />
-<template is="commonInfo" data="{{titleInfo:titleInfo, html:html, currTime:currTime, nickName:nickName, optText:optText,first_click:first_click,state:state,clickCount:clickCount,loveCount:loveCount,icon,iscollect:iscollect,isclickPost:isclickPost}}"></template>
+<template is="commonInfo" data="{{titleInfo:titleInfo, html:html, currTime:currTime, nickName:nickName, optText:optText,first_click:first_click,state:state,clickCount:clickCount,loveCount:loveCount,icon,iscollect:iscollect,isclickPost:isclickPost,way:way}}"></template>
 <!-- 打赏码部分 -->
 <van-overlay show="{{ show }}" bind:click="onClickHide">
 	<view class="rewardCard">
@@ -30,7 +30,7 @@
 </van-overlay>
 </scroll-view>
 <!-- 底部对于笔记具体操作的部分  在知识海洋中进入 -->
-<view class="optIconBox" wx:if="{{ true }}">
+<view class="optIconBox" wx:if="{{ isShowOptBar }}">
   <view class="collect" bindtap="onClickCollect">
     <image class="optIcon" src="{{iscollect ? icon.collectTwo : icon.collectOne}}"></image>
     <text class="detailNum">{{loveCount}}{{iscollect ? icon.collectTextTwo : icon.collectTextOne}}</text>
@@ -45,8 +45,8 @@
   </view>
 </view>
 <!-- 右下角的按钮部分 -->
-<view class="eidtor" wx:if="{{true}}">
-	<button size="mini" wx:if="{{false}}" class="eidtorBtn" bindtap="toEditorPage"><text class="eidtorText">编辑</text></button>
-  <button size="mini" wx:if="{{true}}" class="eidtorBtn" bindtap="toHerPage"><text class="pageText">他的主页</text></button>
+<view class="eidtor" wx:if="{{isShowBtn}}">
+	<button size="mini" wx:if="{{isShowBtnOne}}" class="eidtorBtn" bindtap="toEditorPage"><text class="eidtorText">编辑</text></button>
+  <button size="mini" wx:if="{{isShowBtnTwo}}" class="eidtorBtn" bindtap="toHerPage"><text class="pageText">他的主页</text></button>
 </view>
 </view>

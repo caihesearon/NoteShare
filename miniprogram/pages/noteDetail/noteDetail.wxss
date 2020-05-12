@@ -137,7 +137,7 @@ page{
   width: 155rpx;
   height: 75rpx;
   right: 20rpx;
-  bottom: 75rpx;  
+  bottom: 25rpx;  
 }
 /* 编辑按钮 */
 .eidtorBtn{

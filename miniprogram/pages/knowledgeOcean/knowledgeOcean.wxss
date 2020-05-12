@@ -154,3 +154,57 @@
   width: 100%;
   height: 100%;
 }
+
+/* 搜索笔记的模块的样式 */
+.searchNote{
+  width: 140rpx;
+  height: 140rpx;
+  position: fixed;
+  z-index: 99;
+  right: 50rpx;
+  bottom: 50rpx;
+}
+/* 搜索笔记的图标的样式 */
+.searchIcon{
+  width: 100%;
+  height: 100%;
+}
+
+/* 字体变化的动态效果 */
+@keyframes tranFont{
+  from {
+    font-size: 1rem;
+  }
+  to {
+    font-size: 1.3rem;
+    font-weight: 900;
+  }
+}
+/* 顶部Tabs访问当前title的样式 设置 */
+.index-tabs .van-tab--active .van-ellipsis {
+  animation: tranFont 0.4s;
+  color: #87CEEB;
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+/* 推荐板块的样式编写 */
+.hotNews{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.nCov-9{
+  width: 100%;
+  height: 440rpx;
+  /* border: 1px solid red; */
+}
+.epidemicImage{
+  width: 100%;
+  height: 100%;
+}
+.moduleText{
+  position: relative;
+  left: 25rpx;
+  bottom: 50rpx;
+}

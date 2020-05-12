@@ -508,8 +508,7 @@ Page({
     app.globalData.noteDetail = item
     console.log(app.globalData.noteDetail)
     wx.navigateTo({
-      url: '../noteDetail/noteDetail',
+      url: '../noteDetail/noteDetail?way=1&isShowBtn=true&isShowBtnOne=true',
     })
   }
-
 })

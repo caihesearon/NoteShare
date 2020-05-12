@@ -1,7 +1,8 @@
 <template name="commonInfo">
 	<view class="title">
 		<text class="titleInfo">{{titleInfo.noteTitle}}</text>
-		<view class="informationBar">
+		
+		<view class="informationBar" wx:if="{{way == 1}}">
 			<view class="barBox">
 				<view class="nickBox">
 					<text class="Name">{{nickName}}</text>
@@ -18,8 +19,16 @@
 				</view>
 			</view>
 		</view>
+		<view class="informationBar" wx:if="{{way == 2}}">
+				<view class="knowledge" wx:if="{{titleInfo.pointA!='' || titleInfo.pointB!=''}}">
+					<text class="textDetail">知 识 点:</text>
+					<text hidden="{{titleInfo.pointA==''}}"  class="titlePoint" >#{{titleInfo.pointA}}</text>
+					<text hidden="{{titleInfo.pointB==''}}" class="titlePoint" >#{{titleInfo.pointB}}</text>
+				</view>
+		</view>
 		<view>
-			<view class="knowledgeBox"  class="{{first_click?'show':'hide'}} {{state?'open':'close'}}">
+		<!-- 滑动展示学科信息和知识点 -->
+			<view  class="knowledgeBox" class="{{first_click?'show':'hide'}} {{state?'open':'close'}}">
 				<view class="subjectBox">
 					<text class="textDetail">学科分类:</text>
 					<text class="subject">计算机</text>
@@ -35,8 +44,5 @@
 	</view>
 
 	<rich-text nodes="{{html}}" class="noteContent"></rich-text>
-	<van-divider contentPosition="right" custom-style="width:100%">{{currTime}}</van-divider>
-	<view class="knowledgeBar">
-		
-	</view>
+	<van-divider contentPosition="center" custom-style="width:100%">{{currTime}}</van-divider>
 </template>

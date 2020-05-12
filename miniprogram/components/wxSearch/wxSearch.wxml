@@ -24,7 +24,8 @@
                 <block wx:for="{{wxSearchData.his}}" wx:key="id">
                     <view class="wxSearchHistoryItem">
                         <text class="wxSearchHistoryItemText" bindtap="wxSearchKeyTap" data-key="{{item}}">{{item}}</text> 
-                        <text class="wxSearchHistoryItemDel" bindtap="wxSearchDeleteKey" data-key="{{item}}" data-key="{{item}}">删除</text>
+                        <!-- <text class="wxSearchHistoryItemDel" bindtap="wxSearchDeleteKey" data-key="{{item}}" data-key="{{item}}">删除</text> -->
+                        <image class="delIcon" src="https://ae01.alicdn.com/kf/Hdff457e0910f4a17884a602724fd26a5C.jpg" bindtap="wxSearchDeleteKey" data-key="{{item}}" data-key="{{item}}"></image>
                     </view>
                 </block>
                 <view class="wxSearchDeleteAllBtn" bindtap="wxSearchDeleteAll">清除历史</view>

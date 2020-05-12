@@ -1,3 +1,4 @@
+@import '../../template/noteDetail.wxss';
 page{
   box-sizing: border-box;
   /* padding: 12rpx 5rpx 0rpx 12rpx; */

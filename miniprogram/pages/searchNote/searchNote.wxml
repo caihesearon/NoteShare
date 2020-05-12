@@ -1,13 +1,11 @@
 <import src="../../components/wxSearch/wxSearch.wxml" />
-
-
 	<view class="wxSearch-section">
 		<view class="wxSearch-pancel">
 			<input disabled="{{disabled}}" bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="搜索" />
 			<button class="wxSearch-button" bindtap="wxSearchFn" size="mini" plain="true">搜索</button>
 		</view>
 	</view>
-	<van-dropdown-menu>
+	<van-dropdown-menu active-color="#2DC3A6">
 		<van-dropdown-item bind:open="disabledInput" bind:close="useInput" bind:change="changeLeft" value="{{ value1 }}" options="{{ option1 }}" />
 		<van-dropdown-item bind:open="disabledInput" bind:close="useInput" bind:change="changeRight" disabled="{{isSelect}}" value="{{ value2 }}" options="{{ option2 }}" />
 	</van-dropdown-menu>

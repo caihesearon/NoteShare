@@ -235,7 +235,7 @@ Page({
               app.globalData.titleInfo = value;
               app.globalData.html = res.html
               wx.navigateTo({
-                url: 'previewNote/previewNote'
+                url: 'previewNote/previewNote?way=2'
               })
             }          
           }

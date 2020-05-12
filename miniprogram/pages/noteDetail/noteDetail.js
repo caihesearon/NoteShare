@@ -32,8 +32,15 @@ Page({
       rewardText:'打赏',
       reward: "https://ae01.alicdn.com/kf/H67faa92f81864c8c9fbc28270b421221C.jpg",
       fontSize:'1rem',
-    }
-    
+    },
+    // 表示页面跳转的方式
+    way:0,
+    // enterProperties:{
+    //   isShowOptBar:false,
+    //   isShowBtn:false,
+    //   isShowBtnOne:false,
+    //   isShowBtnTwo:false,
+    // },    
   },
 
   //收藏和取消收藏
@@ -141,6 +148,12 @@ onClickpost(){
         });
     },
   onLoad: function (e) { 
+    // 获取的从其父级页面传过来的属性值
+    const {way} = e             //表示显示学科分类和知识点
+    const {isShowBtn} = e       //显示按钮模块的属性
+    const {isShowBtnOne} = e    //显示第一个按钮即编辑按钮的属性
+    const {isShowBtnTwo} = e    //显示第二个按钮即显示进入个人主页的按钮
+    const {isShowOptBar} = e    //显示底部对于笔记操作的区域
     const {noteDetail} = app.globalData    
     console.log(noteDetail)    
     this.setData({
@@ -151,9 +164,13 @@ onClickpost(){
       loveCount: noteDetail.loveCount,
       clickCount: noteDetail.clickCount,
       nickName:noteDetail.nickName,
+      // 将从父级页面接收到的值传递给前端
+      way:way,
+      isShowBtn:isShowBtn,
+      isShowBtnOne:isShowBtnOne,
+      isShowBtnTwo:isShowBtnTwo,
+      isShowOptBar
     })    
-   
-    
   },  
   //展示打赏码
   showRewardCode:function(){

@@ -20,14 +20,17 @@ Page({
     nickName:'',//用户昵称
   },
   
-  onLoad: function (options) {    
+  onLoad: function (options) { 
+    const {way} = options   
     const date = new Date()
     const formatDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`    
     this.setData({
       titleInfo: app.globalData.titleInfo,
       html:app.globalData.html,
-      currTime: formatDate
+      currTime: formatDate,
+      way:way
     })    
+    console.log(way)
     console.log(this.data.titleInfo)
   },//返回编辑页面
   backToEditor:function(){

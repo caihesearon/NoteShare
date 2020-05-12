@@ -263,5 +263,17 @@ Page({
     this.setData({
       disabled: false
     })
-  }
+  },
+    //进入详情页面
+    toDetailPage:function(e){
+      //获取点击的卡片的详细信息
+      const {item} = e.currentTarget.dataset
+      // console.log(item)
+      //将笔记的详情放入全局中
+      app.globalData.noteDetail = item
+      console.log(app.globalData.noteDetail)
+      wx.navigateTo({
+        url: '../noteDetail/noteDetail?way=1&isShowOptBar=true&isShowBtn=true&isShowBtnTwo=true',
+      })
+    },
 })
