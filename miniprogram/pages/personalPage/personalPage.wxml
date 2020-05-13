@@ -8,7 +8,7 @@
           <text class="detailDes">点击查看详细信息</text>
         </view>
         <view class="partTwo">
-          <text class="Signature">我的影子告诉我它怕黑,所以我就不能怕黑。因为那样的话我们两个就都会很怕</text>
+          <text class="Signature">{{signature}}</text>
         </view>
     </view>
 
@@ -18,9 +18,9 @@
           <text class="nickName" style="font-size:{{fontSizeTwo}}">{{nickName}}</text>
       </view>
       <view class="sectionTwo">
-          <text class="Identity">学生</text>
-          <text class="emailNumber">924843357@qq.com</text>
-          <text class="SchoolName">湖北商贸学院</text>
+          <text class="Identity">{{identity}}</text>
+          <text class="emailNumber">{{email}}</text>
+          <text class="SchoolName">{{school}}</text>
           <text class="publicNote">公开笔记数量 <text class="noteNumber">34</text> 篇</text>
       </view>
     </view>
@@ -29,32 +29,32 @@
 
 
 <block wx:for="{{notes}}" wx:key="id">
-    <view class="notesBox">
+    <view class="notesBox" catchtap="toDetailPage" data-item='{{item}}'>
       <image  class="notesBg" src="{{notesBg}}"></image>
          <view class="textContent">
-            <view class="content">{{item.content}}</view>
+            <view class="content">{{item.titleInfo.noteTitle}}</view>
             <view class="label">
               <!-- 点击量模块  通过showPublicNotes来控制是否展示 -->
               <view class="clickNumber">
                 <image class="clickIcon" src="{{clickIcon}}"></image>
-                <text class="clickNum">{{item.clickNum}}</text>
+                <text class="clickNum">{{item.likeCount}}</text>
               </view>
                <!-- 收藏模块  通过 showCollectNotes 来控制是否展示-->
                 <view class="collectNumber">
                   <image class="collectIcon" src="{{collectIcon}}"></image>
-                  <text class="collectNum">{{item.collectNum}}</text>
+                  <text class="collectNum">{{item.loveCount}}</text>
                 </view>
                    <!-- 学科分类板块 -->
             <view class="subject">
               <image class="subjectIcon" src="{{subjectIcon}}"></image>
-              <view class="subjectDes">{{item.subject}}</view>
+              <view class="subjectDes">{{item.noteCategory}}</view>
             </view>
 
              <!-- 知识点板块 -->
             <view class="knowledgePoint">
             <!-- 总共显示两个知识点 -->
-              <view class="knowledgeOne" wx:if="{{item.knowledgePointOne}}">#{{item.knowledgePointOne}}</view>
-              <view class="knowledgeTwo" wx:if="{{item.knowledgePointTwo}}">#{{item.knowledgePointTwo}}</view>
+              <view class="knowledgeOne" wx:if="{{item.titileInfo.pointA}}">#{{item.titleInfo.pointA}}</view>
+              <view class="knowledgeTwo" wx:if="{{item.titleInfo.pointB}}">#{{item.titleInfo.pointB}}</view>
             </view>
 
             </view>

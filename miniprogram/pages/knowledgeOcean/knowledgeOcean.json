@@ -4,5 +4,6 @@
    "van-tabs": "@vant/weapp/tabs/index",
    "van-dialog": "@vant/weapp/dialog/index"
   },
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
 }

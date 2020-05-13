@@ -56,26 +56,47 @@ Page({
         condition:condition
       }
     }).then(res => {
-      that.setData({
-        notes:res.result.data
-      })
       //判断传入参数调用以便云函数条件查询
       if(condition == "计算机"){
         app.globalData.computerNotes = res.result.data
+        that.setData({
+          notes:res.result.data
+        })
       }else if(condition == "理工"){
         app.globalData.scienceNotes = res.result.data
+        that.setData({
+          notes:res.result.data
+        })
       }else if(condition == "外语"){
         app.globalData.englishNotes = res.result.data
+        that.setData({
+          notes:res.result.data
+        })
       }else if(condition == "文史"){
         app.globalData.historyNotes = res.result.data
+        that.setData({
+          notes:res.result.data
+        })
       }else if(condition == "管理"){
         app.globalData.manageNotes = res.result.data
+        that.setData({
+          notes:res.result.data
+        })
       }else if(condition == "艺术"){
         app.globalData.art = res.result.data
+        that.setData({
+          notes:res.result.data
+        })
       }else if(condition == "心理"){
         app.globalData.psychologyNotes = res.result.data
-      }else{
+        that.setData({
+          notes:res.result.data
+        })
+      }else if(condition == "经历"){
         app.globalData.experienceNotes = res.result.data
+        that.setData({
+          notes:res.result.data
+        })
       }
     })
   },  
@@ -207,6 +228,33 @@ Page({
   enterEpidemicPage(){
     wx.navigateTo({
       url: '../nCov-9/nCov-9',
+    })
+  },
+
+  //下拉刷新刷新当前页面的数据
+  onPullDownRefresh: function () {
+    var that = this;
+    if(that.data.nowPage == '计算机'){
+      that.getNotesByCondition('计算机')
+    }else if(that.data.nowPage == '理工'){
+      that.getNotesByCondition('理工')
+    }else if(that.data.nowPage == '外语'){
+      that.getNotesByCondition('外语')
+    }else if(that.data.nowPage == '文史'){
+      that.getNotesByCondition('文史')
+    }else if(that.data.nowPage == '管理'){
+      that.getNotesByCondition('管理')
+    }else if(that.data.nowPage == '艺术'){
+      that.getNotesByCondition('艺术')
+    }else if(that.data.nowPage == '心理'){
+      that.getNotesByCondition('心理')
+    }else if(that.data.nowPage == '经历'){
+      that.getNotesByCondition('经历')
+    }
+    wx.stopPullDownRefresh({
+      complete: (res) => {
+        console.log(res)
+      },
     })
   }
 

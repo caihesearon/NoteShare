@@ -1,59 +1,9 @@
+const app = getApp()
+const db = wx.cloud.database()
 Page({
   data: {
     // 笔记的具体内容
-    notes: [{
-      id: 1,                                   //卡片的编号  以及热度的排行
-      clickNum:1000,                            //点击量   
-      collectNum:10000,                           //收藏量
-      content: "Harbor is a pig, big pig!",   //知识标题的    
-      subject: "计算机",                       //笔记的分类属性
-      knowledgePointOne: "我只有一点点的笔记",                  //知识点1
-      knowledgePointTwo: "链表链表链表链链表链表链表链表表",            //知识点2
-    },
-      {
-        id: 2,
-        clickNum:2233,
-        collectNum:0, 
-        content: "我只有一点点的笔记",
-        subject: "计算机",
-        knowledgePointOne: "数组",
-        knowledgePointTwo: "面对对象",
-      },
-      {
-        id: 3,
-        clickNum:123,
-        collectNum:2342, 
-        content: "我差不多有那麽一点的笔记，但是我的笔记并不是很多是，所以呢我还是只有一点点笔记",
-        subject: "计算机",
-        knowledgePointTwo: "数组",
-      },
-      {
-        id: 4,
-        clickNum:23,
-        collectNum:234, 
-        content: "optionPublic is one big",
-        subject: "计算机",
-        knowledgePointOne: "数组",
-        knowledgePointTwo: "作用域作用域",
-      },
-      {
-        id: 5,
-        clickNum:23,
-        collectNum:234, 
-        content: "我只有一点点的笔记",
-        subject: "计算机",
-        knowledgePointOne: "数组",
-      },
-      {
-        id: 6,
-        clickNum:23,
-        collectNum:10987000, 
-        content: "我差不多有那麽一点的笔记，但是我的笔记并不是很多是，所以呢我还是只有一点点笔记",
-        subject: "计算机计算机",
-        knowledgePointOne: "数组",
-      }
-
-    ],
+    notes: [],
     // 头像地址
     avatarImage:"https://ae01.alicdn.com/kf/Ha46df173a35b4abaa3bb4337635aaaf0U.jpg",
     // 正面卡片背景
@@ -64,7 +14,11 @@ Page({
     animationMain:null,//正面动画效果
     animationBack:null,//背面动画效果
     
-    nickName:"阿港",
+    nickName:"",
+    identity:"",
+    signature:"",
+    school:"",
+    email:"",
     fontSizeOne:"1rem",
     fontSizeTwo:"1rem",
     notesBg: "https://ae01.alicdn.com/kf/H1589786633d14bdf877d9e6dab638e07F.jpg",
@@ -120,7 +74,41 @@ Page({
 
   // 在onshow方法中设置文字的大小随字数的多小而改变
   onShow:function(){
-      console.log(this.data.nickName.length)
+      var that = this
+      const {noteDetail} = app.globalData 
+      //获取当前用户所有信息
+      var opid = noteDetail._openid
+      //通过openid获取
+      wx.cloud.callFunction({
+        name:'getUserByOne',
+        data:{
+          opid:opid
+        }
+      }).then(res => {
+        var temp = res.result.data[0]
+        //给个人主页信息赋值
+        that.setData({
+          avatarImage:temp.avatarUrl,
+          nickName:temp.nickName,
+          signature:temp.signature,
+          school:temp.school,
+          identity:temp.identity,
+          email:temp.email
+        })
+      })
+
+      //获取当前用户所有公开笔记
+      wx.cloud.callFunction({
+        name:'getNotesByOpid',
+        data:{
+          opid:opid
+        }
+      }).then(res => {
+        console.log(res.result.data)
+        that.setData({
+          notes:res.result.data
+        })
+      })
       let len = this.data.nickName.length;
       var fontSizeOne = len > 7 ? 1.8 * 6.8 / len + 'rem' : '1.7rem';
       var fontSizeTwo = len > 2 ? 2.5 * 3 / len + 'rem' : '2.5rem';
@@ -128,5 +116,17 @@ Page({
         fontSizeOne : fontSizeOne,
         fontSizeTwo : fontSizeTwo
       })
+  },
+  //进入详情页面
+  toDetailPage:function(e){
+    //获取点击的卡片的详细信息
+    const {item} = e.currentTarget.dataset
+    // console.log(item)
+    //将笔记的详情放入全局中
+    app.globalData.noteDetail = item
+    console.log(app.globalData.noteDetail)
+    wx.navigateTo({
+      url: '../noteDetail/noteDetail?way=1&isShowOptBar=true',
+    })
   },
  })

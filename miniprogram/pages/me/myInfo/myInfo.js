@@ -40,11 +40,13 @@ Page({
   },
   //点击取消时触发
   bindCancel: function(e) {
-    wx.showToast({
-      title: '请选择你的身份',
-      icon: 'none',
-      duration: 2000
-    })
+    if(this.data.identity == ''){
+      wx.showToast({
+        title: '请选择你的身份',
+        icon: 'none',
+        duration: 2000
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -78,28 +80,28 @@ Page({
     })
   },
   
-  //学校输入框失去焦点时触发
+  //学校输入框内容改变时触发
   loseSchool:function(e){
     this.setData({
-      school: e.detail.value
+      school: e.detail
     })
   },
-  //学院输入框失去焦点时触发
+  //学院输入框内容改变时触发
   loseAcademy:function(e){
     this.setData({
-      academy: e.detail.value
+      academy: e.detail
     })
   },
-  //邮箱输入框失去焦点时触发
+  //邮箱输入框内容改变时触发
   loseEmail:function(e){
     this.setData({
-      email: e.detail.value
+      email: e.detail
     })
   },
-  //个性签名输入框失去焦点时触发
+  //个性签名输入框内容改变时触发
   loseSignature:function(e){
     this.setData({
-      signature: e.detail.value
+      signature: e.detail
     })
   },
   submitInfo: function(e){

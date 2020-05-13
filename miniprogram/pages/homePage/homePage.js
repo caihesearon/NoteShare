@@ -208,7 +208,14 @@ Page({
         //将其加入公开笔记数组
         var temp = that.data.notes[index]
         temp.index = index
-        that.data.opNotes.push(temp)
+        var array = []
+        array[0] = temp
+        for(var i = 1;i < that.data.opNotes.length+1;i++){
+          array[i] = that.data.opNotes[i-1]
+        }
+        that.setData({
+          opNotes:array
+        })
         //对应的公开笔记全局数组同步更新
         app.globalData.opNotesArr = that.data.opNotes
       }

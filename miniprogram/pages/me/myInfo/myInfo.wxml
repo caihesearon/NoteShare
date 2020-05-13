@@ -15,19 +15,19 @@
 
     <!-- 学校 -->
     <view class="box">
-      <van-field class='van-field' value='{{school}}' placeholder="请输入学校" label="学 校:" size="large" left-icon="wap-home" center='{{true}}' bind:blur='loseSchool' />
+      <van-field class='van-field' value='{{school}}' placeholder="请输入学校" label="学 校:" size="large" left-icon="wap-home" center='{{true}}' bind:change='loseSchool' />
     </view>
     <!-- 学院 -->
     <view class="box">
-      <van-field class='van-field' value='{{academy}}' placeholder="请输入学院" label="学 院:" size="large" left-icon="column" center='{{true}}' bind:blur='loseAcademy' />
+      <van-field class='van-field' value='{{academy}}' placeholder="请输入学院" label="学 院:" size="large" left-icon="column" center='{{true}}' bind:change='loseAcademy' />
     </view>
    <!-- 邮箱 -->
     <view class="box">
-      <van-field class='van-field' value='{{email}}' placeholder="请输入邮箱" label="邮 箱:" size="large" left-icon="card" center='{{true}}' bind:blur='loseEmail' />
+      <van-field class='van-field' value='{{email}}' placeholder="请输入邮箱" label="邮 箱:" size="large" left-icon="card" center='{{true}}' bind:change='loseEmail' />
     </view>
     <!-- 个性签名 -->
     <view class="box">
-      <van-field class='van-field' value='{{signature}}' placeholder="请输入你的个性签名" label="个性签名:" size="large" left-icon="comment" center='{{true}}' bind:blur='loseSignature' />
+      <van-field class='van-field' value='{{signature}}' placeholder="请输入你的个性签名" label="个性签名:" size="large" left-icon="comment" center='{{true}}' bind:change='loseSignature' />
     </view>
   </van-cell-group>
 

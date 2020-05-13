@@ -59,12 +59,13 @@ Page({
             db.collection('noteUser').add({
               data:{
                 nickName:that.data.nickName, //昵称
+                avatarUrl:that.data.avatarUrl,//头像
                 identity:'', //身份 
                 school:'', //学校
                 academy:'', //学院
                 email:'',//邮箱
                 signature:'',//个性签名
-                rewardPath:''//打赏码路径
+                rewardPath:'',//打赏码路径
               },
               success: res => {
                 app.globalData.dataid = res._id
