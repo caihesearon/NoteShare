@@ -1,4 +1,6 @@
-import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
+import Dialog from '@vant/weapp/dialog/dialog';
+import util from '../utils/util.js'
+
 const db = wx.cloud.database()
 const app = getApp()
 Page({
@@ -54,36 +56,27 @@ Page({
     //查询数据库获取我的的所有笔记 所有笔记中包括公开笔记  -- by hecai
     //判断本地是否存在我的笔记数据key为userAllNotes 存在就不调用数据库 不存在查询数据库并将数据加入到本地    
 
-      let notes = wx.getStorageSync('userAllNotes')
-      // console.log(notes)
-      if(notes != ''){
-        //将数据设置到当前页面
-        // console.log('onShow2')
-      }else{
-
-        console.log('onShow3')
-        if(app.globalData.notesFlag != true){
-          console.log("进入")
-          this.getMyAllNote();
-        }else{
-          //如果显示的是我的笔记页面则将全局中的notesArr赋值给页面的notes
-          if(that.data.showMyNotes){
-            console.log(app.globalData.notesArr)
-            that.setData({
-              notes:app.globalData.notesArr
-            })
-          }
-          //如果显示的是公开笔记页面则将全局中的opNotesArr赋值给页面notes
-          else if(that.data.showPublicNotes){
-            
-            console.log(app.globalData.opNotesArr)
-            that.setData({
-              notes:app.globalData.opNotesArr
-            })
-          }
-        }
+    if(app.globalData.notesFlag != true){
+      console.log("进入")
+      this.getMyAllNote();
+    }else{
+      //如果显示的是我的笔记页面则将全局中的notesArr赋值给页面的notes
+      if(that.data.showMyNotes){
+        console.log(app.globalData.notesArr)
+        that.setData({
+          notes:app.globalData.notesArr
+        })
       }
-    //}
+      //如果显示的是公开笔记页面则将全局中的opNotesArr赋值给页面notes
+      else if(that.data.showPublicNotes){
+        
+        console.log(app.globalData.opNotesArr)
+        that.setData({
+          notes:app.globalData.opNotesArr
+        })
+      }
+    }
+
     //查询收藏的笔记
     //新建一个数据库，首先需要我的openid，然后需要我收藏的笔记的_id和收藏的时间
 
@@ -93,16 +86,16 @@ Page({
   //首次进入小程序从数据库中获取我的所有笔记并将其加入数据库 -- by harbor
   getMyAllNote(){
     var that = this
+    /*用户只需从数据库中获取一次数据将其加入全局，
+    从而每次加载页面时通过notesFlag值判断是否
+    需要访问数据库*/
+    app.globalData.notesFlag = true
     //获取用户全部笔记
     db.collection('userNotes')
       .orderBy('createTime','desc')
       .get().then(res=>{
         //把从数据库中获取的所有笔记赋值给全局变量
-        app.globalData.notesArr = res.data
-        /*用户只需从数据库中获取一次数据将其加入全局，
-        从而每次加载页面时通过notesFlag值判断是否
-        需要访问数据库*/
-        app.globalData.notesFlag = true
+        app.globalData.notesArr = res.data       
         that.setData({
           opNotes:[]
         })
@@ -112,35 +105,48 @@ Page({
           })
         }
         //遍历所有笔记，将公开笔记加入到opNotes和全局opNotesArr数组
-        for(let i = 0; i < that.data.notes.length; i++){
-          let temp = that.data.notes[i]
+        for(let i = 0; i < app.globalData.notesArr.length; i++){
+          let temp = app.globalData.notesArr[i]
           //isOpen为true则为公开笔记
           if(temp.isOpen == true){
             temp.index = i
             that.data.opNotes.push(temp)
           }
-        }
+        }        
         if(that.data.showPublicNotes){
           that.setData({
             notes:that.data.opNotes
           })
         }
         //将公开笔记同时加入全局
-        app.globalData.opNotesArr = that.data.opNotes
-        console.log(app.globalData.opNotesArr)
+        app.globalData.opNotesArr = that.data.opNotes        
     })
-
-
-    //获取用户公开的笔记
-    // db.collection('userNotes').where({
-    //   isOpen:true
-    // }).get().then(res=>{
-    //   //把从数据库中获取的所有公开笔记赋值给全局变量
-    //   app.globalData.opNotesArr = res.data
-    //   that.setData({
-    //     opNotes:res.data
-    //   })
-    // })
+    //异步获取用户收藏的所有笔记
+    db.collection('userLoveNote')
+    .orderBy('createTime','desc')
+    .get().then(res=>{
+      const len = res.data.length
+      //判断是否有收藏的笔记
+      if(len == 0){
+        console.log('kong')
+      }else{
+        //获取所有的收藏笔记id
+        let loveNoteArr = res.data
+        wx.cloud.callFunction({
+          name: 'getLoveNote',
+          data:{
+            loveNoteArr: loveNoteArr
+          }
+        }).then(res=>{
+          if(that.data.showCollectNotes){
+            that.setData({
+              notes:res.result
+            })
+          }
+          app.globalData.loveNoteArr = res.result                    
+        })        
+      }      
+    })    
   },  
 
   //点击弹出
@@ -474,27 +480,32 @@ Page({
         showMyNotes: false,
         showPublicNotes: false,
         showCollectNotes: true,
+        notes: app.globalData.loveNoteArr
       })
     }
   },
   //取消收藏点击事件
-  cancelCollet(e) {
-    console.log(e)
-    let idx = e.currentTarget.dataset.index;
-    console.log(idx)
-    this.setData({
-      CollectIndex: idx,
-    })
+  cancelCollet(e) {   
+    var that = this
     this.timerAnimationInit()
-    this.timerAnimationStart()
-    Dialog.confirm({
+    this.timerAnimationStart()    
+    const {index} = e.currentTarget.dataset
+    const noteInfo = this.data.notes[index]    
+    wx.showModal({
       title: '提示',
-      message: '是否取消收藏，确认后该笔记将移出收藏列表'
-    }).then(() => {
-      // on confirm
-    }).catch(() => {
-      // on cancel
-    });
+      content: '确定取消收藏',
+      success (res) {
+        if (res.confirm) {
+          that.data.notes.splice(index, 1)
+          that.setData({
+            notes: that.data.notes
+          })
+          app.globalData.loveNoteArr = that.data.notes
+          util.removeLoveNote(noteInfo._id)           
+        } else if (res.cancel) {           
+        }
+      }
+    })   
   },
   // 点击创建笔记
   createNotes(e) {

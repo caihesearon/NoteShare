@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/knowledgeOcean/knowledgeOcean",
     "pages/homePage/homePage",
+    "pages/knowledgeOcean/knowledgeOcean",
     "pages/me/me",
     "pages/nCov-9/nCov-9",
     "pages/nCov-9/epidemicTips/epidemicTips",

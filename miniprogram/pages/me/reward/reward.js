@@ -35,56 +35,42 @@ Page({
     const that = this
     const choosePicture = that.data.choosePicture
     // 直接获取用户在授权时 存在app中的数据，然后在云数据库中进行置空操作
-    const {rewardPath} = app.globalData  
+    const {rewardPath,dataid} = app.globalData  
+    console.log(rewardPath)
    if(that.data.choosePicture != ''){ 
-    //  因为一般用户无法直接修改云数据库  所以需要用云函数来操作
-    wx.cloud.callFunction({
-      name:'updataRewardPath',
+     //第一步：将数据库中的路径置空
+    db.collection('noteUser').doc(dataid).update({
       data:{
-        docid:app.globalData.dataid,
-        path:""
-      },success:function(res){
-        wx.showToast({
-          title: '移除成功',
-          icon:'success'
-        })
-        that.setData({
-          choosePicture:"",
-        })
-        // 将用户缓存中的打赏码路径删除掉 防止用户没有刷新而会继续加载之前缓存中的二维码
-        app.globalData.rewardPath = ""
-        console.log(res)
-      },fail:function(res){
-        console.log(res)
+        rewardPath: ''
       }
-    })
-  //   db.collection('noteUser').doc(rewardPath).update({
-  //     data: {
-  //       rewardPath : ""
-  //     },
-  //     success: res => {
-  //       wx.showToast({
-  //         title: '移除成功',
-  //         icon:'success'
-  //       })
-  //       that.setData({
-  //         choosePicture: '',
-  //       })
-  //     },
-  //     fail: err => {
-  //       icon: 'fail',
-  //       console.error('[数据库] [更新记录] 失败：', err)
-  //     }
-  //   })
-  // } else {
-  //   wx.showToast({
-  //     title: '没有可以删除的打赏码！',
-  //   })
-  }
+    }).then(res=>{
+      wx.showToast({
+        title: '移除成功',
+        icon:'success'
+      })
+      that.setData({
+        choosePicture: '',
+      })
+      // 将用户缓存中的打赏码路径删除掉 防止用户没有刷新而会继续加载之前缓存中的二维码
+      app.globalData.rewardPath = ""
+      //第二步：根据fileId删除云存储中的图片
+      wx.cloud.deleteFile({
+        fileList: [rewardPath]
+      })
+    })   
+    }
   },
   // 选择要上传的打赏码
   chooseimage: function () {   
     var that = this;  
+    //如果有打赏就先删除后再上传
+    if(that.data.choosePicture != ''){
+      //第二步：根据fileId删除云存储中的图片
+      wx.cloud.deleteFile({
+        fileList: [that.data.choosePicture]
+      })
+    }
+   
     wx.showActionSheet({     
       itemList: ['从相册中选择'],          
       success: function (res) {      

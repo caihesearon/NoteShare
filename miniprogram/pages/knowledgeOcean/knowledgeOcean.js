@@ -1,4 +1,6 @@
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
+import util from '../utils/util.js'
+
 const db = wx.cloud.database()
 const app = getApp()
 Page({
@@ -24,7 +26,8 @@ Page({
     showMyNotes: true, //展示我的笔记属性
     currNote:{},//保存当前点击的卡片信息和数组下标
   },  
-  onShow: function (options) {
+  onShow: function (options) {        
+
     var that = this
     //每次进入知识海洋处于哪个版块就把当前版块的值赋值给notestrue
    if(that.data.nowPage == "计算机"){
@@ -99,7 +102,9 @@ Page({
         })
       }
     })
+
   },  
+
   // 切换笔记分类
   chooseNotes(event) {
     var that = this
@@ -207,12 +212,25 @@ Page({
 
   //进入详情页面
   toDetailPage:function(e){
+    
+    //点击后需要点击量加一        
     //获取点击的卡片的详细信息
     const {item} = e.currentTarget.dataset
-    // console.log(item)
+    const {_id} = item
+    const flag = util.getLocalStorage(_id)
+    if(flag){
+      //对一天已经点击过的笔记卡片进行记录 防止重复点击
+      util.setLocalStorage(_id)
+      wx.cloud.callFunction({
+        name: 'upCountByType',
+        data:{
+          type: 'addClick',
+          _id: _id
+        }
+      })
+    }        
     //将笔记的详情放入全局中
-    app.globalData.noteDetail = item
-    console.log(app.globalData.noteDetail)
+    app.globalData.noteDetail = item    
     wx.navigateTo({
       url: '../noteDetail/noteDetail?way=1&isShowOptBar=true&isShowBtn=true&isShowBtnTwo=true',
     })

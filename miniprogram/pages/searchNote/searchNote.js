@@ -70,8 +70,7 @@ Page({
     console.log(value)
     if (value != '') {
       //点击搜索不为 所有 时
-      if (this.data.value1 != 0) {
-        console.log('demaxiya')
+      if (this.data.value1 != 0) {        
         this.getNoteBySortType(value, this.data.value1)
       } else {
         let countType = this.getCountType(this.data.value2)
@@ -88,9 +87,6 @@ Page({
     this.setData({
       value1: detail
     })
-    // console.log(this.data.value1)
-    // console.log(this.data.value2)
-
     //如果左边下拉框的值不为所有
     if (detail !== 0) {
       this.setData({

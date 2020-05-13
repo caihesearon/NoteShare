@@ -1,3 +1,6 @@
+<!-- 消息提示框 -->
+<van-dialog id="van-dialog" /> 
+
 <!-- 使用VantWeapp 来实现Tabs组件功能 -->
 <van-tabs swipeable sticky color="#87CEEB" z-index="3" bind:change="chooseNotes" class="index-tabs" line-width="20">
 	<van-tab title="我的笔记"></van-tab>
@@ -47,8 +50,7 @@
 					<!-- <image class="option" src="{{((tabIndex == index) && !isPopping) ? addIconTwo : addIconOne}}" data-item="{{item}}" data-index="{{index}}" animation="{{tabIndex == index ? animOption : ''}}" bindtap="option" data-id="{{item.id}}"></image> -->
 					<image class="option" src="{{tabIndex == index ? addIcon : addIconadd}}" data-item="{{item}}" data-index="{{index}}" animation="{{tabIndex == index ? animOption : ''}}" catchtap="option" data-id="{{item.id}}"></image>
 				</view>
-				<!-- 消息提示框 -->
-				<van-dialog id="van-dialog" />
+				
 				<!-- 取消收藏模块 -->
 				<view class="cancelCollet" wx:if="{{showCollectNotes}}">
 					<image class="cancelColletIcon" src="{{CollectIndex == index ? cancelColletIcon : cancelColletIconOne}}" animation="{{CollectIndex == index ? ani : ''}}" bindtransitionend="aniEnd" data-index="{{index}}" catchtap="cancelCollet"></image>
