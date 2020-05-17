@@ -106,35 +106,45 @@ Page({
   },
   submitInfo: function(e){
     var that = this
-    app.globalData.nickName = that.data.nickName, //用户昵称
-    app.globalData.identity = that.data.identity, //用户身份
-    app.globalData.school = that.data.school, //用户学校
-    app.globalData.academy = that.data.academy, //用户学院
-    app.globalData.email = that.data.email, //用户邮箱
-    app.globalData.signature = that.data.signature //用户个性签名
-    //完善用户信息传入到数据库
-    db.collection('noteUser').doc(this.data.dataid).update({
-      data: {
-        //将输入的数据更新到数据库中
-        nickName:this.data.nickName, //昵称
-        identity:this.data.identity, //身份 
-        school:this.data.school, //学校
-        academy:this.data.academy, //学院
-        email:this.data.email,//邮箱
-        signature:this.data.signature//个性签名
-      }
-    }).then(res => {
-      console.log(res)
-    })
-    wx.navigateBack({
-      delta: 1
-    })
-    wx.showToast({ //弹出框
-      title: '保存成功！', //显示内容
-      icon: 'sucess',
-      duration: 1000
-    })
-  }
-  
- 
+    //邮箱正则表达式
+    var emailFormat = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+    var myEmail = that.data.email
+    //若邮箱输入不为空而不符合邮箱格式则提交失败
+    if(myEmail != "" && !emailFormat.test(myEmail)){
+      wx.showToast({ //弹出框
+        title: '请输入正确的邮箱!', //显示内容
+        icon: 'none',
+        duration: 1500
+      })
+    }else{
+      app.globalData.nickName = that.data.nickName, //用户昵称
+      app.globalData.identity = that.data.identity, //用户身份
+      app.globalData.school = that.data.school, //用户学校
+      app.globalData.academy = that.data.academy, //用户学院
+      app.globalData.email = that.data.email, //用户邮箱
+      app.globalData.signature = that.data.signature //用户个性签名
+      //完善用户信息传入到数据库
+      db.collection('noteUser').doc(this.data.dataid).update({
+        data: {
+          //将输入的数据更新到数据库中
+          nickName:this.data.nickName, //昵称
+          identity:this.data.identity, //身份 
+          school:this.data.school, //学校
+          academy:this.data.academy, //学院
+          email:this.data.email,//邮箱
+          signature:this.data.signature//个性签名
+        }
+      }).then(res => {
+        console.log(res)
+      })
+      wx.navigateBack({
+        delta: 1
+      })
+      wx.showToast({ //弹出框
+        title: '保存成功！', //显示内容
+        icon: 'sucess',
+        duration: 1000
+      })
+    }
+  } 
 })

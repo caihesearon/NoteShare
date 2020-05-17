@@ -19,6 +19,7 @@ Page({
     signature:"",
     school:"",
     email:"",
+    publicCount:0,
     fontSizeOne:"1rem",
     fontSizeTwo:"1rem",
     notesBg: "https://ae01.alicdn.com/kf/H1589786633d14bdf877d9e6dab638e07F.jpg",
@@ -96,7 +97,6 @@ Page({
           email:temp.email
         })
       })
-
       //获取当前用户所有公开笔记
       wx.cloud.callFunction({
         name:'getNotesByOpid',
@@ -104,9 +104,9 @@ Page({
           opid:opid
         }
       }).then(res => {
-        console.log(res.result.data)
         that.setData({
-          notes:res.result.data
+          notes:res.result.data,
+          publicCount:res.result.data.length
         })
       })
       let len = this.data.nickName.length;

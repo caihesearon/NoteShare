@@ -21,7 +21,7 @@
           <text class="Identity">{{identity}}</text>
           <text class="emailNumber">{{email}}</text>
           <text class="SchoolName">{{school}}</text>
-          <text class="publicNote">公开笔记数量 <text class="noteNumber">34</text> 篇</text>
+          <text class="publicNote">公开笔记数量 <text class="noteNumber">{{publicCount}}</text> 篇</text>
       </view>
     </view>
   </view>
