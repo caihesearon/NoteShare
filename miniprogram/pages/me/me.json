@@ -4,5 +4,6 @@
     "van-cell-group": "@vant/weapp/cell-group",
     "van-button": "@vant/weapp/button"
   },
+  "navigationStyle":"custom",
   "navigationBarTitleText": "我的"
 }

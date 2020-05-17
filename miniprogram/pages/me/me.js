@@ -5,7 +5,12 @@ Page({
     avatarUrl:"https://ae01.alicdn.com/kf/Hc0cdd9585b754635a427ed0cc0d8464bh.jpg",//用户头像
     nickName:"",//用户昵称
     isShow: true, //判断授权按钮是否显示
-    noteCount:0 //笔记数量
+    noteCount:0, //笔记数量
+    iconOne:"https://ae01.alicdn.com/kf/H9a673d4d3eac4ca9b9e647f0d5d1e488S.jpg",
+    iconTwo:"https://ae01.alicdn.com/kf/H5d13394f2db24ecab7bda0f5b6f19228p.jpg",
+    iconThree:"https://ae01.alicdn.com/kf/H7dbdb6d073cd41af899910d435a92c30f.jpg",
+    iconFour:"https://ae01.alicdn.com/kf/H3e79694f985b405dae62e5905e5f9f6eT.jpg",
+    iconFive:"https://ae01.alicdn.com/kf/H2c80a515e25f4c5c8e36a76af9939015L.jpg",
   },
   /**
    * 生命周期函数--监听页面加载

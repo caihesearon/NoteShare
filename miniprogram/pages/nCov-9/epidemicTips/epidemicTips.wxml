@@ -4,7 +4,7 @@
 			<view class="showCard">
       <image mode="aspectFit" class="Icon" src="{{IconSrc}}"></image>
 				<swiper indicator-dots='true' 
-                indicator-active-color="#1AAD19" 
+                indicator-active-color="#87CEEB" 
                 autoplay="true" interval="5000" 
                 circular="true" 
                 class="swiperStyle">

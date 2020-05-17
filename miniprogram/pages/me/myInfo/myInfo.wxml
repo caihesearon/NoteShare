@@ -2,32 +2,38 @@
   <van-cell-group>
     <!-- 昵称 -->
     <view class="box">
-      <van-field class='van-field' value='{{nickName}}' readonly="true" label="昵 称:" size="large" left-icon="manager" center='{{true}}' />
+      <van-field class='van-field'
+                 value='{{nickName}}'
+                 readonly="true"
+                 label="昵 称:" 
+                 size="large" 
+                 left-icon="{{iconOne}}" 
+                 center='{{true}}' />
     </view>
 
     <!-- 身份 -->
     <picker bindchange="bindPickerChange" value="{{index}}" range="{{Identityarray}}" bindcancel="bindCancel" class="pickbox">
       <view class="picker">
-        <image class="identityImg" src="https://ae01.alicdn.com/kf/Hb4adec7d22214297968a7b8583eeb296B.jpg"></image>
+        <image class="identityImg" src="{{iconTwo}}"></image>
         <text style="color:black;margin-left:15rpx">身 份：</text><text style="margin-left:70rpx">{{identity}}</text>
       </view>
     </picker>
 
     <!-- 学校 -->
     <view class="box">
-      <van-field class='van-field' value='{{school}}' placeholder="请输入学校" label="学 校:" size="large" left-icon="wap-home" center='{{true}}' bind:change='loseSchool' />
+      <van-field class='van-field' value='{{school}}' placeholder="请输入学校" label="学 校:" size="large" left-icon="{{iconThree}}" center='{{true}}' bind:change='loseSchool' />
     </view>
     <!-- 学院 -->
     <view class="box">
-      <van-field class='van-field' value='{{academy}}' placeholder="请输入学院" label="学 院:" size="large" left-icon="column" center='{{true}}' bind:change='loseAcademy' />
+      <van-field class='van-field' value='{{academy}}' placeholder="请输入学院" label="学 院:" size="large" left-icon="{{iconFour}}" center='{{true}}' bind:change='loseAcademy' />
     </view>
    <!-- 邮箱 -->
     <view class="box">
-      <van-field class='van-field' value='{{email}}' placeholder="请输入邮箱" label="邮 箱:" size="large" left-icon="card" center='{{true}}' bind:change='loseEmail' />
+      <van-field class='van-field' value='{{email}}' placeholder="请输入邮箱" label="邮 箱:" size="large" left-icon="{{iconFive}}" center='{{true}}' bind:change='loseEmail' />
     </view>
     <!-- 个性签名 -->
     <view class="box">
-      <van-field class='van-field' value='{{signature}}' placeholder="请输入你的个性签名" label="个性签名:" size="large" left-icon="comment" center='{{true}}' bind:change='loseSignature' />
+      <van-field class='van-field' value='{{signature}}' placeholder="请输入你的个性签名" label="个性签名:" size="large" left-icon="{{iconSix}}" center='{{true}}' bind:change='loseSignature' />
     </view>
   </van-cell-group>
 

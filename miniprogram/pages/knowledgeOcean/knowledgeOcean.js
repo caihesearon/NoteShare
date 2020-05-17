@@ -19,12 +19,30 @@ Page({
     cancelColletIcon: "https://ae01.alicdn.com/kf/H80604b3e89aa4e5599c1526e40df9ad2A.jpg", //实心
     cancelColletIconOne: "https://ae01.alicdn.com/kf/H80604b3e89aa4e5599c1526e40df9ad2A.jpg", //实心
     cancelColletIconTwo: "https://ae01.alicdn.com/kf/Hf1f8d5c223324b009a1261293038e1101.jpg", //空心在点击取消收藏后显示
-    search:"https://ae01.alicdn.com/kf/Hbc3a151e2c4846c3aee1d1ce7b5d8215x.jpg",           //搜索按钮的小图标
+    // search:"https://ae01.alicdn.com/kf/Hbc3a151e2c4846c3aee1d1ce7b5d8215x.jpg",           //搜索按钮的小图标
+    search:"https://ae01.alicdn.com/kf/He1bd2eeb65864525a1ca84306b14fa91T.jpg",
     epidemicImage:"https://ae01.alicdn.com/kf/Haa0d9a2a19b648f8a463ceb34ace28d0b.jpg",      //推荐阅读中疫情板块的展示卡片背景
     isShowHots:true,     //是否展示推荐信息的属性
     nowPage:'推荐',
     showMyNotes: true, //展示我的笔记属性
     currNote:{},//保存当前点击的卡片信息和数组下标
+    recommend:[
+      {
+        _id:1,
+        eventOpt:"enterEpidemicPage",
+        url:"https://ae01.alicdn.com/kf/Haa0d9a2a19b648f8a463ceb34ace28d0b.jpg",
+      },
+      {
+        _id:2,
+        eventOpt:"",
+        url:"https://ae01.alicdn.com/kf/Hd1b5f69a8c364e688d64d5f2a919c58fs.jpg",
+      }, {
+        _id:3,
+        eventOpt:"",
+        url:"https://ae01.alicdn.com/kf/H9fb16bc7cbd948cc83fbcbe5016fac233.jpg",
+      },
+    ],
+
   },  
   onShow: function (options) {        
 
@@ -274,6 +292,57 @@ Page({
         console.log(res)
       },
     })
-  }
-
+  },
+  // // 滑动开始事件
+  // touchStart(e){
+  //   const that = this
+  //   setTimeout(function(){
+  //     that.tranright()
+  //   },300)
+  //   // console.log('滚起来', e);
+    
+  //   this.setData({
+  //     scrollStop: false
+  //   })
+  // },
+  // // 滑动结束事件
+  // touchEnd(e){
+  //   const that = this
+  //   setTimeout(function(){
+  //     that.tranleft()
+  //   },3000)
+  // //  console.log('停下来', e);
+  //   this.setData({
+  //     scrollStop: true
+  //   })
+  // },
+  // // 右移动动画
+  // tranright:function(e){
+  //   const that = this
+  //   var animationtran = wx.createAnimation({
+  //     // 动画时长
+  //     duration: 1000,
+  //     // 动画的执行方式
+  //     timingFunction: 'ease-out'
+  //   })
+  //   animationtran.translate(60,0).step()
+  //   that.setData({
+  //     tranXY: animationtran.export(),
+  //   })
+  // },
+  // // 左移动动画
+  // tranleft:function(e){
+  //   // console.log("执行了")
+  //   const that = this
+  //   var animationtran = wx.createAnimation({
+  //     // 动画时长
+  //     duration: 500,
+  //     // 动画的执行方式
+  //     timingFunction: 'ease-out'
+  //   })
+  //   animationtran.translate(0,0).step()
+  //   that.setData({
+  //     tranXY: animationtran.export(),
+  //   })
+  // },
 })

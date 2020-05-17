@@ -9,6 +9,8 @@
 	<van-tab title="艺术"></van-tab>
 	<van-tab title="心理"></van-tab>
 	<van-tab title="经历"></van-tab>
+	<!-- 用大的view 来控制滑动事件 -->
+	<view  bindtouchstart="touchStart" bindtouchend="touchEnd">
 	<!-- 通过block循环来加载数据 -->
 	<block wx:for="{{notes}}" wx:if="{{!isShowHots}}" wx:key="id">
 		<view class="showBox" catchtap="toDetailPage" data-item='{{item}}' >    
@@ -45,14 +47,22 @@
 	</block>
 
 	<!-- 推荐栏目 -->
-	<view class="hotNews" wx:if="{{isShowHots}}">
-		<view class="nCov-9" bindtap="enterEpidemicPage">
-			<image class="epidemicImage" mode="aspectFill" src="{{epidemicImage}}"></image>
-			<text class="moduleText">点击了解疫情信息</text>
-		</view>
-	</view>
-
-	<view class="searchNote" wx:if="{{!isShowHots}}">
+	<swiper indicator-dots='true' 
+                indicator-active-color="#87CEEB" 
+                autoplay="true" interval="4000" 
+                circular="true" 
+                class="swiperStyle"
+								circular="true"
+								wx:if="{{isShowHots}}">
+				  	<block wx:for='{{recommend}}' wx:key="_id">
+						<swiper-item>
+							<image src="{{item.url}}" catchtap="{{item.eventOpt}}" mode="aspectFill" class="slide-image"></image>
+						</swiper-item>
+					</block>
+	</swiper>
+<!-- 搜索按钮 -->
+	<view class="searchNote" wx:if="{{!isShowHots}}" >
 			<image class="searchIcon" src="{{search}}" catchtap="searchNotes"></image>
 	</view>
+</view>
 </van-tabs>

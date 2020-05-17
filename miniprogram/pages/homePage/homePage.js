@@ -30,7 +30,8 @@ Page({
     // 置顶笔记的小图标
     optionSettop: "https://ae01.alicdn.com/kf/Hed56b5104a784116be8976084a0b8c7dW.jpg",
     // 创建笔记的加号图片
-    createNoteIcon: "https://ae01.alicdn.com/kf/H79b5423685c04109978652401e664e49b.jpg",
+    // createNoteIcon: "https://ae01.alicdn.com/kf/H79b5423685c04109978652401e664e49b.jpg",
+    createNoteIcon:"https://ae01.alicdn.com/kf/H2fab0b857b3e42848d2d533ec0d03c1eW.jpg",
     // 对笔记的操作的加号图片
     addIcon: "https://ae01.alicdn.com/kf/Ha11f36b99ccb4b6b930908729a7dc660y.jpg",
     addIconadd: "https://ae01.alicdn.com/kf/Ha11f36b99ccb4b6b930908729a7dc660y.jpg",
@@ -45,11 +46,13 @@ Page({
     animDelete: {}, //item位移,透明度
     animSettop: {}, //item位移,透明度
     animcancelCollet: {}, //缩放
+    tranXY:{},
     isCancel: false, //是否取消收藏属性
     showMyNotes: true, //展示我的笔记属性
     showPublicNotes: false, //展示公共笔记属性
     showCollectNotes: false, //展示收藏笔记属性
     currNote:{},//保存当前点击的卡片信息和数组下标
+    scrollStop:false,
   },  
   onShow: function (options) {
     var that = this
@@ -528,5 +531,6 @@ Page({
     wx.navigateTo({
       url: '../noteDetail/noteDetail?way=1&isShowBtn=true&isShowBtnOne=true',
     })
-  }
+  },
+
 })

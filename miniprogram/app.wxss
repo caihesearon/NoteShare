@@ -74,7 +74,7 @@ button::after{
   background-color: 	#008080;  
 }
 page {
-  background: #f6f6f6;
+  background: #F8F8FF;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

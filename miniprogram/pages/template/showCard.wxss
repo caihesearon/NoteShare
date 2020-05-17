@@ -1,0 +1,123 @@
+/* 每一个展示的小卡片 */
+.showBox{
+  width: 98%;
+  height: 255rpx;
+  position: relative;
+  margin-top: 25rpx;
+  margin-bottom: 25rpx;
+}
+/* 小卡片的具体大小及样式 */
+.noteCard{
+  background-color: white;
+  width: 100%;
+  height: 255rpx;
+  border-radius: 10rpx;
+  z-index: -99;
+  box-shadow: 2px 2px 10px rgba(197, 187, 187, 0.8);
+  margin-left:1%;
+}
+/* 笔记显示文字的打了等的总框框 */
+.textContent{
+  width: 588rpx;
+  height: 235rpx;
+  position: relative;
+  bottom: 255rpx;
+  left: 88rpx;
+}
+
+/* 标题的具体样式河大小 */
+ .content{
+  width: 650rpx;
+  height: 60rpx;
+  position: relative;
+  top: 20rpx;
+  left: -40rpx;
+  line-height:  60rpx;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: black;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  
+}
+/* 下面一排的大小和样式 */
+.label{
+  width: 590rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  top: 80rpx;
+  left: -50rpx;
+}
+/* 点击量和收藏 图标及文字的总体大小和布局 */
+.clickNumber,.collectNumber{
+  width: 140rpx;
+  height: 90rpx;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 20rpx;
+}
+
+/* 点击量和收藏量数字的样式 */
+.clickNum,.collectNum{
+  font-size: 0.8rem;
+  color: #959595;
+}
+/* 图标的样式 */
+.clickIcon,.collectIcon{
+  margin: 0 auto;
+}
+
+/* 科目分类的具体样式 */
+.subject{
+  width: 150rpx;
+  height: 50rpx;
+  margin-top: 18rpx;
+  display: flex;
+  justify-content: space-between;
+}
+/* 每个小图标的样式 */
+.clickIcon,.subjectIcon,.collectIcon{
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/* 科目分类的文字样式 */
+.subjectDes{
+  width: 140rpx;
+  height: 50rpx;
+  font-size: 35rpx;
+  font-weight: 700;
+  color: #959595;
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: break-all;
+  -webkit-line-clamp: 1;
+}
+
+/* 知识点的样式 */
+.knowledgePoint{
+  width: 380rpx;
+  height: 48rpx;
+  margin-top: 18rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+/* 知识点1和知识点2 的公共样式 */
+.knowledgeOne,.knowledgeTwo{
+  font-size: 35rpx;
+  font-weight: 700;
+  color: #959595;
+  margin-left: 15rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: break-all;
+  -webkit-line-clamp: 1;
+}

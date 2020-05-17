@@ -47,8 +47,6 @@
 			<button wx:else form-type="submit" class="submitButton" hover-class="submitButtonHover">预览笔记</button>
 	</view>
 </view>
-
-
 <!-- hidden="{{keyboardHeight > 0 ? false : true}}" style="bottom: {{isIOS ? keyboardHeight : 0}}px"    style="height:{{editorHeight}}px;"" -->
 
 </form>

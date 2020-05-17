@@ -27,7 +27,13 @@ Page({
     academy:'',//学院
     email:'',//邮箱
     signature:'',//个性签名
-    rewardPath:''//打赏码路径
+    rewardPath:'',//打赏码路径
+    iconOne:"https://ae01.alicdn.com/kf/H7230e2ef203a4b9790bd74530d388dacb.jpg",
+    iconTwo:"https://ae01.alicdn.com/kf/H7f358ae546534191adaf088175b41cc2r.jpg",
+    iconThree:"https://ae01.alicdn.com/kf/Hb43c4c51163349f9894ba8eb088f6167e.jpg",
+    iconFour:"https://ae01.alicdn.com/kf/H9bbed69fae3346158905ee21067c092cA.jpg",
+    iconFive:"https://ae01.alicdn.com/kf/H26595d6a5e224611b5b9d3ac51627e706.jpg",
+    iconSix:"https://ae01.alicdn.com/kf/H3b5b3400e7354dbfae2f494cf10b5100M.jpg",
   },
   //选择器选中的值发生改变时触发
   bindPickerChange: function(e) {

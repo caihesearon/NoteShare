@@ -6,8 +6,9 @@
 	<van-tab title="我的笔记"></van-tab>
 	<van-tab title="公开笔记"></van-tab>
 	<van-tab title="收藏笔记"></van-tab>
+	
 	<!-- 通过block循环来加载数据 -->
-	<block wx:for="{{notes}}" wx:key="id">
+	<block wx:for="{{notes}}" wx:key="id" >
 		<view class="showBox" catchtap="toDetailPage" data-item='{{item}}' >    
 			<!-- 热度的模块  通过id的大小来显示其数量 -->		
 			<!-- 笔记卡片的背景图片 -->

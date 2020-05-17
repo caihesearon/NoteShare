@@ -10,8 +10,7 @@ page{
   padding-left: 10rpx;
   width: 100%;
   min-height: 50vh;
-  height: 100%;
-  background: #fff;    
+  height: 100%;  
   line-height: 1.5;
 }
 
