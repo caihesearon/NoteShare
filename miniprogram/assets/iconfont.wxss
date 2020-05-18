@@ -58,7 +58,8 @@
 .icon-wenzishibie___:before {
   content: "\e600";
   /* font-size: 30px; */
-  color: antiquewhite;
+  /* color: antiquewhite; */
+  color: rgba(0, 0, 0,0.8);
 }
 .iconfont-pic {
   font-family: "iconfont" !important;

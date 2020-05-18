@@ -1,3 +1,7 @@
+page{
+  background-color: rgba(135, 206, 235,0.8);
+}
+
 /* 名片框的整体大小设置 */
 .idCard{
   width: 100%;
@@ -17,15 +21,15 @@
 }
 /* 正面卡片图片的大小 */
 .imageOne{
-  width: 96%;
+  width: 100%;
   height: 100%;
   
 }
-.imageOne, .imageTwo{
+/* .imageOne, .imageTwo{
   border-radius: 40rpx;
   margin-left: 12rpx;
   border: 1px solid green;
-}
+} */
 /* 用户头像的设置 */
 .avatarImage{
   width: 120rpx;
@@ -98,7 +102,7 @@
 }
 /* 反面的卡片 */
 .imageTwo{
-  width: 96%;
+  width: 100%;
   height: 100%;
 }
 /* 第一部分的样式  即身份和昵称 */
@@ -162,8 +166,10 @@
   margin-left: 14rpx;
   height: 270rpx;
   position: relative;
-  top: 520rpx;
+  top: 550rpx;
   margin-top: 40rpx;
+  box-shadow: 10px 12px 10px rgba(2, 2, 2, 0.8);
+  border-radius: 35rpx;
 }
 /* 笔记背景卡片 */
 .notesBg{
@@ -288,6 +294,15 @@
   -webkit-line-clamp: 1;
 }
 
-
+.divider{
+  height: 40rpx;
+  width: 100%;
+  text-align: center;
+  line-height: 40rpx;
+  position: absolute;
+  top: 520rpx;
+  color: white;
+  overflow: hidden;
+}
 
 

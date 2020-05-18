@@ -2,30 +2,12 @@
 @import "../../assets/iconfont.wxss";
 
 .title {
-  /* position: relative; */
-  /* width: 100%; */
   height: 300rpx;  
-  /* border: 1rpx solid blue; */
   background-color: white;
   padding-top: 30rpx;
   padding-left: 30rpx;
   padding-right: 30rpx;
 }
-.fix-title{
-  position: absolute;
-  height: 300rpx;  
-  /* border: 1rpx solid blue; */
-  top: -300rpx;
-  background-color: white;
-}
-
-/* .fix-bottom{
-  border: 1rpx solid blueviolet;  
-  position: relative;
-  top: auto;
-  width: 100%;
-  height: 200rpx;
-} */
 .editor-bottom{
   /* border: 1rpx solid blueviolet;   */
   display: flex;
@@ -74,9 +56,10 @@
 
 .fix-toolbar{
   position: fixed;
+  top: 0;
 }
 .toolbar {  
-  /* position: fixed; */
+  position: none;
   box-sizing: border-box;
   padding: 0 10px;
   height: 50px;

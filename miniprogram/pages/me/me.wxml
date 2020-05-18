@@ -15,11 +15,26 @@
     {{nickName}}
   </view>
 </view>
+<!--  -->
+<view class="showNotesNumberBox">
+  <view class="totileNotes">
+    <text class="totileNotesNum">23</text>
+    <text class="Dec">笔记数量</text>
+  </view>
+  <view class="publicNotes">
+    <text class="totileNotesNum">90</text>
+    <text class="Dec">公开笔记</text>
+  </view>
+  <view class="collectNotes">
+    <text class="totileNotesNum">0</text>
+    <text class="Dec">收藏笔记</text>
+  </view>
+</view>
 
 <view class="NavigationBar">
     <view class="content">
       <!-- 笔记数量 -->
-      <van-cell  icon="{{iconOne}}" class='van-cell' title-class='' is-link title="笔记数量:{{noteCount}}" link-type="navigateTo" size='large' center='{{true}}' url="" />
+      <van-cell  icon="{{iconOne}}" class='van-cell' title-class='' is-link title="我的收藏" link-type="navigateTo" size='large' center='{{true}}' url="" />
       
       <!-- 完善信息 -->
       <van-cell bindtap="test" icon="{{iconTwo}}" class='van-cell' title-class='' is-link title="完善信息" link-type="navigateTo" size='large' center='{{true}}' url="myInfo/myInfo" />

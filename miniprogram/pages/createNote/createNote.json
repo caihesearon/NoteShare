@@ -3,7 +3,8 @@
     "van-divider": "@vant/weapp/divider/index",
     "van-button": "@vant/weapp/button/index",
     "van-toast": "@vant/weapp/toast/index",
-    "van-dialog": "@vant/weapp/dialog/index"
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-sticky": "@vant/weapp/sticky/index"
   },
   "navigationBarTitleText": "编辑" ,
   "enablePullDownRefresh": false

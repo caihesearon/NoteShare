@@ -27,6 +27,9 @@
   </view>
 </view>
 
+<view class="divider">
+  	<text>--------------▼他的公开笔记▼--------------</text>
+</view>
 
 <block wx:for="{{notes}}" wx:key="id">
     <view class="notesBox" catchtap="toDetailPage" data-item='{{item}}'>

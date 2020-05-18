@@ -3,7 +3,8 @@
 <van-dialog id="van-dialog" />
 
 <form bindsubmit="previewNote">
-<view hidden="{{isFix}}" class="{{isFix ? 'fix-title':'title'}}" style="height:{{phoneHeight*2/9}}rpx">
+
+  <view hidden="{{isFix}}" class="title" style="height:{{phoneHeight*2/9}}rpx">
 	<input type="text" bindinput="getNoteTitle" class="placeholder" name="noteTitle" value="{{titleInfo.noteTitle}}" placeholder='笔记标题' maxlength='{{30}}' placeholder-class='placeholder'></input>
 	<van-divider custom-style="width:50%"/>
 	<view class="inbox" >
@@ -16,7 +17,9 @@
 	<icon class="iconfont-abc icon-bdcp:before"></icon>
 			
 </view>
-<view class="toolbar {{isFix ? 'fix-toolbar':''}}" catchtouchend="format"  >
+
+<van-sticky>
+	<view class="toolbar" catchtouchend="format"  >
 	<i class="iconfont icon-charutupian" catchtouchend="insertImage"></i>
 		<!-- <i class="iconfont icon-zuoduiqi {{hideBars.linebar?'':'ql-active'}}" data-name="linebar" bindtap='showbar'></i>
       <view class='subbar linebar' hidden='{{hideBars.linebar}}' bindtap="format">
@@ -38,15 +41,19 @@
 	<i class="iconfont icon-wuxupailie {{formats.list === 'bullet' ? 'ql-active' : ''}}" data-name="list" data-value="bullet"></i>
 </view>
 
+</van-sticky>
+
 <view  class="container {{isFix ? 'abs-container':''}}" style="height:{{phoneHeight *48/50}}rpx" >
 	<editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindinput="onContentChange" bindstatuschange="onStatusChange" bindready="onEditorReady" bindfocus="onEditorFocus" bindblur="onEditorBlur"  >
 	</editor>
+	
 	<view class="editor-bottom" style="height:{{phoneHeight / 10}}rpx">		
 			<!-- 样式设置在app.wxss -->
 			<button wx:if="{{isEditor}}" form-type="submit" class="submitButton" hover-class="submitButtonHover" >保存修改</button>
 			<button wx:else form-type="submit" class="submitButton" hover-class="submitButtonHover">预览笔记</button>
 	</view>
 </view>
+
 <!-- hidden="{{keyboardHeight > 0 ? false : true}}" style="bottom: {{isIOS ? keyboardHeight : 0}}px"    style="height:{{editorHeight}}px;"" -->
 
 </form>

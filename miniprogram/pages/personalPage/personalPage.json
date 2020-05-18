@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-divider": "@vant/weapp/divider/index"
+  },
+  "navigationBarTitleText": "个人主页"
 }
