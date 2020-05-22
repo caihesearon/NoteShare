@@ -15,7 +15,7 @@
     <view class="cardTwo" animation="{{animationBack}}" bindtap='rotateOption' data-id="2">
        <image class="imageTwo" mode="aspectFill" src="{{cardImageTwo}}"></image>
       <view class="sectionOne">
-          <text class="nickName" style="font-size:{{fontSizeTwo}}">{{nickName}}</text>
+          <text class="nickName" style="font-size:{{fontSizeTwo}} ">{{nickName}}</text>
       </view>
       <view class="sectionTwo">
           <text class="Identity">{{identity}}</text>

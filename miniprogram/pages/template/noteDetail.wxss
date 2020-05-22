@@ -28,15 +28,16 @@
   height: 90rpx;
   position: relative;
   line-height: 90rpx;
+
 }
 
-.optBox{
+/* .optBox{
   width: 120rpx;
   height: 90rpx;
   position: relative;
   left: 125rpx;
   text-align: center;
-}
+} */
 .optionText{
   text-align: center;
   line-height: 90rpx;
@@ -80,17 +81,19 @@
   font-size: 0.98rem;
   font-family: "PingFangSC-Medium";
 }
-
+.subject{
+  margin-left: 30rpx;
+}
 
 
 /* 动画 */
-@keyframes slidedown{
+/* @keyframes slidedown{
   from {
     height: 0;
     opacity: 0;
   }
   to {
-    height: 145rpx; /* 每次加90rpx*/
+    height: 145rpx;
     opacity: 1;
   }
 }
@@ -118,7 +121,7 @@
 
 .show{
   display: block;
-}
+} */
 
 
 

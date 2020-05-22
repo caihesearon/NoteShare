@@ -108,7 +108,7 @@ page{
 /* 第一部分的样式  即身份和昵称 */
 .sectionOne{
   width: 150rpx;
-  height: 300rpx;
+  height: 320rpx;
   position: absolute;
   top: 100rpx;
   left: 80rpx;
@@ -116,9 +116,12 @@ page{
   line-height: 150rpx;  
   writing-mode: vertical-lr;
   writing-mode: tb-lr;
-    word-wrap: break-word;
-  /* border: 1px solid red; */
+  word-wrap: break-word;
+  overflow: hidden ;
 }
+/* .hiden{
+  overflow: hidden;
+} */
 /* 设置昵称 */
 .nickName{
   font-weight: bolder;

@@ -9,7 +9,7 @@ Page({
     placeholder: '开始笔记...',
     editorHeight: 300,
     scrollTop: 0, //保存屏幕向上移动的距离  计算标题是否隐藏和按钮是否固定到顶部
-    standTop: 135, //设置一个标准 屏幕向上滑动多少后改变编辑按钮和编辑框的样式
+    standTop: 0, //设置一个标准 屏幕向上滑动多少后改变编辑按钮和编辑框的样式
     isFix: false,
     phoneHeight: 0, //手机屏幕高度
     hideBars: { //是否显示和隐藏多个按钮
@@ -68,17 +68,15 @@ Page({
   //监听页面滚动
   onPageScroll: function (e) {
     // console.log(e.scrollTop)
-    // if (e.scrollTop > this.data.standTop) {
-    //   this.setData({
-    //     isFix: true
-    //   })
-    //   console.log("固定")
-    // } else if(e.scrollTop < this.data.standTop){
-    //   this.setData({
-    //     isFix: false
-    //   })
-    //   console.log("不固定")
-    // }
+    if (e.scrollTop > this.data.standTop) {
+      this.setData({
+        isFix: true
+      })
+    } else {
+      this.setData({
+        isFix: false
+      })
+    }
   },
   //编辑区聚焦时 隐藏顶部编辑区
   onEditorFocus: function () {

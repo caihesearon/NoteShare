@@ -55,6 +55,7 @@ Page({
       loveCount: noteDetail.loveCount,
       clickCount: noteDetail.clickCount,
       nickName:noteDetail.nickName,
+      noteCategory:noteDetail.noteCategory,
       // 将从父级页面接收到的值传递给前端
       way:way,
       isShowBtn:isShowBtn,
@@ -62,7 +63,6 @@ Page({
       isShowBtnTwo:isShowBtnTwo,
       isShowOptBar
     })    
-
     //进入详情页面后需要判断该笔记今天是否已经给过赞了
     const {_id} = noteDetail
     //根据_id获取是否已经收藏了该笔记
@@ -159,34 +159,34 @@ Page({
     })
   },
   // 点击显示和展开详情知识点信息
-  openOpt(e) {
-    var list_state = this.data.state,
-      first_state = this.data.first_click,
-      optText = this.data.optText;
-    let that = this
-    if (!first_state) {
-      this.setData({
-        first_click: true,
-        optText: "收起"
-      });
-    }
-    if (!list_state) {
-      this.setData({
-        state: true,
-        optText: "收起"
-      });
-    } else {
-      this.setData({
-        state: false,
-        optText: "展开",
-      });
-      setTimeout(function () {
-        that.setData({
-          first_click: false,
-        })
-      }, 550)
-    }
-  },
+  // openOpt(e) {
+  //   var list_state = this.data.state,
+  //     first_state = this.data.first_click,
+  //     optText = this.data.optText;
+  //   let that = this
+  //   if (!first_state) {
+  //     this.setData({
+  //       first_click: true,
+  //       optText: "收起"
+  //     });
+  //   }
+  //   if (!list_state) {
+  //     this.setData({
+  //       state: true,
+  //       optText: "收起"
+  //     });
+  //   } else {
+  //     this.setData({
+  //       state: false,
+  //       optText: "展开",
+  //     });
+  //     setTimeout(function () {
+  //       that.setData({
+  //         first_click: false,
+  //       })
+  //     }, 550)
+  //   }
+  // },
   // 点击获取本笔记的打赏二维码
   onClickShow() {
      /**

@@ -13,10 +13,11 @@
 						<icon class="iconfont icon-yanjing count"> {{clickCount}} </icon>
 						<icon class="iconfont icon-shoucang2 count"> {{loveCount}}</icon>
 					</view>
-				</view>	
-				<view class="optBox" bindtap="openOpt">
-					<text class="optionText">{{optText}}</text>
 				</view>
+					<!--展开和收起动画  -->
+				<!-- <view class="optBox" bindtap="openOpt">
+					<text class="optionText">{{optText}}</text>
+				</view> -->
 			</view>
 		</view>
 		<view class="informationBar" wx:if="{{way == 2}}">
@@ -28,10 +29,11 @@
 		</view>
 		<view>
 		<!-- 滑动展示学科信息和知识点 -->
-			<view  class="knowledgeBox" class="{{first_click?'show':'hide'}} {{state?'open':'close'}}">
+			<!-- <view  class="knowledgeBox" class="{{first_click?'show':'hide'}} {{state?'open':'close'}}"> -->
+			<view  class="knowledgeBox" wx:if="{{way == 1}}">
 				<view class="subjectBox">
 					<text class="textDetail">学科分类:</text>
-					<text class="subject">计算机</text>
+					<text class="subject">{{noteCategory}}</text>
 				</view>
 				<view class="knowledge">
 					<text class="textDetail">知 识 点:</text>

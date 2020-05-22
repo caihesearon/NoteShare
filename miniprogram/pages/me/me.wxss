@@ -34,7 +34,7 @@ page{
 
 /*授权按钮样式*/
 .loginBtn{
-  margin-top:25rpx;
+  margin-top:140rpx;
   display: flex;
   justify-content: center;
 }

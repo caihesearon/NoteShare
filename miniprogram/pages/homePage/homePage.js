@@ -527,6 +527,7 @@ Page({
     // console.log(item)
     //将笔记的详情放入全局中
     app.globalData.noteDetail = item
+    console.log("wowowowoowo:")
     console.log(app.globalData.noteDetail)
     wx.navigateTo({
       url: '../noteDetail/noteDetail?way=1&isShowBtn=true&isShowBtnOne=true',

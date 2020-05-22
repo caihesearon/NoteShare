@@ -30,17 +30,13 @@ Page({
       {
         _id:1,
         eventOpt:"enterEpidemicPage",
-        url:"https://ae01.alicdn.com/kf/Haa0d9a2a19b648f8a463ceb34ace28d0b.jpg",
+        url:"cloud://cloud-test-tnjps.636c-cloud-test-tnjps-1300299389/image/平安复学.png",
       },
       {
         _id:2,
         eventOpt:"",
-        url:"https://ae01.alicdn.com/kf/Hd1b5f69a8c364e688d64d5f2a919c58fs.jpg",
-      }, {
-        _id:3,
-        eventOpt:"",
-        url:"https://ae01.alicdn.com/kf/H9fb16bc7cbd948cc83fbcbe5016fac233.jpg",
-      },
+        url:"cloud://cloud-test-tnjps.636c-cloud-test-tnjps-1300299389/image/bg2.png",
+      }
     ],
 
   },  

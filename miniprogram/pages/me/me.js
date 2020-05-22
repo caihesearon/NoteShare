@@ -2,8 +2,9 @@ const db = wx.cloud.database()
 const app = getApp()
 Page({
   data: {
-    avatarUrl:"https://ae01.alicdn.com/kf/Hc0cdd9585b754635a427ed0cc0d8464bh.jpg",//用户头像
-    nickName:"",//用户昵称
+    // avatarUrl:"https://ae01.alicdn.com/kf/Hc0cdd9585b754635a427ed0cc0d8464bh.jpg",//用户头像
+    avatarUrl:"https://ae01.alicdn.com/kf/H42b44bc5b78645e2a6e967c830d80a7cA.jpg",
+    nickName:'',//用户昵称
     isShow: true, //判断授权按钮是否显示
     noteCount:0, //笔记数量
     iconOne:"https://ae01.alicdn.com/kf/H9a673d4d3eac4ca9b9e647f0d5d1e488S.jpg",

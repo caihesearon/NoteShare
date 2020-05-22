@@ -13,7 +13,7 @@ Page({
     // 初始化时的动画效果
     animationMain:null,//正面动画效果
     animationBack:null,//背面动画效果
-    
+
     nickName:"",
     identity:"",
     signature:"",
@@ -90,11 +90,33 @@ Page({
         //给个人主页信息赋值
         that.setData({
           avatarImage:temp.avatarUrl,
+          // nickName:"A0001会产生大13264677020",
           nickName:temp.nickName,
           signature:temp.signature,
           school:temp.school,
           identity:temp.identity,
           email:temp.email
+        })
+        // 微信能设置的最长名字 是 中文16位 英文32位,也就是说最大长度支持32个字节
+        // let len = that.data.nickName.length;
+        // 先计算字节大小
+        var str = new String(that.data.nickName);  
+        var bytesCount = 0;  
+        for (var i = 0 ,n = str.length; i < n; i++) {  
+            var c = str.charCodeAt(i);  
+            if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {  
+                bytesCount += 1;  
+            } else {  
+                bytesCount += 2;  
+            }  
+        }  
+        console.log(bytesCount)
+        // 再计算字体大小
+        var fontSizeOne = bytesCount > 14 ? 1.8 * 6.8 / bytesCount + 'rem' : '1.7rem';
+        var fontSizeTwo = bytesCount > 4 ? 3.0 * 5.0 / bytesCount + 'rem' : '3.0rem';
+        that.setData({
+          fontSizeOne : fontSizeOne,
+          fontSizeTwo : fontSizeTwo
         })
       })
       //获取当前用户所有公开笔记
@@ -108,13 +130,6 @@ Page({
           notes:res.result.data,
           publicCount:res.result.data.length
         })
-      })
-      let len = this.data.nickName.length;
-      var fontSizeOne = len > 7 ? 1.8 * 6.8 / len + 'rem' : '1.7rem';
-      var fontSizeTwo = len > 2 ? 2.5 * 3 / len + 'rem' : '2.5rem';
-      this.setData({
-        fontSizeOne : fontSizeOne,
-        fontSizeTwo : fontSizeTwo
       })
   },
   //进入详情页面

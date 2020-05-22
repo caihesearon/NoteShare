@@ -27,7 +27,7 @@ page{
 /* 引入的图标后面的字体样式 */
 .count{
   color: #959595;
-  margin-left: 20rpx;
+  margin-left: 28rpx;
 
 }
 
