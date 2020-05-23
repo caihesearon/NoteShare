@@ -1,0 +1,41 @@
+	
+	<view wx:if="{{notes.length == 0}}" class="noteNull">
+			<text class="noteNullTitle">
+				空空如也，
+				当前还没有收藏的笔记哦~
+			</text>
+	</view>
+	<!-- 通过block循环来加载数据 -->
+	<block wx:if="{{notes.length != 0}}" wx:for="{{notes}}" wx:key="id" >
+		<view class="showBox" catchtap="toDetailPage" data-item='{{item}}' >    	
+			<!-- 笔记卡片的背景图片 -->
+			<image class="noteCard" src="{{cardBg}}"></image>
+			<!-- 笔记标题的内容 -->
+			<view class="textContent">
+				<view class="content">{{item.titleInfo.noteTitle}}</view>
+				<!-- 标题下面一系列标题 板块 -->
+				<view class="label">				
+					<!-- 收藏模块  通过 showCollectNotes 来控制是否展示-->
+					<view class="collectNumber" >
+						<image class="collectIcon" src="{{collectIcon}}"></image>
+						<text class="collectNum">{{item.collectNum}}</text>
+					</view>
+					<!-- 学科分类板块 -->
+					<view class="subject">
+						<image class="subjectIcon" src="{{subjectIcon}}"></image>
+						<view class="subjectDes">{{item.noteCategory}}</view>
+					</view>
+					<!-- 知识点板块 -->
+					<view class="knowledgePoint">
+						<!-- 总共显示两个知识点 -->
+						<view class="knowledgeOne" wx:if="{{item.titleInfo.pointA}}">#{{item.titleInfo.pointA}}</view>
+						<view class="knowledgeTwo" wx:if="{{item.titleInfo.pointB}}">#{{item.titleInfo.pointB}}</view>
+					</view>
+				</view>
+				<!-- 取消收藏模块 -->
+				<view class="cancelCollet">
+					<image class="cancelColletIcon" src="{{CollectIndex == index ? cancelColletIcon : cancelColletIconOne}}" animation="{{CollectIndex == index ? ani : ''}}" bindtransitionend="aniEnd" data-index="{{index}}" catchtap="cancelCollet"></image>
+				</view>
+			</view>
+		</view>
+	</block>

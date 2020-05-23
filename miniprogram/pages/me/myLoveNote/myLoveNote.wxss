@@ -1,0 +1,36 @@
+@import "../../template/showCard.wxss";
+
+/* 对于笔记的操作的具体样式 */
+ .option{
+  width: 80rpx;
+  height: 80rpx;
+  position: absolute;
+  bottom: 19rpx;
+  left: 535rpx;
+  z-index: 2;
+}
+/* 取消收藏的样式 */
+.cancelCollet{
+  width: 90rpx;
+  height: 90rpx;
+  position: relative;
+  top: -16rpx;
+  left: 520rpx;
+}
+/* 取消收藏的图标的样式 */
+.cancelColletIcon{
+  width: 100%;
+  height: 100%;
+}
+
+.noteNull{  
+  height: 200rpx;  
+  text-align: center; 
+  margin-top: 200rpx;
+  margin-bottom: auto;
+}
+.noteNullTitle{  
+  font-size: larger;
+  font-weight: 800;
+  color: rgba(55, 84, 95, 0.39);
+}

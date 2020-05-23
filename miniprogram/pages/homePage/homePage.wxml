@@ -81,7 +81,15 @@
 		</view>
 	</block>
 	<!-- 创建笔记的点击跳转链接 -->
-	<view class="createNote" wx:if="{{showMyNotes}}">
+	<view class="createNote" wx:if="{{showMyNotes && !show}}">
 		<image class="createNoteIcon" src="{{createNoteIcon}}" catchtap="createNotes"></image>
 	</view>
 </van-tabs>
+
+<!-- 第一次进来的引导层 -->
+<van-overlay show="{{ show }}" bind:click="onClickHide">
+  <view class="wrapper">
+    <view class="block" catch:tap="noop" />
+			<image src="cloud://cloud-test-tnjps.636c-cloud-test-tnjps-1300299389/image/平安复学.png"></image>
+  	</view>
+</van-overlay>

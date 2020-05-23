@@ -7,7 +7,7 @@
   position: absolute;
   bottom: 19rpx;
   left: 535rpx;
-  z-index: 2;
+  /* z-index: 2; */
 }
 
 /* 弹出操作的图标的样式 */

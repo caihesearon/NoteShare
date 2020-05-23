@@ -34,10 +34,10 @@
 <view class="NavigationBar">
     <view class="content">
       <!-- 我的笔记 -->
-      <van-cell  icon="{{iconOne}}" class='van-cell' title-class='' is-link title="我的收藏" link-type="navigateTo" size='large' center='{{true}}' url="" />
-      
+      <van-cell  icon="{{iconOne}}" class='van-cell' title-class='' is-link title="我的收藏" link-type="navigateTo" size='large' center='{{true}}' url="myLoveNote/myLoveNote" />
+       
       <!-- 完善信息 -->
-      <van-cell bindtap="test" icon="{{iconTwo}}" class='van-cell' title-class='' is-link title="完善信息" link-type="navigateTo" size='large' center='{{true}}' url="myInfo/myInfo" />
+      <van-cell icon="{{iconTwo}}" class='van-cell' title-class='' is-link title="完善信息" link-type="navigateTo" size='large' center='{{true}}' url="myInfo/myInfo" />
          
       <!-- 打赏码 -->
       <van-cell icon="{{iconThree}}" class='van-cell' title-class='' is-link title="打赏码" link-type="navigateTo" size='large' center='{{true}}' url="reward/reward" border="{{false}}"/>

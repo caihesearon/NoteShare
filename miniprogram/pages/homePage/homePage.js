@@ -3,6 +3,7 @@ import Notify from '/@vant/weapp/notify/notify';
 import util from '../utils/util.js'
 const db = wx.cloud.database()
 const app = getApp()
+const filter = require("../utils/filter")
 Page({
 
   /**
@@ -53,33 +54,19 @@ Page({
     showCollectNotes: false, //展示收藏笔记属性
     currNote:{},//保存当前点击的卡片信息和数组下标
     scrollStop:false,
+    show: true,
   },  
   onShow: function (options) {
     var that = this
     //查询数据库获取我的的所有笔记 所有笔记中包括公开笔记  -- by hecai
     //判断本地是否存在我的笔记数据key为userAllNotes 存在就不调用数据库 不存在查询数据库并将数据加入到本地    
-
     if(app.globalData.notesFlag != true){
       console.log("进入")
       this.getMyAllNote();
-    }
-    // else{
-    //   //如果显示的是我的笔记页面则将全局中的notesArr赋值给页面的notes
-    //   if(that.data.showMyNotes){
-    //     console.log(app.globalData.notesArr)
-    //     that.setData({
-    //       notes:app.globalData.notesArr
-    //     })
-    //   }
-    //   //如果显示的是公开笔记页面则将全局中的opNotesArr赋值给页面notes
-    //   else if(that.data.showPublicNotes){
-        
-    //     console.log(app.globalData.opNotesArr)
-    //     that.setData({
-    //       notes:app.globalData.opNotesArr
-    //     })
-    //   }
-    // }  
+    }    
+  },
+  onClickHide() {
+    this.setData({ show: false });
   },
   //获取我的所有笔记 -- by hecai
   //首次进入小程序从数据库中获取我的所有笔记并将其加入数据库 -- by harbor
@@ -486,12 +473,16 @@ Page({
       })
       
     } else if (event.detail.title === "收藏笔记") {
-      this.takeback(null);
-      this.setData({
-        showMyNotes: false,
-        showPublicNotes: false,
-        showCollectNotes: true,
-        notes: app.globalData.loveNoteArr
+      filter.loginCheck(0).then(res=>{
+        if(res){
+          this.takeback(null);
+          this.setData({
+            showMyNotes: false,
+            showPublicNotes: false,
+            showCollectNotes: true,
+            notes: app.globalData.loveNoteArr
+          })
+        }
       })
     }
   },
