@@ -1,6 +1,6 @@
-import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 import util from '../utils/util.js'
 
+const filter = require("../utils/filter.js")
 const db = wx.cloud.database()
 const app = getApp()
 Page({
@@ -43,24 +43,9 @@ Page({
   onShow: function (options) {        
 
     var that = this
+    console.log(that.data.nowPage)    
     //每次进入知识海洋处于哪个版块就把当前版块的值赋值给notestrue
-   if(that.data.nowPage == "计算机"){
-      this.getNotesByCondition("计算机")
-    }else if(that.data.nowPage == "理工"){
-      this.getNotesByCondition("理工")
-    }else if(that.data.nowPage == "外语"){
-      this.getNotesByCondition("外语")
-    }else if(that.data.nowPage == "文史"){
-      this.getNotesByCondition("文史")
-    }else if(that.data.nowPage == "管理"){
-      this.getNotesByCondition("管理")
-    }else if(that.data.nowPage == "艺术"){
-      this.getNotesByCondition("艺术")
-    }else if(that.data.nowPage == "心理"){
-      this.getNotesByCondition("心理")
-    }else if(that.data.nowPage == "经历"){
-      this.getNotesByCondition("经历")
-    } 
+    this.getNotesByCondition(that.data.nowPage)  
   },
 
   //传入参数即为笔记查询条件
@@ -73,47 +58,32 @@ Page({
         condition:condition
       }
     }).then(res => {
+      that.setData({
+        notes:res.result.data
+      })
+      console.log(res.result)
       //判断传入参数调用以便云函数条件查询
-      if(condition == "计算机"){
-        app.globalData.computerNotes = res.result.data
+      if(condition == '推荐'){
         that.setData({
-          notes:res.result.data
-        })
+          notes:res.result.list
+        })        
+        app.globalData.recommendNotes = res.result.list        
+      }else if(condition == "计算机"){
+        app.globalData.computerNotes = res.result.data        
       }else if(condition == "理工"){
-        app.globalData.scienceNotes = res.result.data
-        that.setData({
-          notes:res.result.data
-        })
+        app.globalData.scienceNotes = res.result.data       
       }else if(condition == "外语"){
-        app.globalData.englishNotes = res.result.data
-        that.setData({
-          notes:res.result.data
-        })
+        app.globalData.englishNotes = res.result.data       
       }else if(condition == "文史"){
-        app.globalData.historyNotes = res.result.data
-        that.setData({
-          notes:res.result.data
-        })
+        app.globalData.historyNotes = res.result.data       
       }else if(condition == "管理"){
-        app.globalData.manageNotes = res.result.data
-        that.setData({
-          notes:res.result.data
-        })
+        app.globalData.manageNotes = res.result.data       
       }else if(condition == "艺术"){
-        app.globalData.art = res.result.data
-        that.setData({
-          notes:res.result.data
-        })
+        app.globalData.art = res.result.data        
       }else if(condition == "心理"){
-        app.globalData.psychologyNotes = res.result.data
-        that.setData({
-          notes:res.result.data
-        })
+        app.globalData.psychologyNotes = res.result.data        
       }else if(condition == "经历"){
-        app.globalData.experienceNotes = res.result.data
-        that.setData({
-          notes:res.result.data
-        })
+        app.globalData.experienceNotes = res.result.data       
       }
     })
 
@@ -130,10 +100,22 @@ Page({
     }else{
       that.setData({
         isShowHots:false     
-    })
+      })
     }
     //每次切换判断全局中是否有对应值，有则直接赋值给notes，无则调用云函数获取
-    if (event.detail.title === "计算机") {
+    if(event.detail.title === "推荐"){
+      that.setData({
+        nowPage:'推荐'
+      })
+      if(app.globalData.recommendNotes == null){
+        that.getNotesByCondition("推荐")
+      }else{
+        that.setData({
+          notes:app.globalData.recommendNotes
+        })
+      }
+    }
+    else if (event.detail.title === "计算机") {
       that.setData({
         nowPage:'计算机'
       })
@@ -226,32 +208,35 @@ Page({
 
   //进入详情页面
   toDetailPage:function(e){
-    
-    //点击后需要点击量加一        
-    //获取点击的卡片的详细信息
-    const {item} = e.currentTarget.dataset
-    const {_id} = item
-    const flag = util.getLocalStorage(_id)
-    if(flag){
-      //对一天已经点击过的笔记卡片进行记录 防止重复点击
-      util.setLocalStorage(_id)
-      wx.cloud.callFunction({
-        name: 'upCountByType',
-        data:{
-          type: 'addClick',
-          _id: _id
-        }
-      })
-    }        
-    //将笔记的详情放入全局中
-    app.globalData.noteDetail = item    
-    wx.navigateTo({
-      url: '../noteDetail/noteDetail?way=1&isShowOptBar=true&isShowBtn=true&isShowBtnTwo=true',
+    filter.loginCheck(0).then(res=>{
+      if(res){
+        //点击后需要点击量加一        
+        //获取点击的卡片的详细信息
+        const {item} = e.currentTarget.dataset
+        const {_id} = item
+        const flag = util.getLocalStorage(_id)
+        if(flag){
+          //对一天已经点击过的笔记卡片进行记录 防止重复点击
+          util.setLocalStorage(_id)
+          wx.cloud.callFunction({
+            name: 'upCountByType',
+            data:{
+              type: 'addClick',
+              _id: _id
+            }
+          })
+        }        
+        //将笔记的详情放入全局中
+        app.globalData.noteDetail = item    
+        wx.navigateTo({
+          url: '../noteDetail/noteDetail?way=1&isShowOptBar=true&isShowBtn=true&isShowBtnTwo=true',
+        })
+      }
     })
+    
   },
   // 进入搜索页面
-  searchNotes(){
-    console.log("我点击了")
+  searchNotes(){    
     wx.navigateTo({
       url: '../searchNote/searchNote',
     })
@@ -266,7 +251,9 @@ Page({
   //下拉刷新刷新当前页面的数据
   onPullDownRefresh: function () {
     var that = this;
-    if(that.data.nowPage == '计算机'){
+    if(that.data.notes == '推荐'){
+      that.getNotesByCondition('推荐')
+    }else if(that.data.nowPage == '计算机'){
       that.getNotesByCondition('计算机')
     }else if(that.data.nowPage == '理工'){
       that.getNotesByCondition('理工')

@@ -2,38 +2,7 @@
  * 登录拦截器
  * @param {*} pageObj 
  */
-function identityFilter() {
-  
-  // wx.getSetting({
-  //   complete: (res) => {
-  //     console.log(res)
-  //     if (res.authSetting['scope.userInfo']) {
-  //       return true;
-  //     }else{
-  //       wx.showModal({
-  //         title: '登录提示',
-  //         content: '您需要登录后才能体验全部功能!',
-  //         cancelText: '暂不登录',
-  //         confirmText: '立即登录',
-  //         success(res) {
-  //           if (res.confirm) {
-  //             //跳转到登陆页 
-  //             wx.navigateTo({
-  //               url: '/pages/me/me'
-  //             })
-  //           } else if (res.cancel) {
-  //             //返回
-  //             wx.navigateBack({            
-  //               delta: 1
-  //             })
-  //           }
-  //         }
-  //       })
-  //     }
-  //   },
-  // })
-// const userInfo = wx.getStorageSync('userInfo')
-//   if (!userInfo) {
+function identityFilter(status) {    
     wx.showModal({
       title: '登录提示',
       content: '您需要登录后才能体验全部功能!',
@@ -46,16 +15,39 @@ function identityFilter() {
             url: '/pages/me/me'
           })
         } else if (res.cancel) {
-          //返回
-          wx.navigateBack({            
-            delta: 1
-          })
+          if(status == 0){
+            //如果status=0则在创建页面 不做任何操作   
+          }else{
+            //返回
+            wx.navigateBack({            
+              delta: 1
+            })
+          }         
         }
       }
     })
-  // } else {
-  //   return true;
-  // }
+}
+/**
+ * 登录检查拦截
+ * status 判断从哪个页面进去
+ * 0 -- 创建页面
+ */
+function loginCheck(status){
+  return new Promise(resolve=>{
+    wx.getSetting({
+      success(res){      
+        //没有登录则提醒        
+        if(!res.authSetting['scope.userInfo']){               
+          identityFilter(status)      
+          return resolve(false);
+        }else{
+          return resolve(true);
+        }
+      }
+    })
+  })
+  
 }
 
 exports.identityFilter = identityFilter;
+exports.loginCheck = loginCheck;

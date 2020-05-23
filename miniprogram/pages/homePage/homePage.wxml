@@ -1,14 +1,35 @@
 <!-- 消息提示框 -->
-<van-dialog id="van-dialog" /> 
+<van-notify id="van-notify" />
 
 <!-- 使用VantWeapp 来实现Tabs组件功能 -->
 <van-tabs swipeable sticky color="#87CEEB" z-index="3" bind:change="chooseNotes" class="index-tabs" line-width="20">
-	<van-tab title="我的笔记"></van-tab>
-	<van-tab title="公开笔记"></van-tab>
-	<van-tab title="收藏笔记"></van-tab>
+	<van-tab title="我的笔记" >
+		<view wx:if="{{notes.length == 0}}" class="noteNull">
+			<text class="noteNullTitle">
+				空空如也，
+				来写一篇笔记吧~
+			</text>
+		</view>
+	</van-tab>
+	<van-tab title="公开笔记">
+		<view wx:if="{{notes.length == 0}}" class="noteNull">
+			<text class="noteNullTitle">
+				空空如也，
+				当前还没有公开的笔记哦~
+			</text>
+		</view>
+	</van-tab>
+	<van-tab title="收藏笔记">
+		<view wx:if="{{notes.length == 0}}" class="noteNull">
+			<text class="noteNullTitle">
+				空空如也，
+				当前还没有收藏的笔记哦~
+			</text>
+		</view>
+	</van-tab>
 	
 	<!-- 通过block循环来加载数据 -->
-	<block wx:for="{{notes}}" wx:key="id" >
+	<block wx:if="{{notes.length != 0}}" wx:for="{{notes}}" wx:key="id" >
 		<view class="showBox" catchtap="toDetailPage" data-item='{{item}}' >    
 			<!-- 热度的模块  通过id的大小来显示其数量 -->		
 			<!-- 笔记卡片的背景图片 -->

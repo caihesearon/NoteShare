@@ -58,3 +58,16 @@
   color: #87CEEB;
   font-size: 1.3rem;
 }
+
+.noteNull{
+  
+  height: 200rpx;  
+  text-align: center; 
+  margin-top: 200rpx;
+  margin-bottom: auto;
+}
+.noteNullTitle{  
+  font-size: larger;
+  font-weight: 800;
+  color: rgba(55, 84, 95, 0.39);
+}

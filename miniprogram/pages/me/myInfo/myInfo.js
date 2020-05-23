@@ -66,7 +66,7 @@ Page({
           //进行登录拦截
           const flag = filter.identityFilter() 
           // if(flag){
-          //   this.page = 0 
+          //   this.page = 0  
           //   this.getMyPostList(true)
           // }
         }else{

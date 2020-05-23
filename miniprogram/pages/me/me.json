@@ -5,5 +5,6 @@
     "van-button": "@vant/weapp/button"
   },
   "navigationStyle":"custom",
-  "navigationBarTitleText": "我的"
+  "navigationBarTitleText": "我的",
+  "enablePullDownRefresh": true
 }

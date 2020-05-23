@@ -88,9 +88,7 @@ Page({
     wx.chooseImage({
       count:1,     
       sizeType: ['compressed'],
-      success: function (res) {
-        // console.log(res)
-        // console.log(res.tempFiles.size)
+      success: function (res) {                
         //获取图片的本地临时路径
         const tempFilePaths = res.tempFilePaths[0]
         // 正则表达式，获取文件扩展名
@@ -101,68 +99,45 @@ Page({
         //去掉 ：
         temp = temp[0].split(':')
         // 云存储路径
-        const cloudPath = 'rewardImg/could-img-' + new Date().getTime() + temp[0] + suffix
+        const cloudPath = 'rewardImg/could-img-' + new Date().getTime() + temp[0] + suffix        
         wx.showLoading({
           title: '上传中',
         })
-        //通过图片的临时图片地址获取图片文件的buffer
-        wx.getFileSystemManager().readFile({
-          filePath: tempFilePaths,
-          success: buffer => {
-            //调用云函数检查图片是否违规
-            wx.cloud.callFunction({
-              name: 'ContentCheck',
-              data: {
-                img: buffer.data
-              },
-              success(json) {
-                //图片违规
-                if (json.result.errCode != '0') {
-                  wx.hideLoading()
-                  //警告提醒
-                  wx.showModal({
-                    title: '警告',
-                    content: '图片内容存在违规行为！',
-                    showCancel: false,
-                    success(res) {}
-                  })
-                  // console.log('图片违规')
-                } else {
-                  wx.hideLoading()
-                  that.setData({
-                    choosePicture:tempFilePaths,
-                    btnWord:"点击更换"
-                  })
-                  //图片正常 上传并获取永久http链接
-                  // console.log('图片正常')
-                  //需要先上传了图片
-                  wx.cloud.uploadFile({
-                    cloudPath: cloudPath,
-                    filePath: tempFilePaths
-                  }).then(res => {
-                    const fileID = res.fileID
-                    app.globalData.rewardPath = fileID
-                    db.collection('noteUser').doc(app.globalData.dataid).update({
-                      data: {
-                        //将路径更新到数据库
-                        rewardPath: fileID
-                      }
-                    }).then(res => {
-                      console.log(res)
-                    })
-                  }).catch(error => {
-                    wx.hideLoading()
-                    wx.showModal({
-                      title: '提示',
-                      content: '图片添加失败！请重新添加！',
-                      showCancel: false,
-                      success(res) {}
-                    })
-                  })
-                }
-              }
+        wx.cloud.uploadFile({
+          cloudPath: cloudPath,
+          filePath: tempFilePaths
+        }).then(res => {
+          const fileID = res.fileID          
+          app.globalData.rewardPath = fileID
+          db.collection('noteUser').doc(app.globalData.dataid).update({
+            data: {
+              //将路径更新到数据库
+              rewardPath: fileID
+            }
+          }).then(res => {
+            console.log(res)
+            wx.hideLoading()
+            that.setData({
+              choosePicture:tempFilePaths,
+              btnWord:"点击更换"
             })
-          }
+          })
+        }).catch(error => {
+          wx.hideLoading()
+          wx.showModal({
+            title: '提示',
+            content: '图片添加失败！请重新添加！',
+            showCancel: false,
+            success(res) {}
+          })
+        })       
+      },fail(err){
+        wx.hideLoading()
+        wx.showModal({
+          title: '提示',
+          content: '图片添加失败！请重新添加！',
+          showCancel: false,
+          success(res) {}
         })
       }
     })   

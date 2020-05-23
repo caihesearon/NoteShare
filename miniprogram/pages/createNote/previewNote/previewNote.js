@@ -1,5 +1,6 @@
 const app = getApp();
 const db = wx.cloud.database()
+const filter = require("../../utils/filter.js")
 
 Page({
 
@@ -21,6 +22,7 @@ Page({
   },
   
   onLoad: function (options) { 
+    filter.loginCheck()
     const {way} = options   
     const date = new Date()
     const formatDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`    

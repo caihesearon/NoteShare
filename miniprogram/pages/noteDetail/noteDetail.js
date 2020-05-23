@@ -81,8 +81,6 @@ Page({
         isclickPost: true
       })
     }    
-
-
   },
   //收藏和取消收藏
   onClickCollect() {

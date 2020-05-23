@@ -1,5 +1,5 @@
 import Toast from '@vant/weapp/toast/toast';
-import Dialog from '@vant/weapp/dialog/dialog';
+let filter = require('../utils/filter.js');
 const app = getApp()
 const db = wx.cloud.database()
 Page({
@@ -24,7 +24,8 @@ Page({
     isEditor: false, // 是否从个人笔记详情页面过来
   },
   onLoad(e) {    
-    // console.log(e)
+    //登录拦截检查
+    filter.loginCheck(0)
     const {
       windowHeight,
       windowWidth
@@ -36,7 +37,7 @@ Page({
     })
     const {editor} = e
     //如果是从个人详情页面进来的
-    if(editor == "true"){      
+    if(editor == "true"){            
       const {html, titleInfo} = app.globalData.noteDetail
       console.log(app.globalData.noteDetail)
       this.setData({
@@ -45,16 +46,15 @@ Page({
         isEditor: true
       })
       this.onEditorReady(html)
-    }else{
+    }else{      
        //用于用户退出后再进来还有之前编辑的内容
-      if (app.globalData.noteInfo.titleInfo != null || app.globalData.noteInfo.html != '') {
-        // console.log('11')
+      if (app.globalData.noteInfo.titleInfo != null || app.globalData.noteInfo.html != '') {        
         this.setData({
           titleInfo: app.globalData.noteInfo.titleInfo,
           html: app.globalData.noteInfo.html
         })
         this.onEditorReady(app.globalData.noteInfo.html)
-      }else{
+      }else{        
         const noteInfo = {
           titleInfo:null,
           html:''
@@ -167,8 +167,12 @@ Page({
 
     })
   }, //进入预览页面
-  previewNote: function (e) {
-    const that = this
+  previewNote: function (e) {    
+
+    filter.loginCheck(0).then(res=>{
+      console.log(res)
+      if(res){
+        const that = this
     // 1、获取头部的标题信息
     const {
       value
@@ -245,6 +249,8 @@ Page({
         console.log("fail：", res);
       }
     });
+      }
+    })        
   },
 
   onEditorReady(html) {
@@ -465,12 +471,9 @@ Page({
     const {
       titleInfo,
       html
-    } = this.data
-    
+    } = this.data    
     // console.log('卸载操作')
-    // console.log("html" + html)      
-    if ((html == '<p><br></p>'&& titleInfo.noteTitle == '') || (html == '' && titleInfo.noteTitle == '')||(app.globalData.noteInfo.titleInfo == null && app.globalData.noteInfo.html == '')) {
-      // console.log('s')
+    if ((html == '<p><br></p>'&& titleInfo.noteTitle == '') || (html == '' && titleInfo.noteTitle == '')||(app.globalData.noteInfo.titleInfo == null && app.globalData.noteInfo.html == '')) {      
       return
     }
     wx.showModal({
@@ -489,8 +492,8 @@ Page({
           app.globalData.noteInfo = noteInfo
           // console.log('保留操作')
           // console.log(app.globalData.noteInfo)
-        } else {
-          app.globalData.noteInfo.titleInfo = {}
+        } else {          
+          app.globalData.noteInfo.titleInfo = null
           app.globalData.noteInfo.html = ''
         }
       }

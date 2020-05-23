@@ -1,6 +1,6 @@
-import Dialog from '@vant/weapp/dialog/dialog';
-import util from '../utils/util.js'
+import Notify from '/@vant/weapp/notify/notify';
 
+import util from '../utils/util.js'
 const db = wx.cloud.database()
 const app = getApp()
 Page({
@@ -62,28 +62,24 @@ Page({
     if(app.globalData.notesFlag != true){
       console.log("进入")
       this.getMyAllNote();
-    }else{
-      //如果显示的是我的笔记页面则将全局中的notesArr赋值给页面的notes
-      if(that.data.showMyNotes){
-        console.log(app.globalData.notesArr)
-        that.setData({
-          notes:app.globalData.notesArr
-        })
-      }
-      //如果显示的是公开笔记页面则将全局中的opNotesArr赋值给页面notes
-      else if(that.data.showPublicNotes){
-        
-        console.log(app.globalData.opNotesArr)
-        that.setData({
-          notes:app.globalData.opNotesArr
-        })
-      }
     }
-
-    //查询收藏的笔记
-    //新建一个数据库，首先需要我的openid，然后需要我收藏的笔记的_id和收藏的时间
-
-
+    // else{
+    //   //如果显示的是我的笔记页面则将全局中的notesArr赋值给页面的notes
+    //   if(that.data.showMyNotes){
+    //     console.log(app.globalData.notesArr)
+    //     that.setData({
+    //       notes:app.globalData.notesArr
+    //     })
+    //   }
+    //   //如果显示的是公开笔记页面则将全局中的opNotesArr赋值给页面notes
+    //   else if(that.data.showPublicNotes){
+        
+    //     console.log(app.globalData.opNotesArr)
+    //     that.setData({
+    //       notes:app.globalData.opNotesArr
+    //     })
+    //   }
+    // }  
   },
   //获取我的所有笔记 -- by hecai
   //首次进入小程序从数据库中获取我的所有笔记并将其加入数据库 -- by harbor
@@ -225,8 +221,16 @@ Page({
         that.setData({
           opNotes:array
         })
+        Notify({
+          message: '公开成功',
+          type: 'success'
+        });
         //对应的公开笔记全局数组同步更新
         app.globalData.opNotesArr = that.data.opNotes
+      }else{
+        Notify({
+          message: '已存在公开笔记中'
+        });
       }
     }
     //当在公开笔记页面点击时设置其为私有
@@ -245,6 +249,10 @@ Page({
         notes:that.data.notes,
         opNotes:that.data.notes
       })
+      Notify({
+        message: '已取消公开',
+        type: 'success'
+      });
       //对应的公开笔记全局数组同步更新
       app.globalData.opNotesArr = that.data.opNotes
     }
@@ -524,14 +532,48 @@ Page({
   toDetailPage:function(e){
     //获取点击的卡片的详细信息
     const {item} = e.currentTarget.dataset
+    //--------
     // console.log(item)
     //将笔记的详情放入全局中
-    app.globalData.noteDetail = item
-    console.log("wowowowoowo:")
-    console.log(app.globalData.noteDetail)
-    wx.navigateTo({
-      url: '../noteDetail/noteDetail?way=1&isShowBtn=true&isShowBtnOne=true',
-    })
+    //app.globalData.noteDetail = item
+    //console.log("wowowowoowo:")
+    // console.log(app.globalData.noteDetail)
+    // wx.navigateTo({
+    //   url: '../noteDetail/noteDetail?way=1&isShowBtn=true&isShowBtnOne=true',
+    // })
+    //---------
+    //如果是收藏板块
+    if(this.data.showCollectNotes){
+      const {_id} = item
+      const flag = util.getLocalStorage(_id)
+      if(flag){
+        //对一天已经点击过的笔记卡片进行记录 防止重复点击
+        util.setLocalStorage(_id)
+        wx.cloud.callFunction({
+          name: 'upCountByType',
+          data:{
+            type: 'addClick',
+            _id: _id
+          }
+        })
+      }        
+      //将笔记的详情放入全局中
+      app.globalData.noteDetail = item    
+      wx.navigateTo({
+        url: '../noteDetail/noteDetail?way=1&isShowOptBar=true&isShowBtn=true&isShowBtnTwo=true',
+      })
+    }else{     
+      // console.log(item)
+      //将笔记的详情放入全局中
+      app.globalData.noteDetail = item
+      console.log(app.globalData.noteDetail)
+      wx.navigateTo({
+        url: '../noteDetail/noteDetail?way=1&isShowBtn=true&isShowBtnOne=true',
+      })
+    }
+
+
+    
   },
 
 })

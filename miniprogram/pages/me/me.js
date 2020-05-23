@@ -7,6 +7,8 @@ Page({
     nickName:'',//用户昵称
     isShow: true, //判断授权按钮是否显示
     noteCount:0, //笔记数量
+    openCount: 0,//公开数量
+    loveCount:0, //收藏数量
     iconOne:"https://ae01.alicdn.com/kf/H9a673d4d3eac4ca9b9e647f0d5d1e488S.jpg",
     iconTwo:"https://ae01.alicdn.com/kf/H5d13394f2db24ecab7bda0f5b6f19228p.jpg",
     iconThree:"https://ae01.alicdn.com/kf/H7dbdb6d073cd41af899910d435a92c30f.jpg",
@@ -22,27 +24,47 @@ Page({
       success(res) {
         //若该用户已授权，获取其昵称和头像
         if(res.authSetting['scope.userInfo']){          
-          that.getData()
-          // that.setData({
-          //   avatarUrl: app.globalData.avatarUrl,
-          //   nickName: app.globalData.nickName,
-          //   isShow: false
-          // })
+          that.setData({
+            isShow: false            
+          })
+          that.getData()    
+          that.getNoteCount()
         }
       }
     })
   },
-  //获取头像和昵称
+  //获取头像和昵称 和 笔记数量
   getData(){
     var that = this
     wx.getUserInfo({
       success:function(res){
         that.setData({
           avatarUrl: res.userInfo.avatarUrl,
-          nickName:res.userInfo.nickName,
-          isShow: false
+          nickName:res.userInfo.nickName,                
         })
       }
+    })   
+  },
+  //获取用户的笔记数量
+  getNoteCount(){
+    const that = this
+    db.collection('userNotes').count().then(res=>{      
+      that.setData({
+        noteCount: res.total
+      })
+    })
+    db.collection('userNotes')
+    .where({
+      isOpen: true
+    }).count().then(res=>{      
+      that.setData({
+        openCount: res.total
+      })
+    })
+    db.collection('userLoveNote').count().then(res=>{      
+      that.setData({
+        loveCount: res.total
+      })
     })
   },
   //用户授权后将其加入数据库
@@ -55,6 +77,7 @@ Page({
           nickName:res.userInfo.nickName,
           isShow: false
         })
+        that.getNoteCount()
         //将头像和昵称放入全局变量
         //只有授权的时候执行，只add一次就OK ---------- 后续可以改进为update 更新数据库 目的是用户会更换头像和昵称
         db.collection('noteUser').get().then(res => {
@@ -92,5 +115,8 @@ Page({
         })
       }
     })
+  },
+  onPullDownRefresh(){
+    this.getNoteCount()
   }
 })
