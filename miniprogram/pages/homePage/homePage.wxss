@@ -71,3 +71,32 @@
   font-weight: 800;
   color: rgba(55, 84, 95, 0.39);
 }
+
+
+/* 遮罩层的样式 */
+.overOneBox{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.first_over_1{
+  width: 100%;
+  height: 720rpx;
+  position: absolute;
+  top: 45rpx;
+  left: 58rpx;
+}
+.first_over_2{
+  width: 100%;
+  height: 240rpx;
+  position: absolute;
+  left: 58rpx;
+  bottom: 255rpx;  
+}
+
+.overTwoBox{
+  width: 100%;
+  position: absolute;
+  bottom: -35rpx;
+  left: 45rpx;
+}

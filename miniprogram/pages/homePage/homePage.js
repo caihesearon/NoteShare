@@ -40,6 +40,11 @@ Page({
     cancelColletIcon: "https://ae01.alicdn.com/kf/H80604b3e89aa4e5599c1526e40df9ad2A.jpg", //实心
     cancelColletIconOne: "https://ae01.alicdn.com/kf/H80604b3e89aa4e5599c1526e40df9ad2A.jpg", //实心
     cancelColletIconTwo: "https://ae01.alicdn.com/kf/Hf1f8d5c223324b009a1261293038e1101.jpg", //空心在点击取消收藏后显示
+    p1:"https://ae01.alicdn.com/kf/Haad26d6c403a41f9b14def1a6b7a34249.jpg",
+    p2:"https://ae01.alicdn.com/kf/H23a5b5009bd74f408882e9e97b99c086j.jpg",
+    p3:"https://ae01.alicdn.com/kf/H85a53fc8677c4438a2cd1b81401bc0c9d.jpg",
+    showOneBox:true,   //是否展示第一张图片的属性
+    showTwoBox:false,   //是否展示第二张图片的属性
     // 菜单操作动画部分
     isPopping: false, //是否已经弹出
     animOption: {}, //旋转动画
@@ -54,7 +59,8 @@ Page({
     showCollectNotes: false, //展示收藏笔记属性
     currNote:{},//保存当前点击的卡片信息和数组下标
     scrollStop:false,
-    show: true,
+    show: true,         //遮罩层的展示属性
+    clickCount:1,     //用户点击遮罩层的次数
   },  
   onShow: function (options) {
     var that = this
@@ -65,8 +71,29 @@ Page({
       this.getMyAllNote();
     }    
   },
+  // 遮罩层中 朕知道按钮 的点击事件
   onClickHide() {
-    this.setData({ show: false });
+    this.setData({ 
+      showOneBox: false,
+      showTwoBox: true,
+      clickCount: 2
+     });
+  },
+  // 遮罩层的点击事件
+  onClickShowTwo(){
+    const that = this
+    const count = that.data.clickCount
+    if(count == 2){
+      that.setData({
+        clickCount:3
+      })
+    }
+    if(count == 3){
+      that.setData({
+        show:false,
+        clickCount:1
+      })
+    }
   },
   //获取我的所有笔记 -- by hecai
   //首次进入小程序从数据库中获取我的所有笔记并将其加入数据库 -- by harbor

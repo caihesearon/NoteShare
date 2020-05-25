@@ -2,7 +2,8 @@
   "usingComponents": {
     "van-cell": "@vant/weapp/cell",
     "van-cell-group": "@vant/weapp/cell-group",
-    "van-button": "@vant/weapp/button"
+    "van-button": "@vant/weapp/button",
+    "van-overlay": "@vant/weapp/overlay/index"
   },
   "navigationStyle":"custom",
   "navigationBarTitleText": "我的",

@@ -55,7 +55,23 @@
       <van-cell border="false"  icon="{{iconFive}}" custom-class="cellFive"  class='van-cell' title-class='' is-link title="问题反馈" link-type="navigateTo" size='large' center='{{true}}' border="{{false}}"/>
     </view>
 </view>
-    
+
+ <!-- 第一次进来的引导层 show的属性值控制该遮罩层的显示与隐藏 -->
+<van-overlay show="{{ show }}" z-index="{{99}}"  bind:click="onClickShow">
+  	<view class="overOneBox" wx:if="{{showOneBox}}">
+				<image mode="aspectFit" class="p1" src="{{p1}}"></image>
+		</view>
+		<view class="overTwoBox" wx:if="{{showTwoBox}}">
+				<image mode="aspectFit" class="p2" src="{{p2}}"></image>
+		</view>
+  	<view class="overThreeBox" wx:if="{{showThreeBox}}">
+				<image mode="aspectFit" class="p3" src="{{p3}}"></image>
+		</view>
+    <view class="overFourBox" wx:if="{{showFourBox}}">
+				<image mode="aspectFit" class="p4" src="{{p4}}"></image>
+        <image mode="aspectFit" class="p5" src="{{p5}}"></image>
+		</view>
+</van-overlay>   
 
 
 

@@ -86,10 +86,17 @@
 	</view>
 </van-tabs>
 
-<!-- 第一次进来的引导层 -->
-<van-overlay show="{{ show }}" bind:click="onClickHide">
-  <view class="wrapper">
-    <view class="block" catch:tap="noop" />
-			<image src="cloud://cloud-test-tnjps.636c-cloud-test-tnjps-1300299389/image/平安复学.png"></image>
-  	</view>
+<!-- 第一次进来的引导层 show的属性值控制该遮罩层的显示与隐藏-->
+<van-overlay show="{{ show }}" z-index="{{99}}" bind:click="onClickShowTwo">
+  	<view class="overOneBox" wx:if="{{showOneBox}}">
+			<view class="first_over_1">
+				<image mode="aspectFit" class="p1" src="{{p1}}"></image>
+			</view>
+			<view class="first_over_2">
+				<image mode="aspectFit" class="p2" src="{{p2}}" bindtap="onClickHide"></image>
+			</view>
+		</view>
+		<view class="overTwoBox" wx:if="{{showTwoBox}}">
+				<image mode="aspectFit" class="p3" src="{{p3}}"></image>
+		</view>
 </van-overlay>

@@ -14,7 +14,59 @@ Page({
     iconThree:"https://ae01.alicdn.com/kf/H7dbdb6d073cd41af899910d435a92c30f.jpg",
     iconFour:"https://ae01.alicdn.com/kf/H3e79694f985b405dae62e5905e5f9f6eT.jpg",
     iconFive:"https://ae01.alicdn.com/kf/H2c80a515e25f4c5c8e36a76af9939015L.jpg",
+    show:true,    //是否展示遮罩层
+    showOneBox:true,  //第一张图片的展示属性
+    showTwoBox:false,  //第二张图片的展示属性
+    showThreeBox:false, //第三张图片的展示属性
+    showFourBox:false,  //第四张图片的展示属性
+    clickCount:1,       //点击遮罩层的次数
+    // 5张图片的地址
+    p1:"https://ae01.alicdn.com/kf/H958d3a3308874fe8bd1b7a0529403a994.jpg",     
+    p2:"https://ae01.alicdn.com/kf/H258ae643141641a9b5a8e5780d0c2c24W.jpg",
+    p3:"https://ae01.alicdn.com/kf/H08d44ac8358040a6b56de025329cf3677.jpg",
+    p4:"https://ae01.alicdn.com/kf/H3e7ccf3db5ca41c2b2a689b278c52ba8a.jpg",
+    p5:"https://ae01.alicdn.com/kf/H4d602350f1a04676bd287deff5be2696y.jpg",
   },
+  // 遮罩层单击事件
+  onClickShow() {
+    const that = this
+    const count = that.data.clickCount
+    //通过count的数值来判断用户点击蔗渣层的次数
+   if(count == 1){
+    that.setData({ 
+      showOneBox: false,
+      showTwoBox: true,
+      showThreeBox: false, 
+      showFourBox:false,
+      clickCount:2
+    });
+   }
+   if(count == 2){
+    that.setData({ 
+      showOneBox: false,
+      showTwoBox: false,
+      showThreeBox: true, 
+      showFourBox:false,
+      clickCount:3
+    });
+   }
+   if(count == 3){
+    that.setData({ 
+      showOneBox: false,
+      showTwoBox: false,
+      showThreeBox: false, 
+      showFourBox: true,
+      clickCount:4
+    });
+   }
+   if(count == 4){
+    that.setData({ 
+      show:false,
+      clickCount:1
+    });
+   }    
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

@@ -120,3 +120,33 @@ page{
   width: 100rpx;
   /* border: 1px solid red; */
 }
+
+/* 遮罩层 */
+.overOneBox,.overTwoBox,.overThreeBox,.overFourBox{
+  width: 100%;
+  position: relative;
+}
+.overOneBox{
+  top: 390rpx;
+  left: 70rpx;
+}
+.overTwoBox{
+  top: 580rpx;
+  left: 35rpx;
+}
+.overThreeBox{
+  top: 570rpx;
+  left: 155rpx;
+}
+.overFourBox{
+  top: 300rpx;
+  left: 95rpx;
+  display: flex;
+  flex-direction: column;
+}
+.p5{
+  width: 320rpx;
+  height: 200rpx;
+  position: relative;
+  left: 120rpx;
+}
