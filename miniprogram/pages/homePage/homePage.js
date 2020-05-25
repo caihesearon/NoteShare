@@ -59,10 +59,23 @@ Page({
     showCollectNotes: false, //展示收藏笔记属性
     currNote:{},//保存当前点击的卡片信息和数组下标
     scrollStop:false,
-    show: true,         //遮罩层的展示属性
+    show: false,         //遮罩层的展示属性
     clickCount:1,     //用户点击遮罩层的次数
   },  
+  onLoad: function(){
+    console.log('onLoad')
+    const show  = app.globalData.show
+    console.log(show)
+
+    this.setData({
+      show: show
+    })    
+    
+  },
   onShow: function (options) {
+    // this.setData({
+    //   show: app.globalData.show
+    // })
     var that = this
     //查询数据库获取我的的所有笔记 所有笔记中包括公开笔记  -- by hecai
     //判断本地是否存在我的笔记数据key为userAllNotes 存在就不调用数据库 不存在查询数据库并将数据加入到本地    
@@ -141,7 +154,7 @@ Page({
       const len = res.data.length
       //判断是否有收藏的笔记
       if(len == 0){
-        console.log('kong')
+        app.globalData.loveNoteArr = []
       }else{
         //获取所有的收藏笔记id
         let loveNoteArr = res.data
@@ -158,6 +171,7 @@ Page({
           }
           app.globalData.loveNoteArr = res.result                    
         })        
+        
       }      
     })    
   },  
@@ -588,10 +602,12 @@ Page({
       wx.navigateTo({
         url: '../noteDetail/noteDetail?way=1&isShowBtn=true&isShowBtnOne=true',
       })
-    }
-
-
-    
+    }      
   },
+  onHide: function(){
+    this.setData({
+      show: false
+    })
+  }
 
 })

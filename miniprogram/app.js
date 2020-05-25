@@ -1,4 +1,5 @@
 //app.js
+const filter = require("./pages/utils/filter.js")
 
 App({
   onLaunch: function () {
@@ -15,13 +16,17 @@ App({
         traceUser: true,
       })
     }
+    
+
+
     const db = wx.cloud.database()
     var that = this
     this.globalData = {
       noteInfo:{
         titleInfo:null,
         html:''
-      }
+      },
+      show: filter.checkGuide() //控制引导层
     }
         // 加载字体
     wx.loadFontFace({

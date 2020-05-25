@@ -31,6 +31,7 @@ function identityFilter(status) {
  * 登录检查拦截
  * status 判断从哪个页面进去
  * 0 -- 创建页面
+ * 
  */
 function loginCheck(status){
   return new Promise(resolve=>{
@@ -45,9 +46,19 @@ function loginCheck(status){
         }
       }
     })
-  })
-  
+  })  
+}
+function checkGuide(){
+  const value = wx.getStorageSync("GuideStatus")      
+  //如果已经引导过了
+  if(value){    
+    return false
+  }else{    
+    //没有引导 并且在最后一步设置为false
+    return true
+  }
 }
 
 exports.identityFilter = identityFilter;
 exports.loginCheck = loginCheck;
+exports.checkGuide = checkGuide;

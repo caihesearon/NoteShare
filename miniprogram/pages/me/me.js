@@ -14,7 +14,7 @@ Page({
     iconThree:"https://ae01.alicdn.com/kf/H7dbdb6d073cd41af899910d435a92c30f.jpg",
     iconFour:"https://ae01.alicdn.com/kf/H3e79694f985b405dae62e5905e5f9f6eT.jpg",
     iconFive:"https://ae01.alicdn.com/kf/H2c80a515e25f4c5c8e36a76af9939015L.jpg",
-    show:true,    //是否展示遮罩层
+    show:false,    //是否展示遮罩层
     showOneBox:true,  //第一张图片的展示属性
     showTwoBox:false,  //第二张图片的展示属性
     showThreeBox:false, //第三张图片的展示属性
@@ -64,13 +64,18 @@ Page({
       show:false,
       clickCount:1
     });
-   }    
+   }
+   //设置为true 表明已经引导过了 不需要再引导了
+   wx.setStorageSync('GuideStatus', true);
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      show: app.globalData.show
+    })
     var that = this
     wx.getSetting({
       success(res) {
