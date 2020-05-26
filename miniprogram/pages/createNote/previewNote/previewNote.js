@@ -1,7 +1,7 @@
 const app = getApp();
 const db = wx.cloud.database()
 const filter = require("../../utils/filter.js")
-
+const util = require("../../utils/util.js")
 Page({
 
  
@@ -22,6 +22,7 @@ Page({
   },
   
   onLoad: function (options) { 
+    const that = this    
     filter.loginCheck()
     const {way} = options   
     const date = new Date()
@@ -31,10 +32,12 @@ Page({
       html:app.globalData.html,
       currTime: formatDate,
       way:way
-    })    
+    })        
+    // util.setContent(that, that.data.html)
     console.log(way)
     console.log(this.data.titleInfo)
-  },//返回编辑页面
+  },
+  //返回编辑页面
   backToEditor:function(){
     wx.navigateBack({
       delta: 1

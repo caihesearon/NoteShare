@@ -45,6 +45,8 @@
 		</view>
 	</view>
 
-	<rich-text nodes="{{html}}" class="noteContent"></rich-text>
+	<rich-text nodes="{{html}}" space="nbsp" class="noteContent"></rich-text>  
+	<!-- <editor id="editor" class="ql-container"  read-only="{{true}}" bindready="onEditorReady" > -->
+  <!-- </editor> -->
 	<van-divider contentPosition="center" custom-style="width:100%">{{currTime}}</van-divider>
 </template>

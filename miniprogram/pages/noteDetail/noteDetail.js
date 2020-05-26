@@ -46,7 +46,8 @@ Page({
     const {isShowBtnOne} = e    //显示第一个按钮即编辑按钮的属性
     const {isShowBtnTwo} = e    //显示第二个按钮即显示进入个人主页的按钮
     const {isShowOptBar} = e    //显示底部对于笔记操作的区域
-    const {noteDetail} = app.globalData        
+    const {noteDetail} = app.globalData      
+    //util.setContent(this, noteDetail.html)  
     this.setData({
       titleInfo: noteDetail.titleInfo,
       html: noteDetail.html,

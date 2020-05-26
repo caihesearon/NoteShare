@@ -113,12 +113,24 @@ function formatNumber(n) {
   n = n.toString();  
   return n[1] ? n : '0' + n;
 }
-
+//设置笔记内容显示
+function setContent(that, html){
+  wx.createSelectorQuery()
+    .select("#editor")
+    .context(function (res) {
+      that.editorCtx = res.context
+      res.context.setContents({ //用于初始化富文本的内容 日后的编辑中可以使用
+        html: that.data.html
+      })
+    })
+    .exec();
+}
 
 module.exports = {
   setLocalStorage,
   getLocalStorage,
   addLoveNote,
   getLoveCount,
-  removeLoveNote
+  removeLoveNote,
+  setContent
 }
