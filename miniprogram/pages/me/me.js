@@ -129,6 +129,7 @@ Page({
     var that = this
     wx.getUserInfo({
       success:function(res){
+
         that.setData({
           avatarUrl: res.userInfo.avatarUrl,
           nickName:res.userInfo.nickName,
@@ -158,7 +159,8 @@ Page({
               }
             })
           }else{
-            app.globalData.nickName = res.data[0].nickName, //该用户昵称
+            // app.globalData.nickName = res.data[0].nickName, //该用户昵称
+            app.globalData.nickName = that.data.nickName, //该用户昵称
             app.globalData.dataid = res.data[0]._id, //该用户的_id
             app.globalData.identity = res.data[0].identity, //该用户身份
             app.globalData.school = res.data[0].school, //该用户学校
