@@ -2,6 +2,8 @@
 @import "../../assets/iconfont.wxss";
 /* 引入模板中的样式的文件 */
 @import "../template/noteDetail.wxss";
+
+@import "../../wxParse/wxParse.wxss";
 /* 给整个page的属性设置 */
 page{
   box-sizing: border-box;

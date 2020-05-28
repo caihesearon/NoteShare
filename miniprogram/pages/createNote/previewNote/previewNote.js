@@ -2,6 +2,9 @@ const app = getApp();
 const db = wx.cloud.database()
 const filter = require("../../utils/filter.js")
 const util = require("../../utils/util.js")
+
+var WxParse = require('../../../wxParse/wxParse.js');
+
 Page({
 
  
@@ -33,6 +36,7 @@ Page({
       currTime: formatDate,
       way:way
     })        
+    WxParse.wxParse('article', 'html', app.globalData.html, that, 2)
     // util.setContent(that, that.data.html)
     console.log(way)
     console.log(this.data.titleInfo)

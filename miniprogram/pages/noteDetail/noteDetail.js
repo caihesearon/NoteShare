@@ -1,6 +1,7 @@
 import util from '../utils/util.js'
 const app = getApp()
 const db = wx.cloud.database()
+var WxParse = require('../../wxParse/wxParse.js');
 Page({
   data: {
     //数据结构参考 previewNote.js
@@ -47,7 +48,7 @@ Page({
     const {isShowBtnTwo} = e    //显示第二个按钮即显示进入个人主页的按钮
     const {isShowOptBar} = e    //显示底部对于笔记操作的区域
     const {noteDetail} = app.globalData      
-    //util.setContent(this, noteDetail.html)  
+    WxParse.wxParse('article', 'html', noteDetail.html, this, 2)
     this.setData({
       titleInfo: noteDetail.titleInfo,
       html: noteDetail.html,

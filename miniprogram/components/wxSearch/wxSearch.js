@@ -102,7 +102,7 @@ function wxSearchFocus(e, that, callBack) {
     //   that.setData({
     //     wxSearchData:temData
     //   });
-    // }else{
+    // }//else{
 
     // }
 }

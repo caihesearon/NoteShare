@@ -40,7 +40,7 @@
 }
 
 
-.wxSearchMindKeyItem{
+.wxSearchMindKeyItem{  
   padding: 20rpx 10rpx;
   border-bottom: 1px solid #eee;
   display: flex;
@@ -54,7 +54,7 @@
   flex-wrap: wrap;
 }
 
-.wxSearchKeyItem{
+.wxSearchKeyItem{  
   flex: 0 0 20%;
   font-size: 32rpx;
   text-align: center;

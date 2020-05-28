@@ -14,7 +14,7 @@
             <text class="wxSearchTitle">热门搜索</text>
             <view class="wxSearchKeyList">
                 <block wx:for="{{wxSearchData.keys}}" wx:key="id">
-                    <view class="wxSearchKeyItem" catchtap="wxSearchKeyTap" data-key="{{item}}">{{item}}</view>
+                    <view class="wxSearchKeyItem" bindtap="wxSearchKeyTap" data-key="{{item}}">{{item}}</view>
                 </block>
             </view>
         </view>

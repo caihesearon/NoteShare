@@ -1,3 +1,6 @@
+<!-- // 引入模板 -->
+<import src="../../wxParse/wxParse.wxml"/>
+
 <template name="commonInfo">
 	<view class="title">
 		<text class="titleInfo">{{titleInfo.noteTitle}}</text>
@@ -45,8 +48,9 @@
 		</view>
 	</view>
 
-	<rich-text nodes="{{html}}" space="nbsp" class="noteContent"></rich-text>  
-	<!-- <editor id="editor" class="ql-container"  read-only="{{true}}" bindready="onEditorReady" > -->
-  <!-- </editor> -->
+	 <!-- <rich-text  nodes="{{html}}" space="nbsp" class="noteContent"></rich-text>   -->
+	<template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+
+	
 	<van-divider contentPosition="center" custom-style="width:100%">{{currTime}}</van-divider>
 </template>

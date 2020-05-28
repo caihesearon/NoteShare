@@ -2,7 +2,7 @@
   "usingComponents": {
     "van-divider": "@vant/weapp/divider/index",
     "van-button": "@vant/weapp/button/index",
-    "van-picker": "@vant/weapp/picker/index"
+    "van-picker": "@vant/weapp/picker/index"    
   },
   "navigationBarTitleText": "笔记预览" ,
   "enablePullDownRefresh": false

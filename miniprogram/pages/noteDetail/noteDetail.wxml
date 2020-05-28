@@ -4,7 +4,7 @@
 <scroll-view class="scroll">
 <!-- 引入模板 -->
 <import src="../template/noteDetail.wxml" />
-<template is="commonInfo" data="{{titleInfo:titleInfo, html:html, currTime:currTime, nickName:nickName, noteCategory:noteCategory,  optText:optText,first_click:first_click,state:state,clickCount:clickCount,loveCount:loveCount,icon,iscollect:iscollect,isclickPost:isclickPost,way:way}}"></template>
+<template is="commonInfo" data="{{titleInfo:titleInfo, html:html, article:article, currTime:currTime, nickName:nickName, noteCategory:noteCategory,  optText:optText,first_click:first_click,state:state,clickCount:clickCount,loveCount:loveCount,icon,iscollect:iscollect,isclickPost:isclickPost,way:way}}"></template>
 <!-- 打赏码部分 -->
 <van-overlay show="{{ show }}" bind:click="onClickHide">
 	<view class="rewardCard">

@@ -1,4 +1,4 @@
-
+/* @import "../../wxParse/wxParse.wxss"; */
 /* 信息条的样式 */
 .barBox{
   width: 100%;
