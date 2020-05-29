@@ -1,5 +1,5 @@
 @import '../../template/noteDetail.wxss';
-
+@import "../../../wxParse/wxParse.wxss";
 page{
   box-sizing: border-box;
   /* padding: 12rpx 5rpx 0rpx 12rpx; */
