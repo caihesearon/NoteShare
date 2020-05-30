@@ -34,7 +34,7 @@ Page({
       },
       {
         _id:2,
-        eventOpt:"",
+        eventOpt:"enterTips",
         url:"cloud://cloud-test-tnjps.636c-cloud-test-tnjps-1300299389/image/bg2.png",
       }
     ],
@@ -247,7 +247,12 @@ Page({
       url: '../nCov-9/nCov-9',
     })
   },
-
+  //进入小提示
+  enterTips(e){
+    wx.navigateTo({
+      url: '../nCov-9/epidemicTips/epidemicTips',
+    })
+  },
   //下拉刷新刷新当前页面的数据
   onPullDownRefresh: function () {
     var that = this;

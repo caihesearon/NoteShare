@@ -8,7 +8,7 @@
                 autoplay="true" interval="5000" 
                 circular="true" 
                 class="swiperStyle">
-				  	<block wx:for='{{tops}}' wx:key='{{item._id}}'>
+				  	<block wx:for='{{tops}}' wx:key='key'>
 						<swiper-item>
 							<image src="{{item.url}}" mode="aspectFill" class="slide-image"></image>
 						</swiper-item>
