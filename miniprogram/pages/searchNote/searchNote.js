@@ -64,12 +64,15 @@ Page({
   },
 
   //点击搜索按钮
-  wxSearchFn: function (e) {
+  wxSearchFn: function (e) {   
     var that = this
     //获取输入框搜索关键字   
     const value = this.data.value
     console.log(value)
     if (value != '') {
+      // wx.showLoading({
+      //   title: '搜索中...',
+      // })
       //点击搜索不为 所有 时
       if (this.data.value1 != 0) {        
         this.getNoteBySortType(value, this.data.value1)
@@ -139,8 +142,13 @@ Page({
       }
     }).then(res => {
       wx.hideLoading()
-      console.log(res.result.list)
-      // console.log(res)
+      // console.log(res.result.list)
+      if(res.result.list.length == 0){
+        wx.showToast({
+          title: '没有找到哦！',
+          icon: "none"
+        })
+      }      
       this.setData({
         notes: res.result.list
       })
@@ -162,6 +170,12 @@ Page({
       console.log('调用成功！！！')
       console.log(res.result.data)
       wx.hideLoading()
+      if(res.result.data.length == 0){
+        wx.showToast({
+          title: '没有找到哦！',
+          icon: "none"
+        })
+      }
       this.setData({
         notes: res.result.data
       })

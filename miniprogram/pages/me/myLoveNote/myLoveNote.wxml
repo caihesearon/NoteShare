@@ -18,7 +18,7 @@
 					<!-- 收藏模块  通过 showCollectNotes 来控制是否展示-->
 					<view class="collectNumber" >
 						<image class="collectIcon" src="{{collectIcon}}"></image>
-						<text class="collectNum">{{item.collectNum}}</text>
+						<text class="collectNum">{{item.loveCount}}</text>
 					</view>
 					<!-- 学科分类板块 -->
 					<view class="subject">

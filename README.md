@@ -10,3 +10,10 @@
 
 - [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
 
+## 效果图
+
+![1](D:\WeChatApp\WorkSpace\笔记小程序\NoteShare\image\1.png)
+
+![2](D:\WeChatApp\WorkSpace\笔记小程序\NoteShare\image\3.png)
+
+![3](D:\WeChatApp\WorkSpace\笔记小程序\NoteShare\image\3.png)

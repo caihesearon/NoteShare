@@ -77,12 +77,18 @@ Page({
     //   show: app.globalData.show
     // })
     var that = this
+    wx.showLoading({
+      title: '加载中...',
+    })
     //查询数据库获取我的的所有笔记 所有笔记中包括公开笔记  -- by hecai
     //判断本地是否存在我的笔记数据key为userAllNotes 存在就不调用数据库 不存在查询数据库并将数据加入到本地    
     if(app.globalData.notesFlag != true){
       console.log("进入")
       this.getMyAllNote();
-    }    
+    }else{
+      wx.hideLoading()
+    }
+    
   },
   // 遮罩层中 朕知道按钮 的点击事件
   onClickHide() {
@@ -145,7 +151,8 @@ Page({
           })
         }
         //将公开笔记同时加入全局
-        app.globalData.opNotesArr = that.data.opNotes        
+        app.globalData.opNotesArr = that.data.opNotes 
+        wx.hideLoading()       
     })
     //异步获取用户收藏的所有笔记
     db.collection('userLoveNote')
@@ -173,6 +180,7 @@ Page({
         })        
         
       }      
+      wx.hideLoading()
     })    
   },  
 
@@ -553,6 +561,7 @@ Page({
   // 点击创建笔记
   createNotes(e) {
     console.log("我点击了")
+    this.takeback(null);
     wx.navigateTo({
       url: '../createNote/createNote',
     })
@@ -563,6 +572,7 @@ Page({
   //进入详情页面
   toDetailPage:function(e){
     //获取点击的卡片的详细信息
+    this.takeback(null);
     const {item} = e.currentTarget.dataset
     //--------
     // console.log(item)

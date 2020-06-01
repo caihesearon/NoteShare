@@ -14,6 +14,9 @@ Page({
   },
 
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中...'
+    })
     filter.loginCheck().then(res => {
       if (res) {
         const that = this
@@ -34,6 +37,7 @@ Page({
                   loveNoteArr: loveNoteArr
                 }
               }).then(res => {
+                wx.hideLoading()
                 that.setData({
                   notes: res.result
                 })

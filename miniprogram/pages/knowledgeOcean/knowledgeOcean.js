@@ -40,8 +40,12 @@ Page({
     ],
 
   },  
+  onLoad: function(e){
+    wx.showLoading({
+      title: '加载中...',
+    })
+  },
   onShow: function (options) {        
-
     var that = this
     console.log(that.data.nowPage)    
     //每次进入知识海洋处于哪个版块就把当前版块的值赋值给notestrue
@@ -50,6 +54,7 @@ Page({
 
   //传入参数即为笔记查询条件
   getNotesByCondition(condition){
+    
     var that = this
     //调用云函数查询笔记
     wx.cloud.callFunction({
@@ -61,7 +66,8 @@ Page({
       that.setData({
         notes:res.result.data
       })
-      console.log(res.result)
+      // console.log(res.result)
+      wx.hideLoading()
       //判断传入参数调用以便云函数条件查询
       if(condition == '推荐'){
         that.setData({
@@ -280,57 +286,5 @@ Page({
         console.log(res)
       },
     })
-  },
-  // // 滑动开始事件
-  // touchStart(e){
-  //   const that = this
-  //   setTimeout(function(){
-  //     that.tranright()
-  //   },300)
-  //   // console.log('滚起来', e);
-    
-  //   this.setData({
-  //     scrollStop: false
-  //   })
-  // },
-  // // 滑动结束事件
-  // touchEnd(e){
-  //   const that = this
-  //   setTimeout(function(){
-  //     that.tranleft()
-  //   },3000)
-  // //  console.log('停下来', e);
-  //   this.setData({
-  //     scrollStop: true
-  //   })
-  // },
-  // // 右移动动画
-  // tranright:function(e){
-  //   const that = this
-  //   var animationtran = wx.createAnimation({
-  //     // 动画时长
-  //     duration: 1000,
-  //     // 动画的执行方式
-  //     timingFunction: 'ease-out'
-  //   })
-  //   animationtran.translate(60,0).step()
-  //   that.setData({
-  //     tranXY: animationtran.export(),
-  //   })
-  // },
-  // // 左移动动画
-  // tranleft:function(e){
-  //   // console.log("执行了")
-  //   const that = this
-  //   var animationtran = wx.createAnimation({
-  //     // 动画时长
-  //     duration: 500,
-  //     // 动画的执行方式
-  //     timingFunction: 'ease-out'
-  //   })
-  //   animationtran.translate(0,0).step()
-  //   that.setData({
-  //     tranXY: animationtran.export(),
-  //   })
-  // },
+  },  
 })
