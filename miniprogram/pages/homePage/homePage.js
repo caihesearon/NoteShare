@@ -165,12 +165,14 @@ Page({
       }else{
         //获取所有的收藏笔记id
         let loveNoteArr = res.data
+        console.log(loveNoteArr)
         wx.cloud.callFunction({
           name: 'getLoveNote',
           data:{
             loveNoteArr: loveNoteArr
           }
-        }).then(res=>{
+        }).then(res=>{      
+          console.log(res)    
           if(that.data.showCollectNotes){
             that.setData({
               notes:res.result

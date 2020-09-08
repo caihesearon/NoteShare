@@ -27,7 +27,7 @@ Page({
             const len = res.data.length
             //判断是否有收藏的笔记
             if (len == 0) {
-              console.log('kong')
+              wx.hideLoading()              
             } else {
               //获取所有的收藏笔记id
               let loveNoteArr = res.data
@@ -37,6 +37,7 @@ Page({
                   loveNoteArr: loveNoteArr
                 }
               }).then(res => {
+                console.log(res)
                 wx.hideLoading()
                 that.setData({
                   notes: res.result
